@@ -1,0 +1,7 @@
+scripts/__pycache__/
+*.jou
+*.log
+*.pb
+*.wdb
+*.vcd
+.Xil/
