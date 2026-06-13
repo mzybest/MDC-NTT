@@ -4,7 +4,7 @@
 import random
 from pathlib import Path
 from gen_params import N, find_parameters
-from ref_ntt import cyclic_mul, gs_ntt, to_mont
+from ref_ntt import cyclic_mul, gs_ntt, negacyclic_mul, to_mont
 
 Q = find_parameters()["Q"]
 
@@ -22,7 +22,16 @@ def main() -> None:
     write_mem(out / "input_a.mem", [to_mont(x) for x in a])
     write_mem(out / "input_b.mem", [to_mont(x) for x in b])
     write_mem(out / "golden_ntt_a.mem", [to_mont(x) for x in gs_ntt(a)])
-    write_mem(out / "golden_result.mem", [to_mont(x) for x in cyclic_mul(a, b)])
+    write_mem(out / "golden_result.mem", [to_mont(x) for x in negacyclic_mul(a, b)])
+
+    # Directed wraparound distinction:
+    # x^(N-1) * x = +1 mod (x^N-1), but -1 mod (x^N+1).
+    directed_a = [0] * N
+    directed_b = [0] * N
+    directed_a[N - 1] = 1
+    directed_b[1] = 1
+    assert cyclic_mul(directed_a, directed_b)[0] == 1
+    assert negacyclic_mul(directed_a, directed_b)[0] == Q - 1
     print("wrote deterministic test vectors")
 
 

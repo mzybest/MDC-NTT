@@ -82,6 +82,11 @@ package params_pkg;
     MODE_NTT  = 2'b01,
     MODE_INTT = 2'b10
   }} ntt_mode_t;
+
+  typedef enum logic {{
+    PSI_FWD = 1'b0,
+    PSI_INV = 1'b1
+  }} psi_table_t;
 endpackage
 """
     out = Path(__file__).resolve().parents[1] / "rtl" / "params_pkg.sv"
