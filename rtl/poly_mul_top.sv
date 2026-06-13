@@ -34,9 +34,18 @@ module poly_mul_top #(
   logic [QW-1:0] a_bank1 [0:N/2-1];
   logic [QW-1:0] b_bank0 [0:N/2-1];
   logic [QW-1:0] b_bank1 [0:N/2-1];
-  logic [QW-1:0] a_ntt_ram [0:N-1];
-  logic [QW-1:0] c_ntt_ram [0:N-1];
-  logic [QW-1:0] result_ram [0:N-1];
+  // Transform-domain streams always read/write adjacent even/odd addresses.
+  // Splitting them into even/odd banks turns each array into a single-write
+  // memory pattern that Vivado can infer instead of dissolving into registers.
+  logic [QW-1:0] a_ntt_even [0:N/2-1];
+  logic [QW-1:0] a_ntt_odd  [0:N/2-1];
+  logic [QW-1:0] c_ntt_even [0:N/2-1];
+  logic [QW-1:0] c_ntt_odd  [0:N/2-1];
+
+  // Post-INTT writes use one address in each polynomial half, so result storage
+  // is banked by the address MSB.
+  logic [QW-1:0] result_bank0 [0:N/2-1];
+  logic [QW-1:0] result_bank1 [0:N/2-1];
 
   logic [LOGN-2:0] feed_count, recv_count, mul_count, post_count;
   logic core_start, core_in_valid, core_out_valid, core_done;
@@ -53,6 +62,7 @@ module poly_mul_top #(
   logic [LOGN-2:0] mul_addr;
 
   logic [LOGN-1:0] post_addr0, post_addr1;
+  logic [LOGN-1:0] intt_addr0, intt_addr1;
   logic [QW-1:0] psi_inv0, psi_inv1, post_out0, post_out1;
   logic post_valid0, post_valid1, post_addr_valid;
   logic [2*LOGN-1:0] delayed_post_addrs;
@@ -78,7 +88,12 @@ module poly_mul_top #(
       end
     end
   end
-  always_comb result_data = result_ram[result_addr];
+  always_comb begin
+    if (result_addr[LOGN-1])
+      result_data = result_bank1[result_addr[LOGN-2:0]];
+    else
+      result_data = result_bank0[result_addr[LOGN-2:0]];
+  end
 
   // Explicit Pre_NTT: both lanes multiply their natural-index coefficient by
   // psi^i. The Montgomery multipliers preserve the Montgomery data domain.
@@ -117,9 +132,14 @@ module poly_mul_top #(
     core_in0 = pre_out0;
     core_in1 = pre_out1;
     if (state == INTT_C) begin
+      intt_addr0 = bit_reverse({1'b0, feed_count});
+      intt_addr1 = bit_reverse({1'b1, feed_count});
       core_in_valid = 1'b1;
-      core_in0 = c_ntt_ram[bit_reverse({1'b0, feed_count})];
-      core_in1 = c_ntt_ram[bit_reverse({1'b1, feed_count})];
+      core_in0 = c_ntt_even[intt_addr0[LOGN-1:1]];
+      core_in1 = c_ntt_odd[intt_addr1[LOGN-1:1]];
+    end else begin
+      intt_addr0 = '0;
+      intt_addr1 = '0;
     end
     core_mode = ((state == INTT_C) || (state == WAIT_INTT_C))
               ? MODE_INTT : MODE_NTT;
@@ -134,12 +154,12 @@ module poly_mul_top #(
 
   pointwise_mul #(.QW(QW)) u_mul0 (
       .clk(clk), .rst_n(rst_n), .in_valid(core_out_valid && state == WAIT_NTT_B),
-      .a_ntt(a_ntt_ram[2*recv_count]), .b_ntt(core_out0),
+      .a_ntt(a_ntt_even[recv_count]), .b_ntt(core_out0),
       .out_valid(mul_valid0), .c_ntt(mul_out0)
   );
   pointwise_mul #(.QW(QW)) u_mul1 (
       .clk(clk), .rst_n(rst_n), .in_valid(core_out_valid && state == WAIT_NTT_B),
-      .a_ntt(a_ntt_ram[2*recv_count+1]), .b_ntt(core_out1),
+      .a_ntt(a_ntt_odd[recv_count]), .b_ntt(core_out1),
       .out_valid(mul_valid1), .c_ntt(mul_out1)
   );
   delay_line #(.DW(LOGN-1), .DEPTH(MUL_LAT)) u_mul_addr_delay (
@@ -208,8 +228,8 @@ module poly_mul_top #(
         end
         WAIT_NTT_A: begin
           if (core_out_valid) begin
-            a_ntt_ram[2*recv_count] <= core_out0;
-            a_ntt_ram[2*recv_count+1] <= core_out1;
+            a_ntt_even[recv_count] <= core_out0;
+            a_ntt_odd[recv_count] <= core_out1;
             recv_count <= recv_count + 1'b1;
           end
           if (core_done) begin
@@ -231,8 +251,8 @@ module poly_mul_top #(
           if (core_out_valid)
             recv_count <= recv_count + 1'b1;
           if (mul_valid0 && mul_valid1 && mul_addr_valid) begin
-            c_ntt_ram[2*mul_addr] <= mul_out0;
-            c_ntt_ram[2*mul_addr+1] <= mul_out1;
+            c_ntt_even[mul_addr] <= mul_out0;
+            c_ntt_odd[mul_addr] <= mul_out1;
             if (mul_count == N/2-1) begin
               feed_count <= '0;
               recv_count <= '0;
@@ -253,8 +273,8 @@ module poly_mul_top #(
           if (core_out_valid)
             recv_count <= recv_count + 1'b1;
           if (post_valid0 && post_valid1 && post_addr_valid) begin
-            result_ram[delayed_post_addrs[LOGN-1:0]] <= post_out0;
-            result_ram[delayed_post_addrs[2*LOGN-1:LOGN]] <= post_out1;
+            result_bank0[delayed_post_addrs[LOGN-2:0]] <= post_out0;
+            result_bank1[delayed_post_addrs[2*LOGN-2:LOGN]] <= post_out1;
             if (post_count == N/2-1)
               state <= DONE;
             else

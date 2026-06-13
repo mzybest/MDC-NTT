@@ -2,7 +2,7 @@
 
 This repository contains a first-stage, synthesizable SystemVerilog baseline
 for a reusable 4096-point GS NTT/INTT core and a frame-oriented polynomial
-negacyclic polynomial multiplier.
+negacyclic multiplier.
 
 ## Data convention
 

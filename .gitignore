@@ -5,3 +5,6 @@ scripts/__pycache__/
 *.wdb
 *.vcd
 .Xil/
+reports/*.dcp
+reports/*.rpx
+reports/*.xml
