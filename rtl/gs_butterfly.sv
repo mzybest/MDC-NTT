@@ -1,7 +1,7 @@
 // Gentleman-Sande butterfly. Latency is MUL_LAT cycles.
 module gs_butterfly #(
     parameter int QW = 64,
-    parameter int MUL_LAT = 3
+    parameter int MUL_LAT = 6
 ) (
     input  logic          clk,
     input  logic          rst_n,

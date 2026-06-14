@@ -13,7 +13,7 @@ module mdc_stage #(
     parameter int STAGE_ID = 0,
     parameter int QW       = 64,
     parameter int DEPTH    = 1024,
-    parameter int MUL_LAT  = 3,
+    parameter int MUL_LAT  = 6,
     parameter int LOGN     = 12,
     parameter int N        = 4096
 ) (
@@ -72,19 +72,28 @@ module mdc_stage #(
         out1 = bf_v;
       end
     end else begin : g_output_reorder
-      // FIFO_A delays the V path before C2. FIFO_B holds whichever stream
-      // must wait for its partner. Both memories are exactly DEPTH words.
-      logic [QW-1:0] fifo_a [0:DEPTH-1];
-      logic [QW-1:0] fifo_b [0:DEPTH-1];
+      // FIFO_A delays V before C2. FIFO_B delays either U-first or the
+      // delayed V-first selected by C2. Both delays are exactly DEPTH cycles.
       logic [LOGN-2:0] reorder_count;
       logic [LOGN-2:0] flush_count;
       logic flushing;
       logic phase;
-      logic [LOGN-2:0] fifo_index;
+      logic delay_in_valid;
+      logic [QW-1:0] fifo_a_din;
+      logic [QW-1:0] fifo_a_dout;
+      logic [QW-1:0] fifo_b_din;
+      logic [QW-1:0] fifo_b_dout;
 
       always_comb begin
         phase = (reorder_count / DEPTH) & 1'b1;
-        fifo_index = reorder_count % DEPTH;
+        delay_in_valid = bf_valid | flushing;
+        fifo_a_din = flushing ? '0 : bf_v;
+        if (flushing)
+          fifo_b_din = '0;
+        else if (phase)
+          fifo_b_din = fifo_a_dout;
+        else
+          fifo_b_din = bf_u;
 
         out_valid = 1'b0;
         out0 = '0;
@@ -93,21 +102,30 @@ module mdc_stage #(
         if (flushing) begin
           // Drain the final V-first/V-second pair after BFU input ends.
           out_valid = 1'b1;
-          out0 = fifo_b[flush_count];
-          out1 = fifo_a[flush_count];
+          out0 = fifo_b_dout;
+          out1 = fifo_a_dout;
         end else if (bf_valid && phase) begin
           // Second D cycles: delayed U-first pairs with current U-second.
           out_valid = 1'b1;
-          out0 = fifo_b[fifo_index];
+          out0 = fifo_b_dout;
           out1 = bf_u;
         end else if (bf_valid && !phase && (reorder_count >= 2*DEPTH)) begin
           // Following phase-0 cycles: emit the previous V pair while the
-          // current U/V first halves refill the same FIFO addresses.
+          // current U/V first halves enter the delay memories.
           out_valid = 1'b1;
-          out0 = fifo_b[fifo_index];
-          out1 = fifo_a[fifo_index];
+          out0 = fifo_b_dout;
+          out1 = fifo_a_dout;
         end
       end
+
+      delay_memory #(.DW(QW), .DEPTH(DEPTH)) fifo_a_delay (
+          .clk(clk), .rst_n(rst_n), .in_valid(delay_in_valid),
+          .din(fifo_a_din), .out_valid(), .dout(fifo_a_dout)
+      );
+      delay_memory #(.DW(QW), .DEPTH(DEPTH)) fifo_b_delay (
+          .clk(clk), .rst_n(rst_n), .in_valid(delay_in_valid),
+          .din(fifo_b_din), .out_valid(), .dout(fifo_b_dout)
+      );
 
       always_ff @(posedge clk) begin
         if (!rst_n) begin
@@ -122,17 +140,6 @@ module mdc_stage #(
             flush_count <= flush_count + 1'b1;
           end
         end else if (bf_valid) begin
-          if (!phase) begin
-            // Phase 0: hold U-first in FIFO_B and V-first in FIFO_A.
-            fifo_b[fifo_index] <= bf_u;
-            fifo_a[fifo_index] <= bf_v;
-          end else begin
-            // Phase 1: C2 moves delayed V-first into FIFO_B while current
-            // V-second replaces FIFO_A. U is emitted directly.
-            fifo_b[fifo_index] <= fifo_a[fifo_index];
-            fifo_a[fifo_index] <= bf_v;
-          end
-
           if (reorder_count == PAIRS-1) begin
             reorder_count <= '0;
             flush_count <= '0;

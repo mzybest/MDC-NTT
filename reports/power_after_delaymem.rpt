@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-| Date             : Sun Jun 14 21:35:39 2026
+| Date             : Sun Jun 14 13:46:26 2026
 | Host             : LAPTOP-G40ALRVF running 64-bit major release  (build 9200)
 | Command          : report_power -file V:/reports/power.rpt
 | Design           : poly_mul_top
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 2.582        |
+| Total On-Chip Power (W)  | 2.500        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 2.436        |
-| Device Static (W)        | 0.146        |
+| Dynamic (W)              | 2.355        |
+| Device Static (W)        | 0.145        |
 | Effective TJA (C/W)      | 3.3          |
-| Max Ambient (C)          | 76.4         |
-| Junction Temperature (C) | 33.6         |
+| Max Ambient (C)          | 76.7         |
+| Junction Temperature (C) | 33.3         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,21 +52,21 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.191 |        3 |       --- |             --- |
-| Slice Logic              |     0.887 |   154248 |       --- |             --- |
-|   LUT as Logic           |     0.634 |    65261 |    134600 |           48.49 |
-|   LUT as Distributed RAM |     0.109 |    26112 |     46200 |           56.52 |
-|   CARRY4                 |     0.103 |    12894 |     33650 |           38.32 |
-|   Register               |     0.022 |    21221 |    269200 |            7.88 |
-|   F7/F8 Muxes            |     0.010 |    14792 |    134600 |           10.99 |
-|   LUT as Shift Register  |     0.010 |     1614 |     46200 |            3.49 |
-|   Others                 |     0.000 |      217 |       --- |             --- |
-| Signals                  |     0.788 |   129040 |       --- |             --- |
+| Clocks                   |     0.135 |        3 |       --- |             --- |
+| Slice Logic              |     0.909 |   143203 |       --- |             --- |
+|   LUT as Logic           |     0.664 |    65916 |    134600 |           48.97 |
+|   LUT as Distributed RAM |     0.110 |    26112 |     46200 |           56.52 |
+|   CARRY4                 |     0.109 |    13406 |     33650 |           39.84 |
+|   F7/F8 Muxes            |     0.011 |    14792 |    134600 |           10.99 |
+|   Register               |     0.010 |    10166 |    269200 |            3.78 |
+|   LUT as Shift Register  |     0.005 |      821 |     46200 |            1.78 |
+|   Others                 |     0.000 |      201 |       --- |             --- |
+| Signals                  |     0.742 |   116441 |       --- |             --- |
 | Block RAM                |     0.046 |       10 |       365 |            2.74 |
-| DSPs                     |     0.462 |      596 |       740 |           80.54 |
+| DSPs                     |     0.461 |      582 |       740 |           78.65 |
 | I/O                      |     0.062 |      159 |       285 |           55.79 |
-| Static Power             |     0.146 |          |           |                 |
-| Total                    |     2.582 |          |           |                 |
+| Static Power             |     0.145 |          |           |                 |
+| Total                    |     2.500 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -76,7 +76,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     2.414 |       2.372 |      0.042 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     2.333 |       2.291 |      0.042 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.037 |       0.005 |      0.032 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -145,76 +145,78 @@ Table of Contents
 +-------------------------------------+-----------+
 | Name                                | Power (W) |
 +-------------------------------------+-----------+
-| poly_mul_top                        |     2.436 |
-|   u_core                            |     1.246 |
-|     g_stage[0].u_stage              |     0.134 |
+| poly_mul_top                        |     2.355 |
+|   u_core                            |     1.132 |
+|     g_stage[0].u_stage              |     0.131 |
 |       g_output_reorder.fifo_a_delay |     0.007 |
 |       g_output_reorder.fifo_b_delay |     0.007 |
-|       u_butterfly                   |     0.095 |
-|       u_twiddle_rom                 |     0.014 |
-|     g_stage[10].u_stage             |     0.088 |
+|       u_butterfly                   |     0.089 |
+|       u_twiddle_rom                 |     0.016 |
+|     g_stage[10].u_stage             |     0.073 |
 |       g_output_reorder.fifo_a_delay |     0.002 |
-|       u_butterfly                   |     0.084 |
-|     g_stage[11].u_stage             |     0.066 |
-|       u_butterfly                   |     0.066 |
-|     g_stage[1].u_stage              |     0.130 |
-|       g_output_reorder.fifo_a_delay |     0.007 |
-|       g_output_reorder.fifo_b_delay |     0.009 |
-|       u_butterfly                   |     0.082 |
-|       u_twiddle_rom                 |     0.018 |
-|     g_stage[2].u_stage              |     0.118 |
+|       u_butterfly                   |     0.070 |
+|     g_stage[11].u_stage             |     0.061 |
+|       u_butterfly                   |     0.061 |
+|     g_stage[1].u_stage              |     0.126 |
 |       g_output_reorder.fifo_a_delay |     0.007 |
 |       g_output_reorder.fifo_b_delay |     0.006 |
-|       u_butterfly                   |     0.082 |
+|       u_butterfly                   |     0.077 |
+|       u_twiddle_rom                 |     0.019 |
+|     g_stage[2].u_stage              |     0.111 |
+|       g_output_reorder.fifo_a_delay |     0.008 |
+|       g_output_reorder.fifo_b_delay |     0.006 |
+|       u_butterfly                   |     0.076 |
 |       u_twiddle_rom                 |     0.012 |
-|     g_stage[3].u_stage              |     0.111 |
+|     g_stage[3].u_stage              |     0.102 |
 |       g_output_reorder.fifo_a_delay |     0.008 |
 |       g_output_reorder.fifo_b_delay |     0.007 |
-|       u_butterfly                   |     0.082 |
-|       u_twiddle_rom                 |     0.009 |
-|     g_stage[4].u_stage              |     0.088 |
-|       g_output_reorder.fifo_a_delay |     0.002 |
+|       u_butterfly                   |     0.074 |
+|       u_twiddle_rom                 |     0.008 |
+|     g_stage[4].u_stage              |     0.083 |
+|       g_output_reorder.fifo_a_delay |     0.003 |
 |       g_output_reorder.fifo_b_delay |     0.002 |
-|       u_butterfly                   |     0.078 |
+|       u_butterfly                   |     0.072 |
 |       u_twiddle_rom                 |     0.003 |
-|     g_stage[5].u_stage              |     0.084 |
+|     g_stage[5].u_stage              |     0.077 |
 |       g_output_reorder.fifo_a_delay |     0.002 |
 |       g_output_reorder.fifo_b_delay |     0.001 |
-|       u_butterfly                   |     0.077 |
+|       u_butterfly                   |     0.070 |
 |       u_twiddle_rom                 |     0.002 |
-|     g_stage[6].u_stage              |     0.084 |
+|     g_stage[6].u_stage              |     0.077 |
 |       g_output_reorder.fifo_a_delay |     0.002 |
 |       g_output_reorder.fifo_b_delay |     0.001 |
-|       u_butterfly                   |     0.077 |
+|       u_butterfly                   |     0.070 |
 |       u_twiddle_rom                 |     0.002 |
-|     g_stage[7].u_stage              |     0.085 |
-|       g_output_reorder.fifo_a_delay |     0.002 |
-|       g_output_reorder.fifo_b_delay |     0.001 |
-|       u_butterfly                   |     0.078 |
+|     g_stage[7].u_stage              |     0.078 |
+|       g_output_reorder.fifo_a_delay |     0.003 |
+|       g_output_reorder.fifo_b_delay |     0.002 |
+|       u_butterfly                   |     0.071 |
 |       u_twiddle_rom                 |     0.002 |
-|     g_stage[8].u_stage              |     0.084 |
-|       g_output_reorder.fifo_a_delay |     0.002 |
-|       g_output_reorder.fifo_b_delay |     0.001 |
-|       u_butterfly                   |     0.077 |
+|     g_stage[8].u_stage              |     0.077 |
+|       g_output_reorder.fifo_a_delay |     0.003 |
+|       g_output_reorder.fifo_b_delay |     0.002 |
+|       u_butterfly                   |     0.070 |
 |       u_twiddle_rom                 |     0.001 |
-|     g_stage[9].u_stage              |     0.085 |
+|     g_stage[9].u_stage              |     0.076 |
 |       g_output_reorder.fifo_a_delay |     0.002 |
 |       g_output_reorder.fifo_b_delay |     0.001 |
-|       u_butterfly                   |     0.080 |
-|     u_intt_scale0                   |     0.039 |
-|     u_intt_scale1                   |     0.033 |
-|     u_ntt_output_delay              |     0.005 |
-|   u_mul0                            |     0.095 |
-|     u_mul                           |     0.095 |
-|   u_mul1                            |     0.096 |
-|     u_mul                           |     0.096 |
-|   u_post_addr_delay                 |     0.005 |
-|   u_post_mul0                       |     0.078 |
-|   u_post_mul1                       |     0.093 |
-|   u_pre_mul0                        |     0.081 |
-|   u_pre_mul1                        |     0.080 |
+|       u_butterfly                   |     0.070 |
+|     u_intt_scale0                   |     0.026 |
+|     u_intt_scale1                   |     0.021 |
+|     u_ntt_output_delay              |     0.003 |
+|   u_mul0                            |     0.061 |
+|     u_mul                           |     0.061 |
+|   u_mul1                            |     0.061 |
+|     u_mul                           |     0.061 |
+|   u_post_addr_delay                 |     0.014 |
+|   u_post_mul0                       |     0.065 |
+|   u_post_mul1                       |     0.066 |
+|   u_pre_mul0                        |     0.073 |
+|   u_pre_mul1                        |     0.072 |
 |   u_psi_fwd0                        |     0.009 |
 |   u_psi_fwd1                        |     0.009 |
+|   u_psi_inv0                        |     0.002 |
+|   u_psi_inv1                        |     0.002 |
 +-------------------------------------+-----------+
 
 

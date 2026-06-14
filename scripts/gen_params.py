@@ -67,7 +67,7 @@ package params_pkg;
   parameter int LOGN = {LOGN};
   parameter int QW = {QW};
   parameter int PATH = 2;
-  parameter int MUL_LAT = 3;
+  parameter int MUL_LAT = 6;
 
   localparam logic [QW-1:0] Q         = 64'h{p["Q"]:016x};
   localparam logic [QW-1:0] QINV      = 64'h{p["QINV"]:016x};

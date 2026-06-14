@@ -5,7 +5,7 @@ module gs_mdc_core #(
     parameter int N       = 4096,
     parameter int LOGN    = 12,
     parameter int QW      = 64,
-    parameter int MUL_LAT = 3
+    parameter int MUL_LAT = 6
 ) (
     input  logic          clk,
     input  logic          rst_n,

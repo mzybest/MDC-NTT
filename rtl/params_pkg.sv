@@ -4,7 +4,7 @@ package params_pkg;
   parameter int LOGN = 12;
   parameter int QW = 64;
   parameter int PATH = 2;
-  parameter int MUL_LAT = 3;
+  parameter int MUL_LAT = 6;
 
   localparam logic [QW-1:0] Q         = 64'h0fffffffffffc001;
   localparam logic [QW-1:0] QINV      = 64'h0efffbffefffbfff;

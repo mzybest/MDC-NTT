@@ -48,21 +48,22 @@ radix-4 or mixed-radix butterflies.
 The next implementation work should preserve this mathematical behavior while
 improving how memories and arithmetic map onto FPGA resources.
 
-## Current MDC FIFO Synthesis Assessment
+## MDC Delay Memory
 
-`mdc_stage.sv` currently declares `fifo_a` and `fifo_b` as unpacked logic
-arrays. They are written in `always_ff` but read combinationally by the C2
-reorder logic. This asynchronous-read behavior is functionally correct, but
-large depths such as 1024, 512, 256, and 128 are unlikely to infer the most
-efficient synchronous block RAM structure. Vivado may implement them as
-distributed RAM, LUTs, or registers.
+The MDC reorder memory in `mdc_stage.sv` has been changed from the behavioral
+`fifo_a` and `fifo_b` arrays to two streaming `delay_memory` instances. The
+first instance delays the butterfly V path by `DEPTH` cycles. The second
+instance delays either the phase-0 U path or the phase-1 delayed V path,
+preserving the original two-FIFO/C2 output order and cycle behavior.
 
-`rtl/delay_memory.sv` is provided as an isolated, verified preparation module:
+After the butterfly input stream ends, each stage advances both delay memories
+for another `DEPTH` dummy-valid cycles. This flushes the final V-first/V-second
+pair with continuous `out_valid`. The final stage `DEPTH=0` bypass remains
+unchanged.
 
-- `DEPTH >= 128`: BRAM-friendly circular-buffer implementation
-- `DEPTH < 128`: register/SRL-friendly shift implementation
+`delay_memory` uses implementation selection intended to map efficiently onto
+FPGA resources:
+
+- `DEPTH >= 128`: RAM/BRAM-friendly synchronous circular buffer
+- `DEPTH < 128`: SHIFT/SRL/register implementation
 - Data and valid are delayed together
-
-It is intentionally not connected to `mdc_stage` in this baseline. Replacing
-the C2 FIFOs requires careful preservation of read/write and commutator timing
-and is the first task in `TODO_NEXT.md`.
