@@ -13,7 +13,7 @@ module mdc_stage #(
     parameter int STAGE_ID = 0,
     parameter int QW       = 64,
     parameter int DEPTH    = 1024,
-    parameter int MUL_LAT  = 6,
+    parameter int MUL_LAT  = 9,
     parameter int LOGN     = 12,
     parameter int N        = 4096
 ) (

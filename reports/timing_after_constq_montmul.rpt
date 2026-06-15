@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-| Date         : Mon Jun 15 18:38:06 2026
+| Date         : Mon Jun 15 11:13:32 2026
 | Host         : LAPTOP-G40ALRVF running 64-bit major release  (build 9200)
 | Command      : report_timing_summary -file V:/reports/timing_summary.rpt
 | Design       : poly_mul_top
@@ -136,7 +136,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-     -1.736    -1666.626                    960               186784        0.070        0.000                      0               186784        3.750        0.000                       0                 56225  
+     -2.590    -2958.803                   2729               185287        0.070        0.000                      0               185287        3.750        0.000                       0                 54549  
 
 
 Timing constraints are not met.
@@ -159,7 +159,7 @@ clk    {0.000 5.000}      10.000          100.000
 
 Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-clk                -1.736    -1666.626                    960               186784        0.070        0.000                      0               186784        3.750        0.000                       0                 56225  
+clk                -2.590    -2958.803                   2729               185287        0.070        0.000                      0               185287        3.750        0.000                       0                 54549  
 
 
 ------------------------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing 
 From Clock:  clk
   To Clock:  clk
 
-Setup :          960  Failing Endpoints,  Worst Slack       -1.736ns,  Total Violation    -1666.626ns
+Setup :         2729  Failing Endpoints,  Worst Slack       -2.590ns,  Total Violation    -2958.803ns
 Hold  :            0  Failing Endpoints,  Worst Slack        0.070ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack        3.750ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
@@ -198,16 +198,16 @@ PW    :            0  Failing Endpoints,  Worst Slack        3.750ns,  Total Vio
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (VIOLATED) :        -1.736ns  (required time - arrival time)
-  Source:                 u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s0_reg[16]__4/C
+Slack (VIOLATED) :        -2.590ns  (required time - arrival time)
+  Source:                 feed_count_reg[10]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
-  Destination:            u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s1_reg/PCIN[0]
+  Destination:            u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s00/B[10]
                             (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
-  Data Path Delay:        10.156ns  (logic 8.635ns (85.026%)  route 1.521ns (14.974%))
-  Logic Levels:           4  (CARRY4=1 DSP48E1=3)
+  Data Path Delay:        11.781ns  (logic 5.619ns (47.697%)  route 6.162ns (52.303%))
+  Logic Levels:           31  (CARRY4=24 LUT3=1 LUT4=1 LUT5=1 LUT6=1 MUXF7=1 MUXF8=1 RAMD64E=1)
   Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    2.077ns = ( 12.077 - 10.000 ) 
     Source Clock Delay      (SCD):    2.400ns
@@ -226,24 +226,99 @@ Slack (VIOLATED) :        -1.736ns  (required time - arrival time)
                          IBUF (Prop_ibuf_I_O)         0.920     0.920 r  clk_IBUF_inst/O
                          net (fo=1, unplaced)         0.800     1.720    clk_IBUF
                          BUFG (Prop_bufg_I_O)         0.096     1.816 r  clk_IBUF_BUFG_inst/O
-                         net (fo=56356, unplaced)     0.584     2.400    u_core/g_stage[0].u_stage/u_butterfly/u_mul/clk_IBUF_BUFG
-                         FDRE                                         r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s0_reg[16]__4/C
+                         net (fo=54824, unplaced)     0.584     2.400    clk_IBUF_BUFG
+                         FDRE                                         r  feed_count_reg[10]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     2.856 r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s0_reg[16]__4/Q
-                         net (fo=1, unplaced)         0.666     3.522    u_core_n_5059
-                         CARRY4 (Prop_carry4_S[0]_O[0])
-                                                      0.542     4.064 r  u_mul/m_s10_i_5/O[0]
-                         net (fo=4, unplaced)         0.800     4.864    u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s3_reg[124]_u_core_g_stage_r_1_1[0]
-                         DSP48E1 (Prop_dsp48e1_A[16]_PCOUT[47])
-                                                      4.211     9.075 r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s10__1/PCOUT[47]
-                         net (fo=1, unplaced)         0.055     9.130    u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s10__1_n_106
-                         DSP48E1 (Prop_dsp48e1_PCIN[47]_PCOUT[47])
-                                                      1.713    10.843 r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s10__2/PCOUT[47]
-                         net (fo=1, unplaced)         0.000    10.843    u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s10__2_n_106
-                         DSP48E1 (Prop_dsp48e1_PCIN[47]_PCOUT[0])
-                                                      1.713    12.556 r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s10__3/PCOUT[0]
-                         net (fo=1, unplaced)         0.000    12.556    u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s10__3_n_153
-                         DSP48E1                                      r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s1_reg/PCIN[0]
+                         FDRE (Prop_fdre_C_Q)         0.456     2.856 r  feed_count_reg[10]/Q
+                         net (fo=142, unplaced)       1.073     3.929    c_ntt_odd_reg_1408_1471_0_2/ADDRA0
+                         RAMD64E (Prop_ramd64e_RADR0_O)
+                                                      0.295     4.224 f  c_ntt_odd_reg_1408_1471_0_2/RAMA/O
+                         net (fo=1, unplaced)         1.111     5.335    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry_i_15__0_5
+                         LUT6 (Prop_lut6_I1_O)        0.124     5.459 f  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry_i_24__0/O
+                         net (fo=1, unplaced)         0.000     5.459    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry_i_24__0_n_0
+                         MUXF7 (Prop_muxf7_I1_O)      0.245     5.704 f  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry_i_15__0/O
+                         net (fo=1, unplaced)         0.000     5.704    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry_i_15__0_n_0
+                         MUXF8 (Prop_muxf8_I0_O)      0.104     5.808 f  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry_i_11__4/O
+                         net (fo=1, unplaced)         0.611     6.419    u_pre_mul1/i___2_carry_i_6
+                         LUT5 (Prop_lut5_I0_O)        0.319     6.738 f  u_pre_mul1/y1_carry_i_9__21/O
+                         net (fo=5, unplaced)         0.930     7.668    u_pre_mul0/core_in1[0]
+                         LUT4 (Prop_lut4_I1_O)        0.150     7.818 r  u_pre_mul0/y1_carry_i_4__0/O
+                         net (fo=1, unplaced)         0.000     7.818    u_core/g_stage[0].u_stage/u_butterfly/u_sub/DI[0]
+                         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.553     8.371 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009     8.380    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.494 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     8.494    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.608 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     8.608    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.722 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, unplaced)         0.000     8.722    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.836 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, unplaced)         0.000     8.836    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.950 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, unplaced)         0.000     8.950    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.064 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, unplaced)         0.000     9.064    u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.178 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, unplaced)        0.969    10.147    u_pre_mul0/t_s0_reg_0[0]
+                         LUT3 (Prop_lut3_I2_O)        0.124    10.271 r  u_pre_mul0/i___2_carry_i_2/O
+                         net (fo=2, unplaced)         0.650    10.921    u_core/g_stage[0].u_stage/u_butterfly/u_sub/t_s00__9[0]
+                         CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    11.428 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    11.437    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.551 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000    11.551    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.665 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000    11.665    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.779 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__2/CO[3]
+                         net (fo=1, unplaced)         0.000    11.779    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__2_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.893 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__3/CO[3]
+                         net (fo=1, unplaced)         0.000    11.893    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__3_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.007 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__4/CO[3]
+                         net (fo=1, unplaced)         0.000    12.007    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__4_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.121 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__5/CO[3]
+                         net (fo=1, unplaced)         0.000    12.121    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__5_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.235 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__6/CO[3]
+                         net (fo=1, unplaced)         0.000    12.235    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__6_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.349 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__7/CO[3]
+                         net (fo=1, unplaced)         0.000    12.349    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__7_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.463 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__8/CO[3]
+                         net (fo=1, unplaced)         0.000    12.463    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__8_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.577 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__9/CO[3]
+                         net (fo=1, unplaced)         0.000    12.577    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__9_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.691 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__10/CO[3]
+                         net (fo=1, unplaced)         0.000    12.691    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__10_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.805 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__11/CO[3]
+                         net (fo=1, unplaced)         0.000    12.805    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__11_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.919 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__12/CO[3]
+                         net (fo=1, unplaced)         0.000    12.919    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__12_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    13.033 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__13/CO[3]
+                         net (fo=1, unplaced)         0.000    13.033    u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__13_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.348    13.381 r  u_core/g_stage[0].u_stage/u_butterfly/u_sub/_inferred__1/i___2_carry__14/O[1]
+                         net (fo=4, unplaced)         0.800    14.181    u_core/g_stage[0].u_stage/u_butterfly/u_mul/B[10]
+                         DSP48E1                                      r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s00/B[10]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)       10.000    10.000 r  
@@ -252,17 +327,17 @@ Slack (VIOLATED) :        -1.736ns  (required time - arrival time)
                          IBUF (Prop_ibuf_I_O)         0.787    10.787 r  clk_IBUF_inst/O
                          net (fo=1, unplaced)         0.760    11.547    clk_IBUF
                          BUFG (Prop_bufg_I_O)         0.091    11.638 r  clk_IBUF_BUFG_inst/O
-                         net (fo=56356, unplaced)     0.439    12.077    u_core/g_stage[0].u_stage/u_butterfly/u_mul/clk_IBUF_BUFG
-                         DSP48E1                                      r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s1_reg/CLK
+                         net (fo=54824, unplaced)     0.439    12.077    u_core/g_stage[0].u_stage/u_butterfly/u_mul/clk_IBUF_BUFG
+                         DSP48E1                                      r  u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s00/CLK
                          clock pessimism              0.178    12.255    
                          clock uncertainty           -0.035    12.220    
-                         DSP48E1 (Setup_dsp48e1_CLK_PCIN[0])
-                                                     -1.400    10.820    u_core/g_stage[0].u_stage/u_butterfly/u_mul/m_s1_reg
+                         DSP48E1 (Setup_dsp48e1_CLK_B[10])
+                                                     -0.629    11.591    u_core/g_stage[0].u_stage/u_butterfly/u_mul/t_s00
   -------------------------------------------------------------------
-                         required time                         10.820    
-                         arrival time                         -12.556    
+                         required time                         11.591    
+                         arrival time                         -14.181    
   -------------------------------------------------------------------
-                         slack                                 -1.736    
+                         slack                                 -2.590    
 
 
 
@@ -293,7 +368,7 @@ Slack (MET) :             0.070ns  (arrival time - required time)
                          IBUF (Prop_ibuf_I_O)         0.150     0.150 r  clk_IBUF_inst/O
                          net (fo=1, unplaced)         0.337     0.487    clk_IBUF
                          BUFG (Prop_bufg_I_O)         0.026     0.513 r  clk_IBUF_BUFG_inst/O
-                         net (fo=56356, unplaced)     0.114     0.627    u_core/g_stage[4].u_stage/g_output_reorder.fifo_a_delay/clk_IBUF_BUFG
+                         net (fo=54824, unplaced)     0.114     0.627    u_core/g_stage[4].u_stage/g_output_reorder.fifo_a_delay/clk_IBUF_BUFG
                          SRLC32E                                      r  u_core/g_stage[4].u_stage/g_output_reorder.fifo_a_delay/g_shift.data_pipe_reg[31][0]_srl32___u_core_g_stage_r_30/CLK
   -------------------------------------------------------------------    -------------------
                          SRLC32E (Prop_srlc32e_CLK_Q31)
@@ -308,7 +383,7 @@ Slack (MET) :             0.070ns  (arrival time - required time)
                          IBUF (Prop_ibuf_I_O)         0.338     0.338 r  clk_IBUF_inst/O
                          net (fo=1, unplaced)         0.355     0.693    clk_IBUF
                          BUFG (Prop_bufg_I_O)         0.029     0.722 r  clk_IBUF_BUFG_inst/O
-                         net (fo=56356, unplaced)     0.259     0.981    u_core/g_stage[4].u_stage/g_output_reorder.fifo_a_delay/clk_IBUF_BUFG
+                         net (fo=54824, unplaced)     0.259     0.981    u_core/g_stage[4].u_stage/g_output_reorder.fifo_a_delay/clk_IBUF_BUFG
                          SRLC32E                                      r  u_core/g_stage[4].u_stage/g_output_reorder.fifo_a_delay/g_shift.data_pipe_reg[61][0]_srl30___u_core_g_stage_r_60/CLK
                          clock pessimism             -0.209     0.772    
                          SRLC32E (Hold_srlc32e_CLK_D)

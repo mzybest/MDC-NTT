@@ -65,3 +65,53 @@ global `MUL_LAT`, the following regression passed:
 
 The complete post-pipeline synthesis result is recorded in
 `docs/synthesis_after_montmul_pipe.md`.
+
+## Montgomery Input Register, Split-Product, And Constant-Q Regression
+
+Step A added a Montgomery multiplier input register and changed `MUL_LAT` to
+7. Step B then replaced only the first `t = a*b` operation with registered
+16x16 partial products and a carry-save compression tree, changing `MUL_LAT`
+to 9. Both configurations passed the complete functional regression. Step B
+is preserved as `rtl/mont_mul_splitmul_experimental.sv` but is not active
+because it exceeds the target device's Slice-LUT capacity.
+
+The active constant-Q implementation returns to the Step A input-register
+structure and replaces `m * Q` with a three-stage shift/subtract/add pipeline.
+It retains `MUL_LAT=9` and II=1. Its regression result is:
+
+| Test | Result |
+|---|---|
+| `tb_mont_mul` random/boundary values and exact 9-cycle valid delay | PASS |
+| `tb_delay_memory` | PASS |
+| `tb_gs_butterfly` | PASS |
+| `tb_gs_mdc_core` | PASS |
+| `tb_poly_mul_top` random negacyclic multiplication | PASS |
+| Directed `x^(N-1) * x` negacyclic multiplication | PASS |
+
+Step A and Step B synthesis measurements are recorded in
+`docs/synthesis_after_montmul_inputreg.md` and
+`docs/synthesis_after_montmul_splitmul.md`. The active constant-Q result is
+recorded in `docs/synthesis_after_constq_montmul.md`.
+
+## GS Butterfly Input Register Regression
+
+An input register stage was added before the `gs_butterfly` modular
+add/subtract logic. The registered valid signal feeds both the sum delay and
+the Montgomery multiplier, so the butterfly total latency increases by one
+cycle while `MUL_LAT=9` and the Montgomery multiplier II=1 remain unchanged.
+
+The complete regression passed:
+
+| Test | Result |
+|---|---|
+| `tb_mont_mul` random/boundary values and exact 9-cycle valid delay | PASS |
+| `tb_delay_memory` | PASS |
+| `tb_gs_butterfly` | PASS |
+| `tb_gs_mdc_core` | PASS |
+| `tb_poly_mul_top` random negacyclic multiplication | PASS |
+| Directed `x^(N-1) * x` negacyclic multiplication | PASS |
+
+The passing core and top-level tests confirm that the additional butterfly
+latency remains correctly controlled by `bf_valid` and does not change the
+MDC reorder output sequence. The synthesis result is recorded in
+`docs/synthesis_after_bfu_inputreg.md`.
