@@ -16,8 +16,11 @@ if {$target eq "old"} {
 } elseif {$target eq "wl"} {
   set suffix "gs_mdc_core_wl"
   set generic_args [list MUL_LAT=14 USE_WL_MONT=1]
+} elseif {$target eq "wl_scale"} {
+  set suffix "gs_mdc_core_wl_scale"
+  set generic_args [list MUL_LAT=14 USE_WL_MONT=1]
 } else {
-  error "Unknown target '$target'. Use old or wl."
+  error "Unknown target '$target'. Use old, wl, or wl_scale."
 }
 
 set rtl_files [list \
@@ -47,4 +50,3 @@ report_timing_summary -file [file join $report_dir "timing_${suffix}.rpt"]
 report_power -file [file join $report_dir "power_${suffix}.rpt"]
 write_checkpoint -force [file join $report_dir "${suffix}_synth.dcp"]
 puts "Core synthesis complete for $target. Reports written to $report_dir"
-

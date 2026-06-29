@@ -69,12 +69,12 @@ module gs_mdc_core #(
     end
   endgenerate
 
-  mont_mul #(.QW(QW)) u_intt_scale0 (
+  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_intt_scale0 (
       .clk(clk), .rst_n(rst_n), .in_valid(stage_valid[LOGN]),
       .a(stage_data0[LOGN]), .b(N_INV_MONT),
       .out_valid(scale_valid0), .y(scaled0)
   );
-  mont_mul #(.QW(QW)) u_intt_scale1 (
+  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_intt_scale1 (
       .clk(clk), .rst_n(rst_n), .in_valid(stage_valid[LOGN]),
       .a(stage_data1[LOGN]), .b(N_INV_MONT),
       .out_valid(scale_valid1), .y(scaled1)
@@ -116,6 +116,3 @@ module gs_mdc_core #(
   logic unused_out_ready;
   always_comb unused_out_ready = out_ready;
 endmodule
-
-
-
