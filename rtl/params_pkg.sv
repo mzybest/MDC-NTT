@@ -4,7 +4,7 @@ package params_pkg;
   parameter int LOGN = 12;
   parameter int QW = 64;
   parameter int PATH = 2;
-  parameter int MUL_LAT = 9;
+  parameter int MUL_LAT = 14;
 
   localparam logic [QW-1:0] Q         = 64'h0fffffffffffc001;
   localparam logic [QW-1:0] QINV      = 64'h0efffbffefffbfff;
@@ -25,3 +25,5 @@ package params_pkg;
     PSI_INV = 1'b1
   } psi_table_t;
 endpackage
+
+

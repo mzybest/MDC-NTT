@@ -1,0 +1,34 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
+| Date         : Thu Jun 25 17:03:24 2026
+| Host         : LAPTOP-G40ALRVF running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file D:/MDC-NTT/reports/utilization_mont_mul_wl_hier.rpt
+| Design       : mont_mul_wl
+| Device       : xc7a200tsbg484-1
+| Speed File   : -1
+| Design State : Synthesized
+------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-----------------+--------------------+------------+------------+---------+------+------+--------+--------+------------+
+|     Instance    |       Module       | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++-----------------+--------------------+------------+------------+---------+------+------+--------+--------+------------+
+| mont_mul_wl     |              (top) |        926 |        924 |       0 |    2 | 1496 |      0 |      0 |         20 |
+|   (mont_mul_wl) |              (top) |          2 |          1 |       0 |    1 |   78 |      0 |      0 |          0 |
+|   u_intmul      | intmul_64x64_24x17 |        345 |        344 |       0 |    1 |  643 |      0 |      0 |         12 |
+|   u_round0      |     wlmont_round16 |        126 |        126 |       0 |    0 |  241 |      0 |      0 |          2 |
+|   u_round1      |   wlmont_round16_0 |        126 |        126 |       0 |    0 |  210 |      0 |      0 |          2 |
+|   u_round2      |   wlmont_round16_1 |        126 |        126 |       0 |    0 |  178 |      0 |      0 |          2 |
+|   u_round3      |   wlmont_round16_2 |        205 |        205 |       0 |    0 |  146 |      0 |      0 |          2 |
++-----------------+--------------------+------------+------------+---------+------+------+--------+--------+------------+
+
+

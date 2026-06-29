@@ -5,7 +5,8 @@ module gs_mdc_core #(
     parameter int N       = 4096,
     parameter int LOGN    = 12,
     parameter int QW      = 64,
-    parameter int MUL_LAT = 9
+    parameter int MUL_LAT = 14,
+    parameter bit USE_WL_MONT = 1'b1
 ) (
     input  logic          clk,
     input  logic          rst_n,
@@ -57,7 +58,8 @@ module gs_mdc_core #(
     for (s = 0; s < LOGN; s = s + 1) begin : g_stage
       mdc_stage #(
           .STAGE_ID(s), .QW(QW), .DEPTH(stage_depth(s)),
-          .MUL_LAT(MUL_LAT), .LOGN(LOGN), .N(N)
+          .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT),
+          .LOGN(LOGN), .N(N)
       ) u_stage (
           .clk(clk), .rst_n(rst_n), .mode(active_mode),
           .in_valid(stage_valid[s]), .in0(stage_data0[s]), .in1(stage_data1[s]),
@@ -114,3 +116,6 @@ module gs_mdc_core #(
   logic unused_out_ready;
   always_comb unused_out_ready = out_ready;
 endmodule
+
+
+

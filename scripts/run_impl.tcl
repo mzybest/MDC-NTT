@@ -22,6 +22,13 @@ if {$argc >= 2} {
   set clock_period_ns [lindex $argv 1]
 }
 
+set period_label [string map {. p} [format "%.1f" $clock_period_ns]]
+set report_prefix "impl_${period_label}ns"
+if {$period_label eq "12p0"} {
+  # Preserve the historical 12 ns report names used by the frozen baseline.
+  set report_prefix "impl_12ns"
+}
+
 set rtl_files [list \
   rtl/params_pkg.sv \
   rtl/mod_add.sv \
@@ -45,16 +52,16 @@ synth_design -top poly_mul_top -part $part_name
 create_clock -name clk -period $clock_period_ns [get_ports clk]
 
 opt_design
-write_checkpoint -force [file join $report_dir poly_mul_top_impl_12ns_opt.dcp]
+write_checkpoint -force [file join $report_dir "${report_prefix}_opt.dcp"]
 
 place_design
-write_checkpoint -force [file join $report_dir poly_mul_top_impl_12ns_placed.dcp]
+write_checkpoint -force [file join $report_dir "${report_prefix}_placed.dcp"]
 
 route_design
-write_checkpoint -force [file join $report_dir poly_mul_top_impl_12ns_routed.dcp]
+write_checkpoint -force [file join $report_dir "${report_prefix}_routed.dcp"]
 
-report_utilization -file [file join $report_dir impl_12ns_utilization.rpt]
-report_timing_summary -file [file join $report_dir impl_12ns_timing.rpt]
-report_power -file [file join $report_dir impl_12ns_power.rpt]
+report_utilization -file [file join $report_dir "${report_prefix}_utilization.rpt"]
+report_timing_summary -file [file join $report_dir "${report_prefix}_timing.rpt"]
+report_power -file [file join $report_dir "${report_prefix}_power.rpt"]
 
 puts "Implementation complete. Reports written to $report_dir"

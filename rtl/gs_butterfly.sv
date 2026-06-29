@@ -2,7 +2,8 @@
 // registered input stage before the add/subtract logic.
 module gs_butterfly #(
     parameter int QW = 64,
-    parameter int MUL_LAT = 9
+    parameter int MUL_LAT = 14,
+    parameter bit USE_WL_MONT = 1'b1
 ) (
     input  logic          clk,
     input  logic          rst_n,
@@ -43,10 +44,13 @@ module gs_butterfly #(
       .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .din(sum),
       .out_valid(sum_valid), .dout(y0)
   );
-  mont_mul #(.QW(QW)) u_mul (
+  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
       .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .a(diff), .b(twiddle_r),
       .out_valid(mul_valid), .y(y1)
   );
 
   always_comb out_valid = sum_valid & mul_valid;
 endmodule
+
+
+

@@ -13,7 +13,8 @@ module mdc_stage #(
     parameter int STAGE_ID = 0,
     parameter int QW       = 64,
     parameter int DEPTH    = 1024,
-    parameter int MUL_LAT  = 9,
+    parameter int MUL_LAT  = 14,
+    parameter bit USE_WL_MONT = 1'b1,
     parameter int LOGN     = 12,
     parameter int N        = 4096
 ) (
@@ -57,7 +58,9 @@ module mdc_stage #(
       .clk(clk), .mode(mode), .stage_id(STAGE_ID[3:0]),
       .index(twiddle_index), .twiddle(stage_twiddle)
   );
-  gs_butterfly #(.QW(QW), .MUL_LAT(MUL_LAT)) u_butterfly (
+  gs_butterfly #(
+      .QW(QW), .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT)
+  ) u_butterfly (
       .clk(clk), .rst_n(rst_n), .in_valid(in_valid),
       .a(in0), .b(in1), .twiddle(stage_twiddle),
       .out_valid(bf_valid), .y0(bf_u), .y1(bf_v)
@@ -155,3 +158,6 @@ module mdc_stage #(
   logic [QW-1:0] unused_twiddle;
   always_comb unused_twiddle = twiddle;
 endmodule
+
+
+
