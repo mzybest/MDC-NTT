@@ -29,6 +29,10 @@ set rtl_files [list \
   rtl/delay_line.sv \
   rtl/delay_memory.sv \
   rtl/mont_mul.sv \
+  rtl/intmul_64x64_24x17.sv \
+  rtl/wlmont_round16.sv \
+  rtl/mont_mul_wl.sv \
+  rtl/mont_mul_select.sv \
   rtl/gs_butterfly.sv \
   rtl/twiddle_rom.sv \
   rtl/psi_rom.sv \

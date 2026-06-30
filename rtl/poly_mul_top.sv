@@ -7,7 +7,11 @@
 module poly_mul_top #(
     parameter int N = 4096,
     parameter int LOGN = 12,
-    parameter int QW = 64
+    parameter int QW = 64,
+    parameter int MUL_LAT = params_pkg::MUL_LAT,
+    parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_WL_CORE = USE_WL_MONT,
+    parameter bit USE_WL_PRE_NTT = USE_WL_MONT
 ) (
     input  logic             clk,
     input  logic             rst_n,
@@ -22,6 +26,10 @@ module poly_mul_top #(
     output logic             done
 );
   import params_pkg::*;
+  localparam int OLD_MONT_LAT = 12;
+  localparam int POINTWISE_MUL_LAT = OLD_MONT_LAT;
+  localparam int POST_MUL_LAT = OLD_MONT_LAT;
+
   typedef enum logic [3:0] {
     IDLE, NTT_A, WAIT_NTT_A, NTT_B_MUL, WAIT_NTT_B,
     INTT_C, WAIT_INTT_C, DONE
@@ -116,11 +124,11 @@ module poly_mul_top #(
   psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_fwd1 (
       .table_sel(PSI_FWD), .index(pre_index1), .factor(psi_fwd1)
   );
-  mont_mul #(.QW(QW)) u_pre_mul0 (
+  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_mul0 (
       .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
       .a(pre_data0), .b(psi_fwd0), .out_valid(pre_valid0), .y(pre_out0)
   );
-  mont_mul #(.QW(QW)) u_pre_mul1 (
+  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_mul1 (
       .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
       .a(pre_data1), .b(psi_fwd1), .out_valid(pre_valid1), .y(pre_out1)
   );
@@ -145,7 +153,10 @@ module poly_mul_top #(
               ? MODE_INTT : MODE_NTT;
   end
 
-  gs_mdc_core #(.N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT)) u_core (
+  gs_mdc_core #(
+      .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
+      .USE_WL_MONT(USE_WL_CORE)
+  ) u_core (
       .clk(clk), .rst_n(rst_n), .start(core_start), .mode(core_mode),
       .in_valid(core_in_valid), .in_ready(), .in0(core_in0), .in1(core_in1),
       .out_valid(core_out_valid), .out_ready(1'b1),
@@ -162,7 +173,7 @@ module poly_mul_top #(
       .a_ntt(a_ntt_odd[recv_count]), .b_ntt(core_out1),
       .out_valid(mul_valid1), .c_ntt(mul_out1)
   );
-  delay_line #(.DW(LOGN-1), .DEPTH(MUL_LAT)) u_mul_addr_delay (
+  delay_line #(.DW(LOGN-1), .DEPTH(POINTWISE_MUL_LAT)) u_mul_addr_delay (
       .clk(clk), .rst_n(rst_n),
       .in_valid(core_out_valid && state == WAIT_NTT_B), .din(recv_count),
       .out_valid(mul_addr_valid), .dout(mul_addr)
@@ -190,7 +201,7 @@ module poly_mul_top #(
       .in_valid(core_out_valid && state == WAIT_INTT_C),
       .a(core_out1), .b(psi_inv1), .out_valid(post_valid1), .y(post_out1)
   );
-  delay_line #(.DW(2*LOGN), .DEPTH(MUL_LAT)) u_post_addr_delay (
+  delay_line #(.DW(2*LOGN), .DEPTH(POST_MUL_LAT)) u_post_addr_delay (
       .clk(clk), .rst_n(rst_n),
       .in_valid(core_out_valid && state == WAIT_INTT_C),
       .din({post_addr1, post_addr0}),

@@ -1,0 +1,205 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
+| Date         : Mon Jun 29 18:43:22 2026
+| Host         : LAPTOP-G40ALRVF running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file D:/MDC-NTT/reports/utilization_poly_mul_top_old_hier.rpt
+| Design       : poly_mul_top
+| Device       : xc7a200tsbg484-1
+| Speed File   : -1
+| Design State : Synthesized
+-----------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-------------------------------------+---------------------------------+------------+------------+---------+------+-------+--------+--------+------------+
+|               Instance              |              Module             | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs  | RAMB36 | RAMB18 | DSP Blocks |
++-------------------------------------+---------------------------------+------------+------------+---------+------+-------+--------+--------+------------+
+| poly_mul_top                        |                           (top) |      80765 |      50402 |   26112 | 4251 | 29542 |     10 |      0 |        520 |
+|   (poly_mul_top)                    |                           (top) |      27462 |       1350 |   26112 |    0 |   394 |      0 |      0 |          0 |
+|   u_core                            |                     gs_mdc_core |      34957 |      31488 |       0 | 3469 | 22011 |     10 |      0 |        364 |
+|     (u_core)                        |                     gs_mdc_core |       1537 |       1537 |       0 |    0 |   114 |      0 |      0 |          0 |
+|     g_stage[0].u_stage              |                       mdc_stage |       7275 |       7082 |       0 |  193 |  1690 |      4 |      0 |         26 |
+|       (g_stage[0].u_stage)          |                       mdc_stage |        257 |        257 |       0 |    0 |   259 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |                    delay_memory |         10 |         10 |       0 |    0 |    10 |      2 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay |                 delay_memory_95 |         10 |         10 |       0 |    0 |    10 |      2 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_96 |       3158 |       2965 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_96 |       1024 |       1024 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_98 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_99 |       1616 |       1488 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_99 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                    mont_mul_102 |       1586 |       1458 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                     mod_sub_100 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                  delay_line_101 |        232 |        167 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_97 |       3840 |       3840 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[10].u_stage             |       mdc_stage__parameterized9 |       1651 |       1458 |       0 |  193 |  1556 |      0 |      0 |         26 |
+|       (g_stage[10].u_stage)         |       mdc_stage__parameterized9 |         12 |         12 |       0 |    0 |    17 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized9 |         64 |         64 |       0 |    0 |    64 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized9_87 |          0 |          0 |       0 |    0 |    64 |      0 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_88 |       1572 |       1379 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_88 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_90 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_91 |       1048 |        920 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_91 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_94 |       1018 |        890 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_92 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_93 |        238 |        173 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_89 |          3 |          3 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[11].u_stage             |      mdc_stage__parameterized10 |       1400 |       1207 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|       u_butterfly                   |                 gs_butterfly_81 |       1400 |       1207 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_81 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_82 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_83 |       1044 |        916 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_83 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_86 |       1014 |        886 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_84 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_85 |         70 |          5 |       0 |   65 |   130 |      0 |      0 |          0 |
+|     g_stage[1].u_stage              |       mdc_stage__parameterized0 |       3969 |       3776 |       0 |  193 |  1541 |      2 |      0 |         26 |
+|       (g_stage[1].u_stage)          |       mdc_stage__parameterized0 |        106 |        106 |       0 |    0 |   112 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized0 |          9 |          9 |       0 |    0 |     9 |      1 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized0_73 |          9 |          9 |       0 |    0 |     9 |      1 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_74 |       1925 |       1732 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_74 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_76 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_77 |       1376 |       1248 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_77 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_80 |       1346 |       1218 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_78 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_79 |        263 |        198 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_75 |       1920 |       1920 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[2].u_stage              |       mdc_stage__parameterized1 |       2866 |       2673 |       0 |  193 |  1515 |      2 |      0 |         26 |
+|       (g_stage[2].u_stage)          |       mdc_stage__parameterized1 |         84 |         84 |       0 |    0 |    88 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized1 |         71 |         71 |       0 |    0 |     8 |      1 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized1_65 |          7 |          7 |       0 |    0 |     8 |      1 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_66 |       1744 |       1551 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_66 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_68 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_69 |       1256 |       1128 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_69 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_72 |       1226 |       1098 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_70 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_71 |        202 |        137 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_67 |        960 |        960 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[3].u_stage              |       mdc_stage__parameterized2 |       2318 |       2125 |       0 |  193 |  1475 |      2 |      0 |         26 |
+|       (g_stage[3].u_stage)          |       mdc_stage__parameterized2 |         47 |         47 |       0 |    0 |    50 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized2 |         71 |         71 |       0 |    0 |     7 |      1 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized2_57 |          7 |          7 |       0 |    0 |     7 |      1 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_58 |       1713 |       1520 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_58 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_60 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_61 |       1256 |       1128 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_61 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_64 |       1226 |       1098 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_62 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_63 |        171 |        106 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_59 |        480 |        480 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[4].u_stage              |       mdc_stage__parameterized3 |       2181 |       1732 |       0 |  449 |  1704 |      0 |      0 |         26 |
+|       (g_stage[4].u_stage)          |       mdc_stage__parameterized3 |         31 |         31 |       0 |    0 |    37 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized3 |        192 |         64 |       0 |  128 |   128 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized3_49 |        128 |          0 |       0 |  128 |   128 |      0 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_50 |       1590 |       1397 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_50 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_52 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_53 |       1104 |        976 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_53 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_56 |       1074 |        946 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_54 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_55 |        200 |        135 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_51 |        240 |        240 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[5].u_stage              |       mdc_stage__parameterized4 |       1921 |       1600 |       0 |  321 |  1691 |      0 |      0 |         26 |
+|       (g_stage[5].u_stage)          |       mdc_stage__parameterized4 |         19 |         19 |       0 |    0 |    24 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized4 |        128 |         64 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized4_41 |         64 |          0 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_42 |       1590 |       1397 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_42 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_44 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_45 |       1104 |        976 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_45 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_48 |       1074 |        946 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_46 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_47 |        200 |        135 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_43 |        120 |        120 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[6].u_stage              |       mdc_stage__parameterized5 |       1859 |       1538 |       0 |  321 |  1689 |      0 |      0 |         26 |
+|       (g_stage[6].u_stage)          |       mdc_stage__parameterized5 |         17 |         17 |       0 |    0 |    22 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized5 |        128 |         64 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized5_33 |         64 |          0 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_34 |       1590 |       1397 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_34 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_36 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_37 |       1104 |        976 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_37 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_40 |       1074 |        946 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_38 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_39 |        200 |        135 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_35 |         60 |         60 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[7].u_stage              |       mdc_stage__parameterized6 |       1897 |       1576 |       0 |  321 |  1689 |      0 |      0 |         26 |
+|       (g_stage[7].u_stage)          |       mdc_stage__parameterized6 |         15 |         15 |       0 |    0 |    22 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized6 |        128 |         64 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized6_25 |         64 |          0 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_26 |       1630 |       1437 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_26 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_28 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_29 |       1103 |        975 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_29 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_32 |       1073 |        945 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_30 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_31 |        241 |        176 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_27 |         60 |         60 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[8].u_stage              |       mdc_stage__parameterized7 |       1831 |       1510 |       0 |  321 |  1687 |      0 |      0 |         26 |
+|       (g_stage[8].u_stage)          |       mdc_stage__parameterized7 |         14 |         14 |       0 |    0 |    20 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized7 |        128 |         64 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized7_17 |         64 |          0 |       0 |   64 |   128 |      0 |      0 |          0 |
+|       u_butterfly                   |                 gs_butterfly_18 |       1570 |       1377 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                 gs_butterfly_18 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                      mod_add_20 |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_21 |       1044 |        916 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_21 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_24 |       1014 |        886 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                      mod_sub_22 |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                   delay_line_23 |        240 |        175 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                  twiddle_rom_19 |         55 |         55 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     g_stage[9].u_stage              |       mdc_stage__parameterized8 |       1665 |       1472 |       0 |  193 |  1685 |      0 |      0 |         26 |
+|       (g_stage[9].u_stage)          |       mdc_stage__parameterized8 |         13 |         13 |       0 |    0 |    18 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_a_delay |    delay_memory__parameterized8 |         64 |         64 |       0 |    0 |   128 |      0 |      0 |          0 |
+|       g_output_reorder.fifo_b_delay | delay_memory__parameterized8_14 |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|       u_butterfly                   |                    gs_butterfly |       1570 |       1377 |       0 |  193 |  1411 |      0 |      0 |         26 |
+|         (u_butterfly)               |                    gs_butterfly |          0 |          0 |       0 |    0 |   128 |      0 |      0 |          0 |
+|         u_add                       |                         mod_add |        142 |        142 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_mul                       |              mont_mul_select_15 |       1045 |        917 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|           (u_mul)                   |              mont_mul_select_15 |         38 |         38 |       0 |    0 |     0 |      0 |      0 |          0 |
+|           g_current.u_mul           |                     mont_mul_16 |       1015 |        887 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|         u_sub                       |                         mod_sub |        144 |        144 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         u_sum_delay                 |                      delay_line |        239 |        174 |       0 |   65 |   130 |      0 |      0 |          0 |
+|       u_twiddle_rom                 |                     twiddle_rom |         18 |         18 |       0 |    0 |     0 |      0 |      0 |          0 |
+|     u_intt_scale0                   |              mont_mul_select_10 |       1114 |        986 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|       (u_intt_scale0)               |              mont_mul_select_10 |         79 |         79 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       g_current.u_mul               |                     mont_mul_13 |       1043 |        915 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|     u_intt_scale1                   |              mont_mul_select_11 |       1114 |        986 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|       (u_intt_scale1)               |              mont_mul_select_11 |         79 |         79 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       g_current.u_mul               |                     mont_mul_12 |       1043 |        915 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|     u_ntt_output_delay              |      delay_line__parameterized0 |        359 |        230 |       0 |  129 |   258 |      0 |      0 |          0 |
+|   u_mul0                            |                   pointwise_mul |       1224 |       1096 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|     u_mul                           |                      mont_mul_9 |       1224 |       1096 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|   u_mul1                            |                 pointwise_mul_0 |       1511 |       1382 |       0 |  129 |  1155 |      0 |      0 |         26 |
+|     u_mul                           |                      mont_mul_8 |       1511 |       1382 |       0 |  129 |  1155 |      0 |      0 |         26 |
+|   u_post_addr_delay                 |      delay_line__parameterized2 |        272 |        261 |       0 |   11 |   213 |      0 |      0 |          0 |
+|   u_post_mul0                       |                        mont_mul |       1102 |        973 |       0 |  129 |  1155 |      0 |      0 |         26 |
+|   u_post_mul1                       |                      mont_mul_1 |       1096 |        968 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|   u_pre_mul0                        |                 mont_mul_select |       2249 |       2121 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|     g_current.u_mul                 |                      mont_mul_7 |       2249 |       2121 |       0 |  128 |  1153 |      0 |      0 |         26 |
+|   u_pre_mul1                        |               mont_mul_select_2 |       2252 |       2123 |       0 |  129 |  1155 |      0 |      0 |         26 |
+|     g_current.u_mul                 |                      mont_mul_6 |       2252 |       2123 |       0 |  129 |  1155 |      0 |      0 |         26 |
+|   u_psi_fwd0                        |                         psi_rom |       2160 |       2160 |       0 |    0 |     0 |      0 |      0 |          0 |
+|   u_psi_fwd1                        |                       psi_rom_3 |       2160 |       2160 |       0 |    0 |     0 |      0 |      0 |          0 |
+|   u_psi_inv0                        |                       psi_rom_4 |       2160 |       2160 |       0 |    0 |     0 |      0 |      0 |          0 |
+|   u_psi_inv1                        |                       psi_rom_5 |       2160 |       2160 |       0 |    0 |     0 |      0 |      0 |          0 |
++-------------------------------------+---------------------------------+------------+------------+---------+------+-------+--------+--------+------------+
+
+
