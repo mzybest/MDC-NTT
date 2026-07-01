@@ -11,7 +11,8 @@ module poly_mul_top #(
     parameter int MUL_LAT = params_pkg::MUL_LAT,
     parameter bit USE_WL_MONT = 1'b1,
     parameter bit USE_WL_CORE = USE_WL_MONT,
-    parameter bit USE_WL_PRE_NTT = USE_WL_MONT
+    parameter bit USE_WL_PRE_NTT = USE_WL_MONT,
+    parameter bit USE_WL_POINTWISE = USE_WL_MONT
 ) (
     input  logic             clk,
     input  logic             rst_n,
@@ -27,7 +28,8 @@ module poly_mul_top #(
 );
   import params_pkg::*;
   localparam int OLD_MONT_LAT = 12;
-  localparam int POINTWISE_MUL_LAT = OLD_MONT_LAT;
+  localparam int WL_MONT_LAT = 14;
+  localparam int POINTWISE_MUL_LAT = USE_WL_POINTWISE ? WL_MONT_LAT : OLD_MONT_LAT;
   localparam int POST_MUL_LAT = OLD_MONT_LAT;
 
   typedef enum logic [3:0] {
@@ -163,12 +165,18 @@ module poly_mul_top #(
       .out0(core_out0), .out1(core_out1), .done(core_done)
   );
 
-  pointwise_mul #(.QW(QW)) u_mul0 (
+  pointwise_mul #(
+      .QW(QW),
+      .USE_WL_POINTWISE(USE_WL_POINTWISE)
+  ) u_mul0 (
       .clk(clk), .rst_n(rst_n), .in_valid(core_out_valid && state == WAIT_NTT_B),
       .a_ntt(a_ntt_even[recv_count]), .b_ntt(core_out0),
       .out_valid(mul_valid0), .c_ntt(mul_out0)
   );
-  pointwise_mul #(.QW(QW)) u_mul1 (
+  pointwise_mul #(
+      .QW(QW),
+      .USE_WL_POINTWISE(USE_WL_POINTWISE)
+  ) u_mul1 (
       .clk(clk), .rst_n(rst_n), .in_valid(core_out_valid && state == WAIT_NTT_B),
       .a_ntt(a_ntt_odd[recv_count]), .b_ntt(core_out1),
       .out_valid(mul_valid1), .c_ntt(mul_out1)
@@ -298,3 +306,4 @@ module poly_mul_top #(
     end
   end
 endmodule
+

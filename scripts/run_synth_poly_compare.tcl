@@ -5,6 +5,7 @@
 #   old    : all selectable Montgomery paths use old mont_mul, MUL_LAT=12
 #   stageA : WL core BFU + INTT scale, old Pre_NTT/Pointwise/Post_INTT
 #   stageB : stageA plus WL Pre_NTT u_pre_mul0/1
+#   stageC : stageB plus WL Pointwise u_mul0/1, Post_INTT still old
 
 set script_dir [file dirname [file normalize [info script]]]
 set repo_root [file normalize [file join $script_dir ..]]
@@ -34,9 +35,12 @@ if {$target eq "old"} {
   set generic_args [list MUL_LAT=14 USE_WL_MONT=0 USE_WL_CORE=1 USE_WL_PRE_NTT=0]
 } elseif {$target eq "stageB"} {
   set suffix "poly_mul_top_stageB"
-  set generic_args [list MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1]
+  set generic_args [list MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1 USE_WL_POINTWISE=0]
+} elseif {$target eq "stageC"} {
+  set suffix "poly_mul_top_stageC"
+  set generic_args [list MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1 USE_WL_POINTWISE=1]
 } else {
-  error "Unknown target '$target'. Use old, stageA, or stageB."
+  error "Unknown target '$target'. Use old, stageA, stageB, or stageC."
 }
 
 set rtl_files [list \
