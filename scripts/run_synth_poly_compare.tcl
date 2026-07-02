@@ -6,6 +6,7 @@
 #   stageA : WL core BFU + INTT scale, old Pre_NTT/Pointwise/Post_INTT
 #   stageB : stageA plus WL Pre_NTT u_pre_mul0/1
 #   stageC : stageB plus WL Pointwise u_mul0/1, Post_INTT still old
+#   stageD : stageC plus WL Post_INTT u_post_mul0/1
 
 set script_dir [file dirname [file normalize [info script]]]
 set repo_root [file normalize [file join $script_dir ..]]
@@ -38,9 +39,12 @@ if {$target eq "old"} {
   set generic_args [list MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1 USE_WL_POINTWISE=0]
 } elseif {$target eq "stageC"} {
   set suffix "poly_mul_top_stageC"
-  set generic_args [list MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1 USE_WL_POINTWISE=1]
+  set generic_args [list MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1 USE_WL_POINTWISE=1 USE_WL_POST_INTT=0]
+} elseif {$target eq "stageD"} {
+  set suffix "poly_mul_top_stageD"
+  set generic_args [list MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1 USE_WL_POINTWISE=1 USE_WL_POST_INTT=1]
 } else {
-  error "Unknown target '$target'. Use old, stageA, stageB, or stageC."
+  error "Unknown target '$target'. Use old, stageA, stageB, stageC, or stageD."
 }
 
 set rtl_files [list \
@@ -77,3 +81,4 @@ report_timing -max_paths 5 -sort_by group -file [file join $report_dir "timing_p
 report_power -file [file join $report_dir "power_${suffix}.rpt"]
 write_checkpoint -force [file join $report_dir "${suffix}_synth.dcp"]
 puts "Full poly_mul_top synthesis complete for $target. Reports written to $report_dir"
+

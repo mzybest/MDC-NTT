@@ -12,13 +12,15 @@ algorithm behavior, without deleting `rtl/mont_mul.sv`, and without using
 multicycle/false-path constraints. All replacements are controlled through
 parameters so the old path can still be selected.
 
-Current stage covered by this document:
+Current stages covered by this document:
 
 - Stage A: WL BFU path plus WL INTT scale inside `gs_mdc_core`.
 - Stage B: Stage A plus Pre_NTT lane0/lane1 multipliers in `poly_mul_top`.
 - Stage C: Stage B plus Pointwise lane0/lane1 multipliers.
-- Post_INTT multipliers remain old direct `mont_mul` paths after Stage C.
-- Stage D is not part of this checkpoint.
+- Stage D: Stage C plus Post_INTT lane0/lane1 multipliers.
+
+Stage D is the current full-top WL replacement checkpoint. The old `mont_mul`
+RTL is still preserved and selectable through parameters.
 
 ## Safety State
 
@@ -30,19 +32,9 @@ Current stage covered by this document:
 - No multicycle path or false path constraint was added.
 - `mont_mul_wl` remains an II=1 pipeline.
 
-## Full `poly_mul_top` Baseline
+## Global Montgomery Instances After Stage D
 
-The frozen full-top baseline for this controlled comparison uses the optimized
-explicit Pre/Post negacyclic design, BRAM-friendly delay memories, constant-Q
-Montgomery optimization, and BFU input registers. For the old full-top synthesis
-comparison, `USE_WL_MONT=0` selects the old `mont_mul` path.
-
-Old full-top synthesis reports were reused from the existing report files; they
-were not regenerated during the Stage B checkpoint.
-
-## Global Montgomery Instances After Stage C
-
-| File | Module | Instance | Stage C type | Purpose | Latency assumption | Selectable |
+| File | Module | Instance | Stage D type | Purpose | Latency assumption | Selectable |
 |---|---|---|---|---|---:|---|
 | `rtl/gs_butterfly.sv` | `gs_butterfly` | `u_mul` | `mont_mul_select` | BFU `(a-b) * twiddle` | old 12 / WL 14 | yes |
 | `rtl/gs_mdc_core.sv` | `gs_mdc_core` | `u_intt_scale0` | `mont_mul_select` | INTT lane0 final `N_INV_MONT` scale | old 12 / WL 14 | yes |
@@ -50,66 +42,25 @@ were not regenerated during the Stage B checkpoint.
 | `rtl/poly_mul_top.sv` | `poly_mul_top` | `u_pre_mul0` | `mont_mul_select` | Pre_NTT lane0 psi multiply | old 12 / WL 14 | yes |
 | `rtl/poly_mul_top.sv` | `poly_mul_top` | `u_pre_mul1` | `mont_mul_select` | Pre_NTT lane1 psi multiply | old 12 / WL 14 | yes |
 | `rtl/pointwise_mul.sv` | `pointwise_mul` | `u_mul` | `mont_mul_select` | pointwise multiply | old 12 / WL 14 | yes |
-| `rtl/poly_mul_top.sv` | `poly_mul_top` | `u_post_mul0` | direct `mont_mul` | Post_INTT lane0 psi inverse multiply | old 12 | no |
-| `rtl/poly_mul_top.sv` | `poly_mul_top` | `u_post_mul1` | direct `mont_mul` | Post_INTT lane1 psi inverse multiply | old 12 | no |
+| `rtl/poly_mul_top.sv` | `poly_mul_top` | `u_post_mul0` | `mont_mul_select` | Post_INTT lane0 psi inverse multiply | old 12 / WL 14 | yes |
+| `rtl/poly_mul_top.sv` | `poly_mul_top` | `u_post_mul1` | `mont_mul_select` | Post_INTT lane1 psi inverse multiply | old 12 / WL 14 | yes |
 | `rtl/mont_mul_select.sv` | `mont_mul_select` | `g_wl.u_mul` | `mont_mul_wl` | selectable WL implementation | 14 | wrapper internal |
 | `rtl/mont_mul_select.sv` | `mont_mul_select` | `g_current.u_mul` | `mont_mul` | selectable old implementation | 12 | wrapper internal |
 
-## Stage A Scope
+## Stage Scopes
 
 Stage A replaces the WL-sensitive multipliers inside the NTT/INTT core only:
-
-- GS butterfly multiplier path through `gs_butterfly.u_mul`.
-- `gs_mdc_core.u_intt_scale0`.
-- `gs_mdc_core.u_intt_scale1`.
-
-In Stage A full-top synthesis, `poly_mul_top` Pre_NTT, Pointwise, and Post_INTT
-multipliers remain old `mont_mul` behavior.
-
-Stage A full-top synthesis was run at 100 MHz with:
-
-```text
-MUL_LAT=14
-USE_WL_MONT=0
-USE_WL_CORE=1
-USE_WL_PRE_NTT=0
-```
-
-## Stage B Scope
+GS butterfly multiplier path and the two INTT scale multipliers.
 
 Stage B adds only the two Pre_NTT multipliers in `poly_mul_top`:
+`u_pre_mul0` and `u_pre_mul1`.
 
-- `poly_mul_top.u_pre_mul0`
-- `poly_mul_top.u_pre_mul1`
+Stage C adds only the Pointwise multipliers through `pointwise_mul.u_mul`.
 
-Both are selectable through `mont_mul_select`. Pointwise and Post_INTT remain
-old direct `mont_mul` paths in Stage B.
+Stage D adds only the two Post_INTT multipliers in `poly_mul_top`:
+`u_post_mul0` and `u_post_mul1`.
 
-Stage B full-top synthesis used:
-
-```text
-MUL_LAT=14
-USE_WL_MONT=1
-USE_WL_CORE=1
-USE_WL_PRE_NTT=1
-USE_WL_POINTWISE=0
-```
-
-## Stage C Scope
-
-Stage C adds only the Pointwise multipliers:
-
-- `rtl/pointwise_mul.sv` internal instance `u_mul`.
-- Full-top paths `poly_mul_top.u_mul0/u_mul` and `poly_mul_top.u_mul1/u_mul`.
-
-`pointwise_mul` now has parameter `USE_WL_POINTWISE`. When it is `0`, the
-wrapper selects old `mont_mul`; when it is `1`, it selects `mont_mul_wl`.
-Post_INTT remains unchanged in Stage C:
-
-- `poly_mul_top.u_post_mul0` is still direct old `mont_mul`.
-- `poly_mul_top.u_post_mul1` is still direct old `mont_mul`.
-
-Stage C full-top synthesis used:
+Stage D synthesis used:
 
 ```text
 MUL_LAT=14
@@ -117,6 +68,7 @@ USE_WL_MONT=1
 USE_WL_CORE=1
 USE_WL_PRE_NTT=1
 USE_WL_POINTWISE=1
+USE_WL_POST_INTT=1
 ```
 
 ## Latency Alignment
@@ -126,12 +78,12 @@ USE_WL_POINTWISE=1
 - WL core `MUL_LAT`: 14
 - Pointwise address delay uses `POINTWISE_MUL_LAT`.
 - `POINTWISE_MUL_LAT = USE_WL_POINTWISE ? 14 : 12`.
-- Post_INTT address delay remains `POST_MUL_LAT = 12` while Post_INTT is still
-  direct old `mont_mul`.
+- Post_INTT address delay uses `POST_MUL_LAT`.
+- `POST_MUL_LAT = USE_WL_POST_INTT ? 14 : 12`.
 
-This keeps Pointwise output data and delayed write address aligned in both old
-and WL modes. In Stage C, full multiplication increases by 2 cycles compared
-with Stage B because Pointwise latency changes from 12 to 14.
+This keeps Pointwise and Post_INTT output data aligned with their delayed write
+addresses in both old and WL modes. Stage D increases full multiplication by 2
+cycles compared with Stage C because Post_INTT latency changes from 12 to 14.
 
 ## Functional Simulation Results
 
@@ -141,27 +93,27 @@ with Stage B because Pointwise latency changes from 12 to 14.
 | `tb_gs_butterfly` | PASS | WL BFU path | `MUL_LAT=14` | none |
 | `tb_gs_mdc_core` | PASS | WL BFU + WL INTT scale | core test PASS at 42945 ns | none |
 | `tb_gs_mdc_core_roundtrip` | PASS | NTT then INTT round trip | NTT done-first_in = 4289, INTT done-first_in = 4289 | none |
-| `tb_poly_mul_top` | PASS | Stage C full top | random + directed negacyclic PASS | none |
-| `tb_poly_mul_top_phase_cycles` | PASS | Stage C phase-cycle measurement | full_mul_cycles = 12923 | none |
+| `tb_poly_mul_top` | PASS | Stage D full top | random + directed negacyclic PASS | none |
+| `tb_poly_mul_top_phase_cycles` | PASS | Stage D phase-cycle measurement | full_mul_cycles = 12925 | none |
 
-Stage C directed negacyclic test includes `x^(N-1) * x`, with the wrapped result
+Stage D directed negacyclic test includes `x^(N-1) * x`, with the wrapped result
 at coefficient 0 equal to `Q-1`.
 
 ## Cycle Measurements
 
-| Measurement | Stage B full top | Stage C full top | Delta |
+| Measurement | Stage C full top | Stage D full top | Delta |
 |---|---:|---:|---:|
-| Full multiplication cycles | 12921 | 12923 | +2 |
+| Full multiplication cycles | 12923 | 12925 | +2 |
 | A_NTT cycles | 4303 | 4303 | 0 |
 | B_NTT cycles | 4303 | 4303 | 0 |
 | INTT cycles | 4289 | 4289 | 0 |
 | Output coefficients | 4096 | 4096 | 0 |
 
-Stage C phase-cycle detail:
+Stage D phase-cycle detail:
 
 ```text
 FULL_MUL_RESULT PASS errors=0
-FULL_MUL_CYCLES start=8192 done=21115 start_to_done=12923
+FULL_MUL_CYCLES start=8192 done=21117 start_to_done=12925
 PHASE A_NTT start=8193 first_in=8207 last_in=10254 first_out=10448 last_out=12495 done=12496 start_to_done=4303 first_in_to_first_out=2241 input_valid_cycles=2048 output_valid_cycles=2048 output_bubbles=1 output_coefficients=4096
 PHASE B_NTT start=12497 first_in=12511 last_in=14558 first_out=14752 last_out=16799 done=16800 start_to_done=4303 first_in_to_first_out=2241 input_valid_cycles=2048 output_valid_cycles=2048 output_bubbles=1 output_coefficients=4096
 PHASE INTT start=16814 first_in=16814 last_in=18861 first_out=19055 last_out=21102 done=21103 start_to_done=4289 first_in_to_first_out=2241 input_valid_cycles=2048 output_valid_cycles=2048 output_bubbles=1 output_coefficients=4096
@@ -176,28 +128,22 @@ xc7a200tsbg484-1
 10.0 ns / 100 MHz
 ```
 
-| Metric | Old full top | Stage A full top | Stage B full top | Stage C full top | Stage C delta vs Stage B |
-|---|---:|---:|---:|---:|---:|
-| Slice LUT | 80765 | 78599 | 78259 | 77857 | -402 |
-| LUT Memory | 30363 | 28596 | 28331 | 28077 | -254 |
-| Registers | 29542 | 34197 | 34825 | 35498 | +673 |
-| DSP48E1 | 520 | 436 | 424 | 412 | -12 |
-| BRAM | 10 | 10 | 10 | 10 | 0 |
-| WNS | +0.733 ns | +0.733 ns | +0.733 ns | +0.733 ns | 0.000 ns |
-| TNS | 0.000 ns | 0.000 ns | 0.000 ns | 0.000 ns | 0.000 ns |
-| Power | 2.273 W | 2.177 W | 2.172 W | 2.156 W | -0.016 W |
+| Metric | Stage C full top | Stage D full top | Stage D delta vs Stage C |
+|---|---:|---:|---:|
+| Slice LUT | 77857 | 77613 | -244 |
+| LUT Memory | 28077 | 27823 | -254 |
+| Registers | 35498 | 36165 | +667 |
+| DSP48E1 | 412 | 400 | -12 |
+| BRAM | 10 | 10 | 0 |
+| WNS | +0.733 ns | +1.282 ns | +0.549 ns |
+| TNS | 0.000 ns | 0.000 ns | 0.000 ns |
+| Power | 2.156 W | 2.147 W | -0.009 W |
+
+Stage D synthesis has no remaining direct old 64x64 Montgomery multiplier path
+in the active full-top configuration. The old RTL remains available through
+`mont_mul_select` parameters.
 
 ## Worst Path Transfer
-
-Stage B full top:
-
-```text
-u_mul0/u_mul/t_s00/CLK
--> u_mul0/u_mul/t_s0_reg/PCIN[0]
-Data Path Delay: 7.687 ns
-Logic Levels: DSP48E1=2
-WNS: +0.733 ns
-```
 
 Stage C full top:
 
@@ -209,17 +155,29 @@ Logic Levels: DSP48E1=2
 WNS: +0.733 ns
 ```
 
-After Stage C, the old Pointwise DSP cascade path is removed from the worst
-path. The new top-level worst path is the unreplaced Post_INTT old `mont_mul`
-path (`u_post_mul0`). This is the expected next target for Stage D.
+Stage D full top:
+
+```text
+u_core/g_stage[0].u_stage/u_butterfly/b_r_reg[0]/C
+-> u_core/g_stage[0].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p02_s1_reg/B[13]
+Data Path Delay: 7.909 ns
+Logic Levels: CARRY4=24 LUT3=1 LUT4=1
+WNS: +1.282 ns
+```
+
+After Stage D, the old Post_INTT DSP cascade path is removed from the worst
+path. The new worst path is inside the WL BFU input/mod-sub side feeding the
+word-level partial-product register, and it meets the 10 ns synthesis
+constraint.
 
 ## Current Conclusion
 
-Stage C is functionally correct and meets 100 MHz synthesis timing. Compared
-with Stage B, it reduces DSP48E1 from 424 to 412, reduces Slice LUT from 78259
-to 77857, and reduces estimated power from 2.172 W to 2.156 W. Registers
-increase from 34825 to 35498 due to the deeper WL Pointwise pipeline.
+Stage D is functionally correct and meets 100 MHz synthesis timing. Compared
+with Stage C, it reduces DSP48E1 from 412 to 400, reduces Slice LUT from 77857
+to 77613, improves WNS from +0.733 ns to +1.282 ns, and reduces estimated power
+from 2.156 W to 2.147 W. Registers increase from 35498 to 36165 due to the
+deeper WL Post_INTT pipelines.
 
-Recommended next stage: replace only the Post_INTT multipliers
-(`poly_mul_top.u_post_mul0/1`) under a selectable parameter. Keep the old path
-selectable and rerun full functional simulation before synthesis.
+Recommended next step: run 100 MHz implementation for the Stage D full-WL
+configuration. Stage D is a good candidate for the current WL full-top optimized
+checkpoint, pending post-route timing confirmation.

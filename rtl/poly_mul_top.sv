@@ -12,7 +12,8 @@ module poly_mul_top #(
     parameter bit USE_WL_MONT = 1'b1,
     parameter bit USE_WL_CORE = USE_WL_MONT,
     parameter bit USE_WL_PRE_NTT = USE_WL_MONT,
-    parameter bit USE_WL_POINTWISE = USE_WL_MONT
+    parameter bit USE_WL_POINTWISE = USE_WL_MONT,
+    parameter bit USE_WL_POST_INTT = USE_WL_MONT
 ) (
     input  logic             clk,
     input  logic             rst_n,
@@ -30,7 +31,7 @@ module poly_mul_top #(
   localparam int OLD_MONT_LAT = 12;
   localparam int WL_MONT_LAT = 14;
   localparam int POINTWISE_MUL_LAT = USE_WL_POINTWISE ? WL_MONT_LAT : OLD_MONT_LAT;
-  localparam int POST_MUL_LAT = OLD_MONT_LAT;
+  localparam int POST_MUL_LAT = USE_WL_POST_INTT ? WL_MONT_LAT : OLD_MONT_LAT;
 
   typedef enum logic [3:0] {
     IDLE, NTT_A, WAIT_NTT_A, NTT_B_MUL, WAIT_NTT_B,
@@ -199,12 +200,18 @@ module poly_mul_top #(
   psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_inv1 (
       .table_sel(PSI_INV), .index(post_addr1), .factor(psi_inv1)
   );
-  mont_mul #(.QW(QW)) u_post_mul0 (
+  mont_mul_select #(
+      .QW(QW),
+      .USE_WL_MONT(USE_WL_POST_INTT)
+  ) u_post_mul0 (
       .clk(clk), .rst_n(rst_n),
       .in_valid(core_out_valid && state == WAIT_INTT_C),
       .a(core_out0), .b(psi_inv0), .out_valid(post_valid0), .y(post_out0)
   );
-  mont_mul #(.QW(QW)) u_post_mul1 (
+  mont_mul_select #(
+      .QW(QW),
+      .USE_WL_MONT(USE_WL_POST_INTT)
+  ) u_post_mul1 (
       .clk(clk), .rst_n(rst_n),
       .in_valid(core_out_valid && state == WAIT_INTT_C),
       .a(core_out1), .b(psi_inv1), .out_valid(post_valid1), .y(post_out1)
@@ -306,4 +313,5 @@ module poly_mul_top #(
     end
   end
 endmodule
+
 
