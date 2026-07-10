@@ -181,3 +181,66 @@ deeper WL Post_INTT pipelines.
 Recommended next step: run 100 MHz implementation for the Stage D full-WL
 configuration. Stage D is a good candidate for the current WL full-top optimized
 checkpoint, pending post-route timing confirmation.
+
+## Stage D 100 MHz Implementation Results
+
+Vivado post-route implementation was run for the Stage D full-WL active path on
+`xc7a200tsbg484-1` with a 10.0 ns clock constraint. The flow included
+`synth_design`, `opt_design`, `place_design`, `phys_opt_design`, `route_design`,
+and post-route utilization/timing/power reports. No RTL, algorithm, multicycle
+path, or false-path constraint change was made.
+
+Stage D implementation generics:
+
+```text
+MUL_LAT=14
+USE_WL_MONT=1
+USE_WL_CORE=1
+USE_WL_PRE_NTT=1
+USE_WL_POINTWISE=1
+USE_WL_POST_INTT=1
+```
+
+Generated reports:
+
+- `reports/impl_utilization_poly_mul_top_stageD_100mhz.rpt`
+- `reports/impl_timing_poly_mul_top_stageD_100mhz.rpt`
+- `reports/impl_timing_paths_poly_mul_top_stageD_100mhz.rpt`
+- `reports/impl_power_poly_mul_top_stageD_100mhz.rpt`
+
+Post-route summary:
+
+| Metric | Stage D post-route |
+|---|---:|
+| Timing | PASS |
+| WNS | +0.080 ns |
+| TNS | 0.000 ns |
+| WHS | +0.016 ns |
+| THS | 0.000 ns |
+| Slice LUT | 77050 |
+| LUT Memory | 27823 |
+| Slice Registers / FF | 37047 |
+| DSP48E1 | 400 |
+| BRAM | 10 |
+| Power | 2.400 W |
+
+Top post-route setup paths:
+
+| # | Slack | Source | Destination | Data path | Dominant delay |
+|---:|---:|---|---|---:|---|
+| 1 | +0.080 ns | `u_core/g_stage[3].u_stage/u_butterfly/b_r_reg[1]/C` | `u_core/g_stage[3].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p32_s1_reg/A[14]` | 9.329 ns | route 52.4% |
+| 2 | +0.098 ns | `u_core/g_stage[3].u_stage/u_butterfly/b_r_reg[1]/C` | `u_core/g_stage[3].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p32_s1_reg/A[15]` | 9.306 ns | route 51.5% |
+| 3 | +0.106 ns | `u_core/g_stage[1].u_stage/bf_count_reg[3]_rep__4/C` | `u_core/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p11_s1_reg_i_5__2_psdsp/D` | 9.754 ns | route 82.9% |
+| 4 | +0.130 ns | `u_core/g_stage[3].u_stage/u_butterfly/b_r_reg[1]/C` | `u_core/g_stage[3].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p32_s1_reg/A[13]` | 9.278 ns | route 51.1% |
+| 5 | +0.136 ns | `u_core/g_stage[1].u_stage/bf_count_reg[2]_rep__3/C` | `u_core/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p11_s1_reg_i_13__2_psdsp/D` | 9.703 ns | route 83.1% |
+
+The routed worst path is still in the WL BFU area, primarily the registered BFU
+input or stage counter feeding the WL partial-product logic. The first path is
+roughly balanced between carry-chain logic and routing; the third and fifth
+paths are routing-delay dominated.
+
+Conclusion: Stage D full-WL meets 100 MHz after routing, with a small +0.080 ns
+setup margin. It is suitable as the current WL full-top routed checkpoint. For
+extra timing robustness, future work can evaluate implementation directives or
+additional floorplanning/RTL pipeline cuts, but no such changes were applied in
+this run.
