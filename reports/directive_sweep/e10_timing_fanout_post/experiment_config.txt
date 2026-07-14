@@ -1,0 +1,11 @@
+experiment=e10_timing_fanout_post
+vivado=2022.2
+part=xc7a200tsbg484-1
+period_ns=10.0
+generics=MUL_LAT=14 USE_WL_MONT=1 USE_WL_CORE=1 USE_WL_PRE_NTT=1 USE_WL_POINTWISE=1 USE_WL_POST_INTT=1
+opt=Explore
+place=ExtraTimingOpt
+pre_phys=AggressiveFanoutOpt
+route=MoreGlobalIterations
+route_tns_cleanup=1
+post_phys=Explore

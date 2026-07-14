@@ -1,0 +1,9 @@
+ABORTED
+experiment=e07_netdelay_no_relax
+reason=NoTimingRelaxation routing did not converge in a reasonable time
+start=2026-07-13 16:50:30
+last_log_update=2026-07-13 19:17:26
+elapsed=>02:26:56
+last_reported_intermediate_wns_ns=-0.095
+formal_signoff_metrics=not_available
+routing_warning=congestion prevented routing all nets; overlap count rose during iteration 1

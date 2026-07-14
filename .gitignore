@@ -8,3 +8,8 @@ scripts/__pycache__/
 reports/*.dcp
 reports/*.rpx
 reports/*.xml
+
+# Vivado directive-sweep checkpoints and binary implementation artifacts.
+reports/directive_sweep/**/*.dcp
+reports/directive_sweep/**/*.rpx
+reports/directive_sweep/**/*.xml

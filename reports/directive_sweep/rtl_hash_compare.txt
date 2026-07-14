@@ -1,0 +1,3 @@
+Comparing files REPORTS\DIRECTIVE_SWEEP\rtl_hash_before.txt and REPORTS\DIRECTIVE_SWEEP\RTL_HASH_AFTER.TXT
+FC: no differences encountered
+
