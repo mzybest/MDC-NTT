@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
-module tb_poly_mul_top;
+module tb_poly_mul_top #(
+    parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1
+);
   import params_pkg::*;
   logic clk=0,rst_n=0,start=0,load_we=0,load_sel=0,busy,done;
   logic [LOGN-1:0] load_addr,result_addr;
@@ -7,7 +9,9 @@ module tb_poly_mul_top;
   logic [QW-1:0] a [0:N-1], b [0:N-1], golden [0:N-1];
   integer i,errors=0,printed=0,fd;
   always #5 clk=~clk;
-  poly_mul_top u_dut(.*);
+  poly_mul_top #(
+      .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE)
+  ) u_dut(.*);
 
   task automatic load_poly(input logic select_b);
     begin

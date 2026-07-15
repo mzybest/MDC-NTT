@@ -6,7 +6,9 @@ module gs_mdc_core #(
     parameter int LOGN    = 12,
     parameter int QW      = 64,
     parameter int MUL_LAT = 14,
-    parameter bit USE_WL_MONT = 1'b1
+    parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
+    parameter int TWIDDLE_BRAM_STAGES = 4
 ) (
     input  logic          clk,
     input  logic          rst_n,
@@ -27,6 +29,7 @@ module gs_mdc_core #(
   logic [QW-1:0] stage_data0 [0:LOGN];
   logic [QW-1:0] stage_data1 [0:LOGN];
   logic [1:0] active_mode;
+  logic [1:0] stage_mode;
   logic [LOGN-2:0] output_count;
   logic scale_valid0, scale_valid1;
   logic [QW-1:0] scaled0, scaled1;
@@ -47,6 +50,11 @@ module gs_mdc_core #(
     else if (start) active_mode <= mode;
   end
 
+  // The top-level INTT can assert start with its first valid input. Use the
+  // incoming mode on that edge so synchronous twiddle ROMs prefetch sample 1
+  // from the new table while sample 0 (the common Montgomery one) is consumed.
+  always_comb stage_mode = start ? mode : active_mode;
+
   always_comb begin
     stage_valid[0] = in_valid;
     stage_data0[0] = in0;
@@ -59,9 +67,11 @@ module gs_mdc_core #(
       mdc_stage #(
           .STAGE_ID(s), .QW(QW), .DEPTH(stage_depth(s)),
           .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT),
+          .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE),
+          .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES),
           .LOGN(LOGN), .N(N)
       ) u_stage (
-          .clk(clk), .rst_n(rst_n), .mode(active_mode),
+          .clk(clk), .rst_n(rst_n), .mode(stage_mode),
           .in_valid(stage_valid[s]), .in0(stage_data0[s]), .in1(stage_data1[s]),
           .twiddle(R_MOD_Q), .out_valid(stage_valid[s+1]),
           .out0(stage_data0[s+1]), .out1(stage_data1[s+1])

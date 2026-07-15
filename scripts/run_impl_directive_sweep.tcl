@@ -170,6 +170,7 @@ set rtl_files [list \
   rtl/mont_mul_select.sv \
   rtl/gs_butterfly.sv \
   rtl/twiddle_rom.sv \
+  rtl/twiddle_rom_stage.sv \
   rtl/psi_rom.sv \
   rtl/mdc_stage.sv \
   rtl/gs_mdc_core.sv \
@@ -185,6 +186,8 @@ set generic_args [list \
   USE_WL_PRE_NTT=1 \
   USE_WL_POINTWISE=1 \
   USE_WL_POST_INTT=1 \
+  USE_STAGE_LOCAL_TWIDDLE=1 \
+  TWIDDLE_BRAM_STAGES=4 \
 ]
 
 set config_text "experiment=$experiment_name\n"

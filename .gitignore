@@ -13,3 +13,6 @@ reports/*.xml
 reports/directive_sweep/**/*.dcp
 reports/directive_sweep/**/*.rpx
 reports/directive_sweep/**/*.xml
+# Stage-local twiddle experiment build artifacts.
+questa_work_twiddle_bram/
+reports/twiddle_bram_experiment/**/*.dcp

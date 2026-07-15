@@ -15,6 +15,8 @@ module mdc_stage #(
     parameter int DEPTH    = 1024,
     parameter int MUL_LAT  = 14,
     parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
+    parameter int TWIDDLE_BRAM_STAGES = 4,
     parameter int LOGN     = 12,
     parameter int N        = 4096
 ) (
@@ -34,6 +36,7 @@ module mdc_stage #(
 
   logic [LOGN-2:0] bf_count;
   logic [LOGN-1:0] twiddle_index;
+  logic [LOGN-1:0] twiddle_prefetch_index;
   logic [QW-1:0] stage_twiddle;
   logic bf_valid;
   logic [QW-1:0] bf_u;
@@ -52,12 +55,34 @@ module mdc_stage #(
     end
   end
 
-  always_comb twiddle_index = bf_count % BF_DISTANCE;
+  always_comb begin
+    twiddle_index = bf_count % BF_DISTANCE;
+    if (!in_valid)
+      twiddle_prefetch_index = twiddle_index;
+    else if (bf_count == PAIRS-1)
+      twiddle_prefetch_index = '0;
+    else
+      twiddle_prefetch_index = (bf_count + 1'b1) % BF_DISTANCE;
+  end
 
-  twiddle_rom #(.QW(QW), .LOGN(LOGN)) u_twiddle_rom (
-      .clk(clk), .mode(mode), .stage_id(STAGE_ID[3:0]),
-      .index(twiddle_index), .twiddle(stage_twiddle)
-  );
+  generate
+    if (USE_STAGE_LOCAL_TWIDDLE) begin : g_stage_local_twiddle
+      twiddle_rom_stage #(
+          .STAGE_ID(STAGE_ID), .QW(QW), .LOGN(LOGN),
+          .BRAM_STAGES(TWIDDLE_BRAM_STAGES)
+      ) u_twiddle_rom (
+          .clk(clk), .rst_n(rst_n), .mode(mode),
+          .index(twiddle_index[LOGN-2:0]),
+          .prefetch_index(twiddle_prefetch_index[LOGN-2:0]),
+          .twiddle(stage_twiddle)
+      );
+    end else begin : g_legacy_twiddle
+      twiddle_rom #(.QW(QW), .LOGN(LOGN)) u_twiddle_rom (
+          .clk(clk), .mode(mode), .stage_id(STAGE_ID[3:0]),
+          .index(twiddle_index), .twiddle(stage_twiddle)
+      );
+    end
+  endgenerate
   gs_butterfly #(
       .QW(QW), .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT)
   ) u_butterfly (

@@ -36,6 +36,7 @@ set rtl_files [list \
   rtl/mont_mul_select.sv \
   rtl/gs_butterfly.sv \
   rtl/twiddle_rom.sv \
+  rtl/twiddle_rom_stage.sv \
   rtl/mdc_stage.sv \
   rtl/gs_mdc_core.sv \
 ]
