@@ -1,0 +1,363 @@
+// Experimental mode-tagged dual-context polynomial multiplier.
+//
+// A_NTT and B_NTT are issued as adjacent N/2-cycle frames. The tagged core
+// routes A results into transform storage while B continues entering Stage 0;
+// B results then drive pointwise multiplication. C_INTT keeps the validated
+// external bit-reversal and explicit Pre/Post negacyclic processing.
+module poly_mul_top_wavefront #(
+    parameter int N = 4096,
+    parameter int LOGN = 12,
+    parameter int QW = 64,
+    parameter int MUL_LAT = params_pkg::MUL_LAT,
+    parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_WL_CORE = USE_WL_MONT,
+    parameter bit USE_WL_PRE_NTT = USE_WL_MONT,
+    parameter bit USE_WL_POINTWISE = USE_WL_MONT,
+    parameter bit USE_WL_POST_INTT = USE_WL_MONT,
+    parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
+    parameter int TWIDDLE_BRAM_STAGES = 4
+) (
+    input  logic             clk,
+    input  logic             rst_n,
+    input  logic             start,
+    input  logic             load_we,
+    input  logic             load_sel,
+    input  logic [LOGN-1:0]  load_addr,
+    input  logic [QW-1:0]    load_data,
+    input  logic [LOGN-1:0]  result_addr,
+    output logic [QW-1:0]    result_data,
+    output logic             busy,
+    output logic             done
+);
+  import params_pkg::*;
+
+  localparam int OLD_MONT_LAT = 12;
+  localparam int WL_MONT_LAT = 14;
+  localparam int PRE_MUL_LAT =
+      USE_WL_PRE_NTT ? WL_MONT_LAT : OLD_MONT_LAT;
+  localparam int POINTWISE_MUL_LAT =
+      USE_WL_POINTWISE ? WL_MONT_LAT : OLD_MONT_LAT;
+  localparam int POST_MUL_LAT =
+      USE_WL_POST_INTT ? WL_MONT_LAT : OLD_MONT_LAT;
+  localparam int FRAME_W = 2;
+  localparam logic [FRAME_W-1:0] FRAME_A_NTT = 2'd0;
+  localparam logic [FRAME_W-1:0] FRAME_B_NTT = 2'd1;
+  localparam logic [FRAME_W-1:0] FRAME_C_INTT = 2'd2;
+
+  typedef enum logic [2:0] {
+    IDLE, FEED_NTT_A, FEED_NTT_B, WAIT_POINTWISE,
+    FEED_INTT_C, WAIT_INTT_C, DONE
+  } ctrl_state_t;
+  ctrl_state_t state;
+
+  logic [QW-1:0] a_bank0 [0:N/2-1];
+  logic [QW-1:0] a_bank1 [0:N/2-1];
+  logic [QW-1:0] b_bank0 [0:N/2-1];
+  logic [QW-1:0] b_bank1 [0:N/2-1];
+  logic [QW-1:0] a_ntt_even [0:N/2-1];
+  logic [QW-1:0] a_ntt_odd  [0:N/2-1];
+  logic [QW-1:0] c_ntt_even [0:N/2-1];
+  logic [QW-1:0] c_ntt_odd  [0:N/2-1];
+  logic [QW-1:0] result_bank0 [0:N/2-1];
+  logic [QW-1:0] result_bank1 [0:N/2-1];
+
+  logic [LOGN-2:0] feed_count;
+  logic [LOGN-2:0] a_recv_count;
+  logic [LOGN-2:0] b_recv_count;
+  logic [LOGN-2:0] mul_count;
+  logic [LOGN-2:0] post_recv_count;
+  logic [LOGN-2:0] post_count;
+
+  logic pre_issue_valid, pre_valid0, pre_valid1, pre_tag_valid;
+  logic [LOGN-1:0] pre_index0, pre_index1;
+  logic [QW-1:0] pre_data0, pre_data1, psi_fwd0, psi_fwd1;
+  logic [QW-1:0] pre_out0, pre_out1;
+  logic [FRAME_W-1:0] pre_issue_frame, pre_output_frame;
+
+  logic core_in_valid, core_out_valid;
+  logic [QW-1:0] core_in0, core_in1, core_out0, core_out1;
+  logic [1:0] core_in_mode, core_out_mode;
+  logic [FRAME_W-1:0] core_in_frame, core_out_frame;
+  logic core_frame_done;
+  logic [FRAME_W-1:0] core_done_frame;
+
+  logic mul_valid0, mul_valid1, mul_addr_valid;
+  logic [QW-1:0] mul_out0, mul_out1;
+  logic [LOGN-2:0] mul_addr;
+
+  logic [LOGN-1:0] post_addr0, post_addr1;
+  logic [LOGN-1:0] intt_addr0, intt_addr1;
+  logic [QW-1:0] psi_inv0, psi_inv1, post_out0, post_out1;
+  logic post_valid0, post_valid1, post_addr_valid;
+  logic [2*LOGN-1:0] delayed_post_addrs;
+
+  function automatic logic [LOGN-1:0] bit_reverse(input logic [LOGN-1:0] v);
+    integer i;
+    for (i = 0; i < LOGN; i = i + 1)
+      bit_reverse[i] = v[LOGN-1-i];
+  endfunction
+
+  always_ff @(posedge clk) begin
+    if (load_we && state == IDLE) begin
+      if (load_sel) begin
+        if (load_addr[LOGN-1])
+          b_bank1[load_addr[LOGN-2:0]] <= load_data;
+        else
+          b_bank0[load_addr[LOGN-2:0]] <= load_data;
+      end else begin
+        if (load_addr[LOGN-1])
+          a_bank1[load_addr[LOGN-2:0]] <= load_data;
+        else
+          a_bank0[load_addr[LOGN-2:0]] <= load_data;
+      end
+    end
+  end
+
+  always_comb begin
+    if (result_addr[LOGN-1])
+      result_data = result_bank1[result_addr[LOGN-2:0]];
+    else
+      result_data = result_bank0[result_addr[LOGN-2:0]];
+  end
+
+  always_comb begin
+    pre_issue_valid = (state == FEED_NTT_A) || (state == FEED_NTT_B);
+    pre_issue_frame =
+        (state == FEED_NTT_B) ? FRAME_B_NTT : FRAME_A_NTT;
+    pre_index0 = {1'b0, feed_count};
+    pre_index1 = {1'b1, feed_count};
+    if (state == FEED_NTT_B) begin
+      pre_data0 = b_bank0[feed_count];
+      pre_data1 = b_bank1[feed_count];
+    end else begin
+      pre_data0 = a_bank0[feed_count];
+      pre_data1 = a_bank1[feed_count];
+    end
+  end
+
+  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_fwd0 (
+      .table_sel(PSI_FWD), .index(pre_index0), .factor(psi_fwd0)
+  );
+  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_fwd1 (
+      .table_sel(PSI_FWD), .index(pre_index1), .factor(psi_fwd1)
+  );
+  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_mul0 (
+      .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
+      .a(pre_data0), .b(psi_fwd0), .out_valid(pre_valid0), .y(pre_out0)
+  );
+  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_mul1 (
+      .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
+      .a(pre_data1), .b(psi_fwd1), .out_valid(pre_valid1), .y(pre_out1)
+  );
+  delay_line #(.DW(FRAME_W), .DEPTH(PRE_MUL_LAT)) u_pre_frame_delay (
+      .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
+      .din(pre_issue_frame), .out_valid(pre_tag_valid), .dout(pre_output_frame)
+  );
+
+  always_comb begin
+    core_in_valid = pre_valid0 & pre_valid1 & pre_tag_valid;
+    core_in0 = pre_out0;
+    core_in1 = pre_out1;
+    core_in_mode = MODE_NTT;
+    core_in_frame = pre_output_frame;
+    intt_addr0 = '0;
+    intt_addr1 = '0;
+    if (state == FEED_INTT_C) begin
+      intt_addr0 = bit_reverse({1'b0, feed_count});
+      intt_addr1 = bit_reverse({1'b1, feed_count});
+      core_in_valid = 1'b1;
+      core_in0 = c_ntt_even[intt_addr0[LOGN-1:1]];
+      core_in1 = c_ntt_odd[intt_addr1[LOGN-1:1]];
+      core_in_mode = MODE_INTT;
+      core_in_frame = FRAME_C_INTT;
+    end
+  end
+
+  gs_mdc_core_dualctx #(
+      .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
+      .USE_WL_MONT(USE_WL_CORE),
+      .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE),
+      .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES),
+      .FRAME_W(FRAME_W)
+  ) u_core (
+      .clk(clk), .rst_n(rst_n),
+      .in_valid(core_in_valid), .in_ready(),
+      .in0(core_in0), .in1(core_in1),
+      .in_mode(core_in_mode), .in_frame(core_in_frame),
+      .out_valid(core_out_valid), .out_ready(1'b1),
+      .out0(core_out0), .out1(core_out1),
+      .out_mode(core_out_mode), .out_frame(core_out_frame),
+      .frame_done(core_frame_done), .done_frame(core_done_frame)
+  );
+
+  pointwise_mul #(
+      .QW(QW), .USE_WL_POINTWISE(USE_WL_POINTWISE)
+  ) u_mul0 (
+      .clk(clk), .rst_n(rst_n),
+      .in_valid(core_out_valid && (core_out_frame == FRAME_B_NTT)),
+      .a_ntt(a_ntt_even[b_recv_count]), .b_ntt(core_out0),
+      .out_valid(mul_valid0), .c_ntt(mul_out0)
+  );
+  pointwise_mul #(
+      .QW(QW), .USE_WL_POINTWISE(USE_WL_POINTWISE)
+  ) u_mul1 (
+      .clk(clk), .rst_n(rst_n),
+      .in_valid(core_out_valid && (core_out_frame == FRAME_B_NTT)),
+      .a_ntt(a_ntt_odd[b_recv_count]), .b_ntt(core_out1),
+      .out_valid(mul_valid1), .c_ntt(mul_out1)
+  );
+  delay_line #(.DW(LOGN-1), .DEPTH(POINTWISE_MUL_LAT)) u_mul_addr_delay (
+      .clk(clk), .rst_n(rst_n),
+      .in_valid(core_out_valid && (core_out_frame == FRAME_B_NTT)),
+      .din(b_recv_count), .out_valid(mul_addr_valid), .dout(mul_addr)
+  );
+
+  always_comb begin
+    post_addr0 = bit_reverse({post_recv_count, 1'b0});
+    post_addr1 = bit_reverse({post_recv_count, 1'b1});
+  end
+  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_inv0 (
+      .table_sel(PSI_INV), .index(post_addr0), .factor(psi_inv0)
+  );
+  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_inv1 (
+      .table_sel(PSI_INV), .index(post_addr1), .factor(psi_inv1)
+  );
+  mont_mul_select #(
+      .QW(QW), .USE_WL_MONT(USE_WL_POST_INTT)
+  ) u_post_mul0 (
+      .clk(clk), .rst_n(rst_n),
+      .in_valid(core_out_valid && (core_out_frame == FRAME_C_INTT)),
+      .a(core_out0), .b(psi_inv0), .out_valid(post_valid0), .y(post_out0)
+  );
+  mont_mul_select #(
+      .QW(QW), .USE_WL_MONT(USE_WL_POST_INTT)
+  ) u_post_mul1 (
+      .clk(clk), .rst_n(rst_n),
+      .in_valid(core_out_valid && (core_out_frame == FRAME_C_INTT)),
+      .a(core_out1), .b(psi_inv1), .out_valid(post_valid1), .y(post_out1)
+  );
+  delay_line #(.DW(2*LOGN), .DEPTH(POST_MUL_LAT)) u_post_addr_delay (
+      .clk(clk), .rst_n(rst_n),
+      .in_valid(core_out_valid && (core_out_frame == FRAME_C_INTT)),
+      .din({post_addr1, post_addr0}),
+      .out_valid(post_addr_valid), .dout(delayed_post_addrs)
+  );
+
+  always_comb begin
+    busy = (state != IDLE) && (state != DONE);
+    done = (state == DONE);
+  end
+
+  always_ff @(posedge clk) begin
+    if (!rst_n) begin
+      state <= IDLE;
+      feed_count <= '0;
+      a_recv_count <= '0;
+      b_recv_count <= '0;
+      mul_count <= '0;
+      post_recv_count <= '0;
+      post_count <= '0;
+    end else begin
+      if (core_out_valid) begin
+        case (core_out_frame)
+          FRAME_A_NTT: begin
+            a_ntt_even[a_recv_count] <= core_out0;
+            a_ntt_odd[a_recv_count] <= core_out1;
+            a_recv_count <= a_recv_count + 1'b1;
+          end
+          FRAME_B_NTT: b_recv_count <= b_recv_count + 1'b1;
+          FRAME_C_INTT: post_recv_count <= post_recv_count + 1'b1;
+          default: begin end
+        endcase
+      end
+
+      if (mul_valid0 && mul_valid1 && mul_addr_valid) begin
+        c_ntt_even[mul_addr] <= mul_out0;
+        c_ntt_odd[mul_addr] <= mul_out1;
+        if (mul_count == N/2-1) begin
+          mul_count <= '0;
+          feed_count <= '0;
+          post_recv_count <= '0;
+          post_count <= '0;
+          state <= FEED_INTT_C;
+        end else begin
+          mul_count <= mul_count + 1'b1;
+        end
+      end
+
+      if (post_valid0 && post_valid1 && post_addr_valid) begin
+        result_bank0[delayed_post_addrs[LOGN-2:0]] <= post_out0;
+        result_bank1[delayed_post_addrs[2*LOGN-2:LOGN]] <= post_out1;
+        if (post_count == N/2-1) begin
+          post_count <= '0;
+          state <= DONE;
+        end else begin
+          post_count <= post_count + 1'b1;
+        end
+      end
+
+      case (state)
+        IDLE: if (start) begin
+          feed_count <= '0;
+          a_recv_count <= '0;
+          b_recv_count <= '0;
+          mul_count <= '0;
+          post_recv_count <= '0;
+          post_count <= '0;
+          state <= FEED_NTT_A;
+        end
+        FEED_NTT_A: begin
+          if (feed_count == N/2-1) begin
+            feed_count <= '0;
+            state <= FEED_NTT_B;
+          end else begin
+            feed_count <= feed_count + 1'b1;
+          end
+        end
+        FEED_NTT_B: begin
+          if (feed_count == N/2-1) begin
+            feed_count <= '0;
+            state <= WAIT_POINTWISE;
+          end else begin
+            feed_count <= feed_count + 1'b1;
+          end
+        end
+        WAIT_POINTWISE: begin end
+        FEED_INTT_C: begin
+          if (feed_count == N/2-1) begin
+            feed_count <= '0;
+            post_recv_count <= '0;
+            state <= WAIT_INTT_C;
+          end else begin
+            feed_count <= feed_count + 1'b1;
+          end
+        end
+        WAIT_INTT_C: begin end
+        DONE: if (!start) state <= IDLE;
+        default: state <= IDLE;
+      endcase
+    end
+  end
+
+`ifndef SYNTHESIS
+  always_ff @(posedge clk) begin
+    if (rst_n && ((pre_valid0 != pre_valid1) ||
+                  (pre_valid0 != pre_tag_valid)))
+      $fatal(1, "Pre_NTT data/frame metadata latency mismatch");
+    if (rst_n && core_out_valid) begin
+      if (((core_out_frame == FRAME_C_INTT) &&
+           (core_out_mode != MODE_INTT)) ||
+          ((core_out_frame != FRAME_C_INTT) &&
+           (core_out_mode != MODE_NTT)))
+        $fatal(1, "core output frame/mode tag mismatch");
+    end
+  end
+`endif
+
+  logic unused_core_frame_done;
+  logic [FRAME_W-1:0] unused_core_done_frame;
+  always_comb begin
+    unused_core_frame_done = core_frame_done;
+    unused_core_done_frame = core_done_frame;
+  end
+endmodule

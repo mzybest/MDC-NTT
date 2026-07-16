@@ -16,3 +16,7 @@ reports/directive_sweep/**/*.xml
 # Stage-local twiddle experiment build artifacts.
 questa_work_twiddle_bram/
 reports/twiddle_bram_experiment/**/*.dcp
+# Mode-tagged dual-context wavefront experiment artifacts.
+questa_work_dualctx/
+reports/dual_context_wavefront/**/*.dcp
+mem/result_wavefront.mem
