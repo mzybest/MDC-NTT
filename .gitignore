@@ -20,3 +20,7 @@ reports/twiddle_bram_experiment/**/*.dcp
 questa_work_dualctx/
 reports/dual_context_wavefront/**/*.dcp
 mem/result_wavefront.mem
+# Batched frame-scheduler experiment artifacts.
+questa_work_batch_wavefront/
+reports/batch_wavefront_scheduler/vectors/
+reports/batch_wavefront_scheduler/**/*.dcp

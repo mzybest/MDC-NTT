@@ -1,0 +1,8 @@
+vivado=2022.2
+top=poly_mul_top_batch_wavefront
+period_ns=10.0
+opt=Explore
+place=AltSpreadLogic_medium
+pre_phys=AggressiveFanoutOpt
+route=MoreGlobalIterations
+runtime_seconds=1236
