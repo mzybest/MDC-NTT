@@ -25,6 +25,7 @@ mem/result_wavefront.mem
 questa_work_dual_forward/
 reports/dual_forward_core/**/*.dcp
 mem/result_dual_forward.mem
+reports/dual_forward_sum_retime/**/*.dcp
 
 # Generated artifacts retained from the batch-wavefront experiment.
 questa_work_batch_wavefront/

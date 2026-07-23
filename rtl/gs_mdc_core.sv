@@ -7,6 +7,7 @@ module gs_mdc_core #(
     parameter int QW      = 64,
     parameter int MUL_LAT = 14,
     parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_BFU_SUM_RETIME = 1'b0,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter int TWIDDLE_BRAM_STAGES = 4
 ) (
@@ -67,6 +68,7 @@ module gs_mdc_core #(
       mdc_stage #(
           .STAGE_ID(s), .QW(QW), .DEPTH(stage_depth(s)),
           .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT),
+          .USE_BFU_SUM_RETIME(USE_BFU_SUM_RETIME),
           .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE),
           .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES),
           .LOGN(LOGN), .N(N)

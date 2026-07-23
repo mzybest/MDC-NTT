@@ -15,6 +15,7 @@ module mdc_stage #(
     parameter int DEPTH    = 1024,
     parameter int MUL_LAT  = 14,
     parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_BFU_SUM_RETIME = 1'b0,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter bit USE_NTT_ONLY_TWIDDLE = 1'b0,
     parameter int TWIDDLE_BRAM_STAGES = 4,
@@ -95,7 +96,8 @@ module mdc_stage #(
     end
   endgenerate
   gs_butterfly #(
-      .QW(QW), .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT)
+      .QW(QW), .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT),
+      .USE_SUM_RETIME(USE_BFU_SUM_RETIME)
   ) u_butterfly (
       .clk(clk), .rst_n(rst_n), .in_valid(in_valid),
       .a(in0), .b(in1), .twiddle(stage_twiddle),

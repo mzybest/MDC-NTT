@@ -1,0 +1,1023 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
+| Date         : Thu Jul 23 23:16:34 2026
+| Host         : LAPTOP-G40ALRVF running 64-bit major release  (build 9200)
+| Command      : report_timing -delay_type max -max_paths 10 -nworst 1 -sort_by group -file D:/MDC-NTT/reports/dual_forward_sum_retime/impl_e06/timing_paths_top10.rpt
+| Design       : poly_mul_top_dual_forward
+| Device       : 7a200t-sbg484
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -0.211ns  (required time - arrival time)
+  Source:                 u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/A[22]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        9.810ns  (logic 3.901ns (39.764%)  route 5.909ns (60.236%))
+  Logic Levels:           22  (CARRY4=19 LUT3=1 LUT4=2)
+  Clock Path Skew:        0.175ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.102ns = ( 15.102 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.196ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.650     5.196    u_core_a/g_stage[2].u_stage/u_butterfly/clk_IBUF_BUFG
+    SLICE_X88Y198        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y198        FDRE (Prop_fdre_C_Q)         0.518     5.714 r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/Q
+                         net (fo=9, routed)           1.382     7.096    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6_0[13]
+    SLICE_X79Y185        LUT4 (Prop_lut4_I3_O)        0.124     7.220 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7/O
+                         net (fo=1, routed)           0.000     7.220    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7_n_0
+    SLICE_X79Y185        CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398     7.618 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     7.618    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+    SLICE_X79Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.732 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     7.732    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+    SLICE_X79Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.846 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     7.846    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+    SLICE_X79Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.960 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     7.960    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+    SLICE_X79Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.074 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     8.074    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+    SLICE_X79Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.188 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     8.188    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+    SLICE_X79Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.302 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, routed)          0.969     9.271    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1
+    SLICE_X87Y186        LUT3 (Prop_lut3_I2_O)        0.124     9.395 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1/O
+                         net (fo=2, routed)           0.675    10.070    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1_n_0
+    SLICE_X89Y184        LUT4 (Prop_lut4_I0_O)        0.124    10.194 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1/O
+                         net (fo=1, routed)           0.000    10.194    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1_n_0
+    SLICE_X89Y184        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.744 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry/CO[3]
+                         net (fo=1, routed)           0.000    10.744    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_n_0
+    SLICE_X89Y185        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.858 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    10.858    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0_n_0
+    SLICE_X89Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.972 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    10.972    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1_n_0
+    SLICE_X89Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.086 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2/CO[3]
+                         net (fo=1, routed)           0.000    11.086    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2_n_0
+    SLICE_X89Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.200 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    11.200    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3_n_0
+    SLICE_X89Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.314 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    11.314    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4_n_0
+    SLICE_X89Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.428 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    11.428    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5_n_0
+    SLICE_X89Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.542 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6/CO[3]
+                         net (fo=1, routed)           0.000    11.542    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6_n_0
+    SLICE_X89Y192        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.656 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7/CO[3]
+                         net (fo=1, routed)           0.000    11.656    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7_n_0
+    SLICE_X89Y193        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.770 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8/CO[3]
+                         net (fo=1, routed)           0.000    11.770    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8_n_0
+    SLICE_X89Y194        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.884 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9/CO[3]
+                         net (fo=1, routed)           0.000    11.884    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9_n_0
+    SLICE_X89Y195        CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    12.123 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__10/O[2]
+                         net (fo=4, routed)           2.883    15.006    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/diff[46]
+    DSP48_X2Y80          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/A[22]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.818    15.102    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+    DSP48_X2Y80          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/CLK
+                         clock pessimism              0.268    15.371    
+                         clock uncertainty           -0.035    15.335    
+    DSP48_X2Y80          DSP48E1 (Setup_dsp48e1_CLK_A[22])
+                                                     -0.540    14.795    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg
+  -------------------------------------------------------------------
+                         required time                         14.795    
+                         arrival time                         -15.006    
+  -------------------------------------------------------------------
+                         slack                                 -0.211    
+
+Slack (VIOLATED) :        -0.107ns  (required time - arrival time)
+  Source:                 u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/A[22]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        9.519ns  (logic 3.901ns (40.981%)  route 5.618ns (59.019%))
+  Logic Levels:           22  (CARRY4=19 LUT3=1 LUT4=2)
+  Clock Path Skew:        -0.013ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.915ns = ( 14.915 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.196ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.650     5.196    u_core_a/g_stage[2].u_stage/u_butterfly/clk_IBUF_BUFG
+    SLICE_X88Y198        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y198        FDRE (Prop_fdre_C_Q)         0.518     5.714 r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/Q
+                         net (fo=9, routed)           1.382     7.096    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6_0[13]
+    SLICE_X79Y185        LUT4 (Prop_lut4_I3_O)        0.124     7.220 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7/O
+                         net (fo=1, routed)           0.000     7.220    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7_n_0
+    SLICE_X79Y185        CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398     7.618 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     7.618    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+    SLICE_X79Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.732 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     7.732    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+    SLICE_X79Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.846 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     7.846    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+    SLICE_X79Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.960 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     7.960    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+    SLICE_X79Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.074 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     8.074    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+    SLICE_X79Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.188 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     8.188    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+    SLICE_X79Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.302 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, routed)          0.969     9.271    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1
+    SLICE_X87Y186        LUT3 (Prop_lut3_I2_O)        0.124     9.395 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1/O
+                         net (fo=2, routed)           0.675    10.070    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1_n_0
+    SLICE_X89Y184        LUT4 (Prop_lut4_I0_O)        0.124    10.194 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1/O
+                         net (fo=1, routed)           0.000    10.194    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1_n_0
+    SLICE_X89Y184        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.744 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry/CO[3]
+                         net (fo=1, routed)           0.000    10.744    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_n_0
+    SLICE_X89Y185        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.858 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    10.858    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0_n_0
+    SLICE_X89Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.972 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    10.972    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1_n_0
+    SLICE_X89Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.086 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2/CO[3]
+                         net (fo=1, routed)           0.000    11.086    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2_n_0
+    SLICE_X89Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.200 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    11.200    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3_n_0
+    SLICE_X89Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.314 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    11.314    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4_n_0
+    SLICE_X89Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.428 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    11.428    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5_n_0
+    SLICE_X89Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.542 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6/CO[3]
+                         net (fo=1, routed)           0.000    11.542    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6_n_0
+    SLICE_X89Y192        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.656 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7/CO[3]
+                         net (fo=1, routed)           0.000    11.656    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7_n_0
+    SLICE_X89Y193        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.770 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8/CO[3]
+                         net (fo=1, routed)           0.000    11.770    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8_n_0
+    SLICE_X89Y194        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.884 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9/CO[3]
+                         net (fo=1, routed)           0.000    11.884    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9_n_0
+    SLICE_X89Y195        CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    12.123 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__10/O[2]
+                         net (fo=4, routed)           2.592    14.715    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/diff[46]
+    DSP48_X2Y78          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/A[22]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.630    14.915    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+    DSP48_X2Y78          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/CLK
+                         clock pessimism              0.268    15.183    
+                         clock uncertainty           -0.035    15.148    
+    DSP48_X2Y78          DSP48E1 (Setup_dsp48e1_CLK_A[22])
+                                                     -0.540    14.608    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg
+  -------------------------------------------------------------------
+                         required time                         14.608    
+                         arrival time                         -14.715    
+  -------------------------------------------------------------------
+                         slack                                 -0.107    
+
+Slack (VIOLATED) :        -0.089ns  (required time - arrival time)
+  Source:                 u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/A[15]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        9.684ns  (logic 3.747ns (38.693%)  route 5.937ns (61.307%))
+  Logic Levels:           20  (CARRY4=17 LUT3=1 LUT4=2)
+  Clock Path Skew:        0.175ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.102ns = ( 15.102 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.196ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.650     5.196    u_core_a/g_stage[2].u_stage/u_butterfly/clk_IBUF_BUFG
+    SLICE_X88Y198        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y198        FDRE (Prop_fdre_C_Q)         0.518     5.714 r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/Q
+                         net (fo=9, routed)           1.382     7.096    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6_0[13]
+    SLICE_X79Y185        LUT4 (Prop_lut4_I3_O)        0.124     7.220 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7/O
+                         net (fo=1, routed)           0.000     7.220    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7_n_0
+    SLICE_X79Y185        CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398     7.618 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     7.618    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+    SLICE_X79Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.732 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     7.732    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+    SLICE_X79Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.846 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     7.846    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+    SLICE_X79Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.960 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     7.960    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+    SLICE_X79Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.074 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     8.074    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+    SLICE_X79Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.188 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     8.188    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+    SLICE_X79Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.302 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, routed)          0.969     9.271    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1
+    SLICE_X87Y186        LUT3 (Prop_lut3_I2_O)        0.124     9.395 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1/O
+                         net (fo=2, routed)           0.675    10.070    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1_n_0
+    SLICE_X89Y184        LUT4 (Prop_lut4_I0_O)        0.124    10.194 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1/O
+                         net (fo=1, routed)           0.000    10.194    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1_n_0
+    SLICE_X89Y184        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.744 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry/CO[3]
+                         net (fo=1, routed)           0.000    10.744    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_n_0
+    SLICE_X89Y185        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.858 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    10.858    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0_n_0
+    SLICE_X89Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.972 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    10.972    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1_n_0
+    SLICE_X89Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.086 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2/CO[3]
+                         net (fo=1, routed)           0.000    11.086    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2_n_0
+    SLICE_X89Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.200 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    11.200    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3_n_0
+    SLICE_X89Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.314 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    11.314    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4_n_0
+    SLICE_X89Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.428 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    11.428    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5_n_0
+    SLICE_X89Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.542 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6/CO[3]
+                         net (fo=1, routed)           0.000    11.542    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6_n_0
+    SLICE_X89Y192        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.656 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7/CO[3]
+                         net (fo=1, routed)           0.000    11.656    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7_n_0
+    SLICE_X89Y193        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.969 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8/O[3]
+                         net (fo=4, routed)           2.911    14.880    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/diff[39]
+    DSP48_X2Y80          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/A[15]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.818    15.102    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+    DSP48_X2Y80          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/CLK
+                         clock pessimism              0.268    15.371    
+                         clock uncertainty           -0.035    15.335    
+    DSP48_X2Y80          DSP48E1 (Setup_dsp48e1_CLK_A[15])
+                                                     -0.544    14.791    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg
+  -------------------------------------------------------------------
+                         required time                         14.791    
+                         arrival time                         -14.880    
+  -------------------------------------------------------------------
+                         slack                                 -0.089    
+
+Slack (VIOLATED) :        -0.079ns  (required time - arrival time)
+  Source:                 u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/A[19]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        9.674ns  (logic 3.861ns (39.910%)  route 5.813ns (60.090%))
+  Logic Levels:           21  (CARRY4=18 LUT3=1 LUT4=2)
+  Clock Path Skew:        0.175ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.102ns = ( 15.102 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.196ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.650     5.196    u_core_a/g_stage[2].u_stage/u_butterfly/clk_IBUF_BUFG
+    SLICE_X88Y198        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y198        FDRE (Prop_fdre_C_Q)         0.518     5.714 r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/Q
+                         net (fo=9, routed)           1.382     7.096    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6_0[13]
+    SLICE_X79Y185        LUT4 (Prop_lut4_I3_O)        0.124     7.220 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7/O
+                         net (fo=1, routed)           0.000     7.220    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7_n_0
+    SLICE_X79Y185        CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398     7.618 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     7.618    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+    SLICE_X79Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.732 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     7.732    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+    SLICE_X79Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.846 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     7.846    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+    SLICE_X79Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.960 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     7.960    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+    SLICE_X79Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.074 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     8.074    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+    SLICE_X79Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.188 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     8.188    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+    SLICE_X79Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.302 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, routed)          0.969     9.271    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1
+    SLICE_X87Y186        LUT3 (Prop_lut3_I2_O)        0.124     9.395 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1/O
+                         net (fo=2, routed)           0.675    10.070    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1_n_0
+    SLICE_X89Y184        LUT4 (Prop_lut4_I0_O)        0.124    10.194 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1/O
+                         net (fo=1, routed)           0.000    10.194    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1_n_0
+    SLICE_X89Y184        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.744 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry/CO[3]
+                         net (fo=1, routed)           0.000    10.744    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_n_0
+    SLICE_X89Y185        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.858 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    10.858    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0_n_0
+    SLICE_X89Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.972 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    10.972    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1_n_0
+    SLICE_X89Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.086 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2/CO[3]
+                         net (fo=1, routed)           0.000    11.086    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2_n_0
+    SLICE_X89Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.200 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    11.200    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3_n_0
+    SLICE_X89Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.314 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    11.314    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4_n_0
+    SLICE_X89Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.428 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    11.428    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5_n_0
+    SLICE_X89Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.542 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6/CO[3]
+                         net (fo=1, routed)           0.000    11.542    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6_n_0
+    SLICE_X89Y192        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.656 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7/CO[3]
+                         net (fo=1, routed)           0.000    11.656    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7_n_0
+    SLICE_X89Y193        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.770 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8/CO[3]
+                         net (fo=1, routed)           0.000    11.770    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8_n_0
+    SLICE_X89Y194        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    12.083 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9/O[3]
+                         net (fo=4, routed)           2.787    14.870    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/diff[43]
+    DSP48_X2Y80          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/A[19]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.818    15.102    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+    DSP48_X2Y80          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg/CLK
+                         clock pessimism              0.268    15.371    
+                         clock uncertainty           -0.035    15.335    
+    DSP48_X2Y80          DSP48E1 (Setup_dsp48e1_CLK_A[19])
+                                                     -0.544    14.791    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p31_s1_reg
+  -------------------------------------------------------------------
+                         required time                         14.791    
+                         arrival time                         -14.870    
+  -------------------------------------------------------------------
+                         slack                                 -0.079    
+
+Slack (VIOLATED) :        -0.068ns  (required time - arrival time)
+  Source:                 u_core_a/g_stage[1].u_stage/u_butterfly/a_r_reg[2]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_a/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/A[23]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        9.666ns  (logic 4.194ns (43.390%)  route 5.472ns (56.610%))
+  Logic Levels:           23  (CARRY4=20 LUT3=1 LUT4=2)
+  Clock Path Skew:        0.179ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.014ns = ( 15.014 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.175ns
+    Clock Pessimism Removal (CPR):    0.340ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.629     5.175    u_core_a/g_stage[1].u_stage/u_butterfly/clk_IBUF_BUFG
+    SLICE_X75Y178        FDRE                                         r  u_core_a/g_stage[1].u_stage/u_butterfly/a_r_reg[2]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X75Y178        FDRE (Prop_fdre_C_Q)         0.456     5.631 r  u_core_a/g_stage[1].u_stage/u_butterfly/a_r_reg[2]/Q
+                         net (fo=7, routed)           1.244     6.875    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/Q[2]
+    SLICE_X71Y188        LUT4 (Prop_lut4_I0_O)        0.124     6.999 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry_i_7__5/O
+                         net (fo=1, routed)           0.000     6.999    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry_i_7__5_n_0
+    SLICE_X71Y188        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     7.549 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry/CO[3]
+                         net (fo=1, routed)           0.000     7.549    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry_n_0
+    SLICE_X71Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.663 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     7.663    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+    SLICE_X71Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.777 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     7.777    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+    SLICE_X71Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.891 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     7.891    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+    SLICE_X71Y192        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.005 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     8.005    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+    SLICE_X71Y193        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.119 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     8.119    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+    SLICE_X71Y194        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.233 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     8.233    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+    SLICE_X71Y195        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.347 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, routed)          1.361     9.709    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/y1
+    SLICE_X61Y199        LUT3 (Prop_lut3_I2_O)        0.124     9.833 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry_i_3__0/O
+                         net (fo=2, routed)           0.956    10.789    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry_i_3__0_n_0
+    SLICE_X48Y201        LUT4 (Prop_lut4_I0_O)        0.124    10.913 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry_i_6__0/O
+                         net (fo=1, routed)           0.000    10.913    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry_i_6__0_n_0
+    SLICE_X48Y201        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    11.446 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry/CO[3]
+                         net (fo=1, routed)           0.000    11.446    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry_n_0
+    SLICE_X48Y202        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    11.563 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    11.563    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__0_n_0
+    SLICE_X48Y203        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    11.680 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    11.680    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__1_n_0
+    SLICE_X48Y204        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    11.797 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__2/CO[3]
+                         net (fo=1, routed)           0.000    11.797    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__2_n_0
+    SLICE_X48Y205        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    11.914 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    11.914    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__3_n_0
+    SLICE_X48Y206        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.031 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    12.031    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__4_n_0
+    SLICE_X48Y207        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.148 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    12.148    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__5_n_0
+    SLICE_X48Y208        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.265 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__6/CO[3]
+                         net (fo=1, routed)           0.000    12.265    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__6_n_0
+    SLICE_X48Y209        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.382 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__7/CO[3]
+                         net (fo=1, routed)           0.000    12.382    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__7_n_0
+    SLICE_X48Y210        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.499 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__8/CO[3]
+                         net (fo=1, routed)           0.000    12.499    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__8_n_0
+    SLICE_X48Y211        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    12.616 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__9/CO[3]
+                         net (fo=1, routed)           0.000    12.616    u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__9_n_0
+    SLICE_X48Y212        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315    12.931 r  u_core_a/g_stage[1].u_stage/u_butterfly/u_sub/__2_carry__10/O[3]
+                         net (fo=4, routed)           1.910    14.841    u_core_a/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/diff[47]
+    DSP48_X1Y77          DSP48E1                                      r  u_core_a/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/A[23]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.729    15.014    u_core_a/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+    DSP48_X1Y77          DSP48E1                                      r  u_core_a/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/CLK
+                         clock pessimism              0.340    15.354    
+                         clock uncertainty           -0.035    15.318    
+    DSP48_X1Y77          DSP48E1 (Setup_dsp48e1_CLK_A[23])
+                                                     -0.545    14.773    u_core_a/g_stage[1].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg
+  -------------------------------------------------------------------
+                         required time                         14.773    
+                         arrival time                         -14.841    
+  -------------------------------------------------------------------
+                         slack                                 -0.068    
+
+Slack (VIOLATED) :        -0.046ns  (required time - arrival time)
+  Source:                 u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/t_out_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/qh0_prod_s1_reg/B[15]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        6.368ns  (logic 1.127ns (17.697%)  route 5.241ns (82.303%))
+  Logic Levels:           2  (CARRY4=1 LUT1=1)
+  Clock Path Skew:        0.071ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.190ns = ( 15.190 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.396ns
+    Clock Pessimism Removal (CPR):    0.277ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.850     5.396    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/clk_IBUF_BUFG
+    SLICE_X51Y211        FDRE                                         r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/t_out_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y211        FDRE (Prop_fdre_C_Q)         0.456     5.852 f  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/t_out_reg[13]/Q
+                         net (fo=3, routed)           4.261    10.114    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/t_high_s1_reg[80]_0[13]
+    SLICE_X130Y208       LUT1 (Prop_lut1_I0_O)        0.124    10.238 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__2_i_1__15/O
+                         net (fo=1, routed)           0.000    10.238    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/p_1_in[13]
+    SLICE_X130Y208       CARRY4 (Prop_carry4_S[0]_O[2])
+                                                      0.547    10.785 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__2/O[2]
+                         net (fo=9, routed)           0.980    11.765    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/B[14]
+    DSP48_X7Y82          DSP48E1                                      r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/qh0_prod_s1_reg/B[15]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.906    15.190    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/clk_IBUF_BUFG
+    DSP48_X7Y82          DSP48E1                                      r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/qh0_prod_s1_reg/CLK
+                         clock pessimism              0.277    15.468    
+                         clock uncertainty           -0.035    15.432    
+    DSP48_X7Y82          DSP48E1 (Setup_dsp48e1_CLK_B[15])
+                                                     -3.714    11.718    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round2/qh0_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                         11.718    
+                         arrival time                         -11.765    
+  -------------------------------------------------------------------
+                         slack                                 -0.046    
+
+Slack (VIOLATED) :        -0.044ns  (required time - arrival time)
+  Source:                 u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg/B[8]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        6.051ns  (logic 1.490ns (24.625%)  route 4.561ns (75.375%))
+  Logic Levels:           3  (CARRY4=2 LUT1=1)
+  Clock Path Skew:        -0.239ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.907ns = ( 14.907 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.414ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.868     5.414    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+    SLICE_X123Y216       FDRE                                         r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X123Y216       FDRE (Prop_fdre_C_Q)         0.456     5.870 f  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/t_out_reg[0]/Q
+                         net (fo=13, routed)          1.228     7.099    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/Q[0]
+    SLICE_X113Y197       LUT1 (Prop_lut1_I0_O)        0.124     7.223 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_i_1__80/O
+                         net (fo=1, routed)           0.473     7.695    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/p_0_in__0_0[0]
+    SLICE_X112Y196       CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.595     8.290 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, routed)           0.000     8.290    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry_n_0
+    SLICE_X112Y197       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.605 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__0/O[3]
+                         net (fo=9, routed)           2.860    11.465    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/B[7]
+    DSP48_X3Y76          DSP48E1                                      r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg/B[8]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.622    14.907    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/clk_IBUF_BUFG
+    DSP48_X3Y76          DSP48E1                                      r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg/CLK
+                         clock pessimism              0.268    15.175    
+                         clock uncertainty           -0.035    15.140    
+    DSP48_X3Y76          DSP48E1 (Setup_dsp48e1_CLK_B[8])
+                                                     -3.719    11.421    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                         11.421    
+                         arrival time                         -11.465    
+  -------------------------------------------------------------------
+                         slack                                 -0.044    
+
+Slack (VIOLATED) :        -0.036ns  (required time - arrival time)
+  Source:                 u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/sum3_s2[113]_i_2__5_psdsp_2/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        9.835ns  (logic 4.452ns (45.265%)  route 5.383ns (54.735%))
+  Logic Levels:           26  (CARRY4=23 LUT3=1 LUT4=2)
+  Clock Path Skew:        0.081ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.009ns = ( 15.009 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.196ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.650     5.196    u_core_a/g_stage[2].u_stage/u_butterfly/clk_IBUF_BUFG
+    SLICE_X88Y198        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y198        FDRE (Prop_fdre_C_Q)         0.518     5.714 r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/Q
+                         net (fo=9, routed)           1.382     7.096    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6_0[13]
+    SLICE_X79Y185        LUT4 (Prop_lut4_I3_O)        0.124     7.220 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7/O
+                         net (fo=1, routed)           0.000     7.220    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7_n_0
+    SLICE_X79Y185        CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398     7.618 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     7.618    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+    SLICE_X79Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.732 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     7.732    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+    SLICE_X79Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.846 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     7.846    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+    SLICE_X79Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.960 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     7.960    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+    SLICE_X79Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.074 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     8.074    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+    SLICE_X79Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.188 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     8.188    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+    SLICE_X79Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.302 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, routed)          0.969     9.271    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1
+    SLICE_X87Y186        LUT3 (Prop_lut3_I2_O)        0.124     9.395 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1/O
+                         net (fo=2, routed)           0.675    10.070    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1_n_0
+    SLICE_X89Y184        LUT4 (Prop_lut4_I0_O)        0.124    10.194 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1/O
+                         net (fo=1, routed)           0.000    10.194    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1_n_0
+    SLICE_X89Y184        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.744 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry/CO[3]
+                         net (fo=1, routed)           0.000    10.744    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_n_0
+    SLICE_X89Y185        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.858 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    10.858    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0_n_0
+    SLICE_X89Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.972 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    10.972    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1_n_0
+    SLICE_X89Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.086 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2/CO[3]
+                         net (fo=1, routed)           0.000    11.086    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2_n_0
+    SLICE_X89Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.200 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    11.200    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3_n_0
+    SLICE_X89Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.314 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    11.314    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4_n_0
+    SLICE_X89Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.428 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    11.428    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5_n_0
+    SLICE_X89Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.542 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6/CO[3]
+                         net (fo=1, routed)           0.000    11.542    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6_n_0
+    SLICE_X89Y192        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.656 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7/CO[3]
+                         net (fo=1, routed)           0.000    11.656    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7_n_0
+    SLICE_X89Y193        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.770 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8/CO[3]
+                         net (fo=1, routed)           0.000    11.770    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8_n_0
+    SLICE_X89Y194        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.884 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9/CO[3]
+                         net (fo=1, routed)           0.000    11.884    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9_n_0
+    SLICE_X89Y195        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.998 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__10/CO[3]
+                         net (fo=1, routed)           0.000    11.998    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__10_n_0
+    SLICE_X89Y196        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.112 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__11/CO[3]
+                         net (fo=1, routed)           0.000    12.112    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__11_n_0
+    SLICE_X89Y197        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.226 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__12/CO[3]
+                         net (fo=1, routed)           0.000    12.226    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__12_n_0
+    SLICE_X89Y198        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    12.340 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__13/CO[3]
+                         net (fo=1, routed)           0.000    12.340    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__13_n_0
+    SLICE_X89Y199        CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    12.674 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__14/O[1]
+                         net (fo=4, routed)           2.358    15.032    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/diff[61]
+    SLICE_X50Y208        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/sum3_s2[113]_i_2__5_psdsp_2/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.724    15.009    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+    SLICE_X50Y208        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/sum3_s2[113]_i_2__5_psdsp_2/C
+                         clock pessimism              0.268    15.277    
+                         clock uncertainty           -0.035    15.242    
+    SLICE_X50Y208        FDRE (Setup_fdre_C_D)       -0.246    14.996    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/sum3_s2[113]_i_2__5_psdsp_2
+  -------------------------------------------------------------------
+                         required time                         14.996    
+                         arrival time                         -15.032    
+  -------------------------------------------------------------------
+                         slack                                 -0.036    
+
+Slack (VIOLATED) :        -0.023ns  (required time - arrival time)
+  Source:                 u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg/B[12]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        6.030ns  (logic 1.607ns (26.651%)  route 4.423ns (73.349%))
+  Logic Levels:           4  (CARRY4=3 LUT1=1)
+  Clock Path Skew:        -0.239ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.907ns = ( 14.907 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.414ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.868     5.414    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+    SLICE_X123Y216       FDRE                                         r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X123Y216       FDRE (Prop_fdre_C_Q)         0.456     5.870 f  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/t_out_reg[0]/Q
+                         net (fo=13, routed)          1.228     7.099    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/Q[0]
+    SLICE_X113Y197       LUT1 (Prop_lut1_I0_O)        0.124     7.223 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_i_1__80/O
+                         net (fo=1, routed)           0.473     7.695    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/p_0_in__0_0[0]
+    SLICE_X112Y196       CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.595     8.290 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, routed)           0.000     8.290    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry_n_0
+    SLICE_X112Y197       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.407 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     8.407    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__0_n_0
+    SLICE_X112Y198       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     8.722 r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__1/O[3]
+                         net (fo=9, routed)           2.722    11.444    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/B[11]
+    DSP48_X3Y76          DSP48E1                                      r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg/B[12]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.622    14.907    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/clk_IBUF_BUFG
+    DSP48_X3Y76          DSP48E1                                      r  u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg/CLK
+                         clock pessimism              0.268    15.175    
+                         clock uncertainty           -0.035    15.140    
+    DSP48_X3Y76          DSP48E1 (Setup_dsp48e1_CLK_B[12])
+                                                     -3.719    11.421    u_core_b/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_round1/qh1_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                         11.421    
+                         arrival time                         -11.444    
+  -------------------------------------------------------------------
+                         slack                                 -0.023    
+
+Slack (VIOLATED) :        -0.020ns  (required time - arrival time)
+  Source:                 u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/A[19]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk rise@10.000ns - clk rise@0.000ns)
+  Data Path Delay:        9.428ns  (logic 3.861ns (40.954%)  route 5.567ns (59.046%))
+  Logic Levels:           21  (CARRY4=18 LUT3=1 LUT4=2)
+  Clock Path Skew:        -0.013ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.915ns = ( 14.915 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.196ns
+    Clock Pessimism Removal (CPR):    0.268ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+    Y11                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.994     0.994 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.457     3.450    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.546 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.650     5.196    u_core_a/g_stage[2].u_stage/u_butterfly/clk_IBUF_BUFG
+    SLICE_X88Y198        FDRE                                         r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y198        FDRE (Prop_fdre_C_Q)         0.518     5.714 r  u_core_a/g_stage[2].u_stage/u_butterfly/b_r_reg[13]/Q
+                         net (fo=9, routed)           1.382     7.096    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6_0[13]
+    SLICE_X79Y185        LUT4 (Prop_lut4_I3_O)        0.124     7.220 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7/O
+                         net (fo=1, routed)           0.000     7.220    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_i_6__7_n_0
+    SLICE_X79Y185        CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398     7.618 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     7.618    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__0_n_0
+    SLICE_X79Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.732 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     7.732    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__1_n_0
+    SLICE_X79Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.846 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     7.846    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__2_n_0
+    SLICE_X79Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     7.960 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     7.960    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__3_n_0
+    SLICE_X79Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.074 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     8.074    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__4_n_0
+    SLICE_X79Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.188 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     8.188    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__5_n_0
+    SLICE_X79Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.302 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1_carry__6/CO[3]
+                         net (fo=14, routed)          0.969     9.271    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/y1
+    SLICE_X87Y186        LUT3 (Prop_lut3_I2_O)        0.124     9.395 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1/O
+                         net (fo=2, routed)           0.675    10.070    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_3__1_n_0
+    SLICE_X89Y184        LUT4 (Prop_lut4_I0_O)        0.124    10.194 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1/O
+                         net (fo=1, routed)           0.000    10.194    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_i_6__1_n_0
+    SLICE_X89Y184        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.744 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry/CO[3]
+                         net (fo=1, routed)           0.000    10.744    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry_n_0
+    SLICE_X89Y185        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.858 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    10.858    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__0_n_0
+    SLICE_X89Y186        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.972 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1/CO[3]
+                         net (fo=1, routed)           0.000    10.972    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__1_n_0
+    SLICE_X89Y187        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.086 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2/CO[3]
+                         net (fo=1, routed)           0.000    11.086    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__2_n_0
+    SLICE_X89Y188        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.200 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3/CO[3]
+                         net (fo=1, routed)           0.000    11.200    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__3_n_0
+    SLICE_X89Y189        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.314 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4/CO[3]
+                         net (fo=1, routed)           0.000    11.314    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__4_n_0
+    SLICE_X89Y190        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.428 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5/CO[3]
+                         net (fo=1, routed)           0.000    11.428    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__5_n_0
+    SLICE_X89Y191        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.542 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6/CO[3]
+                         net (fo=1, routed)           0.000    11.542    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__6_n_0
+    SLICE_X89Y192        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.656 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7/CO[3]
+                         net (fo=1, routed)           0.000    11.656    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__7_n_0
+    SLICE_X89Y193        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.770 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8/CO[3]
+                         net (fo=1, routed)           0.000    11.770    u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__8_n_0
+    SLICE_X89Y194        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    12.083 r  u_core_a/g_stage[2].u_stage/u_butterfly/u_sub/__2_carry__9/O[3]
+                         net (fo=4, routed)           2.541    14.624    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/diff[43]
+    DSP48_X2Y78          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/A[19]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+    Y11                                               0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    Y11                  IBUF (Prop_ibuf_I_O)         0.860    10.860 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           2.334    13.194    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.285 r  clk_IBUF_BUFG_inst/O
+                         net (fo=91414, routed)       1.630    14.915    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+    DSP48_X2Y78          DSP48E1                                      r  u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg/CLK
+                         clock pessimism              0.268    15.183    
+                         clock uncertainty           -0.035    15.148    
+    DSP48_X2Y78          DSP48E1 (Setup_dsp48e1_CLK_A[19])
+                                                     -0.544    14.604    u_core_a/g_stage[2].u_stage/u_butterfly/u_mul/g_wl.u_mul/u_intmul/p21_s1_reg
+  -------------------------------------------------------------------
+                         required time                         14.604    
+                         arrival time                         -14.624    
+  -------------------------------------------------------------------
+                         slack                                 -0.020    
+
+
+
+

@@ -13,6 +13,7 @@ module poly_mul_top_dual_forward #(
     parameter bit USE_WL_PRE_NTT = USE_WL_MONT,
     parameter bit USE_WL_POINTWISE = USE_WL_MONT,
     parameter bit USE_WL_POST_INTT = USE_WL_MONT,
+    parameter bit USE_BFU_SUM_RETIME = 1'b1,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter int TWIDDLE_BRAM_STAGES = 4
 ) (
@@ -183,6 +184,7 @@ module poly_mul_top_dual_forward #(
   gs_mdc_core #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
+      .USE_BFU_SUM_RETIME(USE_BFU_SUM_RETIME),
       .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE),
       .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES)
   ) u_core_a (
@@ -196,6 +198,7 @@ module poly_mul_top_dual_forward #(
   gs_mdc_core_ntt_only #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
+      .USE_BFU_SUM_RETIME(USE_BFU_SUM_RETIME),
       .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES)
   ) u_core_b (
       .clk(clk), .rst_n(rst_n), .start(core_b_start),

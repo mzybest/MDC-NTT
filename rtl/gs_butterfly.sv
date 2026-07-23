@@ -3,7 +3,8 @@
 module gs_butterfly #(
     parameter int QW = 64,
     parameter int MUL_LAT = 14,
-    parameter bit USE_WL_MONT = 1'b1
+    parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_SUM_RETIME = 1'b0
 ) (
     input  logic          clk,
     input  logic          rst_n,
@@ -40,10 +41,34 @@ module gs_butterfly #(
 
   mod_add #(.QW(QW)) u_add (.a(a_r), .b(b_r), .y(sum));
   mod_sub #(.QW(QW)) u_sub (.a(a_r), .b(b_r), .y(diff));
-  delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_sum_delay (
-      .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .din(sum),
-      .out_valid(sum_valid), .dout(y0)
-  );
+  generate
+    if (USE_SUM_RETIME) begin : g_sum_retime
+      localparam int RETIMED_DEPTH = (MUL_LAT > 0) ? MUL_LAT-1 : 0;
+      (* shreg_extract = "no" *) logic [QW-1:0] sum_boundary_r;
+      logic sum_boundary_valid_r;
+
+      always_ff @(posedge clk) begin
+        if (!rst_n) begin
+          sum_boundary_r <= '0;
+          sum_boundary_valid_r <= 1'b0;
+        end else begin
+          sum_boundary_r <= sum;
+          sum_boundary_valid_r <= valid_r;
+        end
+      end
+
+      delay_line #(.DW(QW), .DEPTH(RETIMED_DEPTH)) u_sum_delay (
+          .clk(clk), .rst_n(rst_n),
+          .in_valid(sum_boundary_valid_r), .din(sum_boundary_r),
+          .out_valid(sum_valid), .dout(y0)
+      );
+    end else begin : g_sum_direct
+      delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_sum_delay (
+          .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .din(sum),
+          .out_valid(sum_valid), .dout(y0)
+      );
+    end
+  endgenerate
   mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
       .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .a(diff), .b(twiddle_r),
       .out_valid(mul_valid), .y(y1)
