@@ -1,0 +1,291 @@
+{
+  "cycle_model": {
+    "baseline_wavefront": {
+      "n": 4096,
+      "pairs": 2048,
+      "mul_lat": 14,
+      "bf_latency": 15,
+      "core_first_input_to_first_output": 2241,
+      "core_first_input_to_frame_done": 4289,
+      "a_ntt_input": [
+        15,
+        2062
+      ],
+      "b_ntt_input": [
+        2063,
+        4110
+      ],
+      "a_ntt_output": [
+        2256,
+        4303
+      ],
+      "b_ntt_output": [
+        4304,
+        6351
+      ],
+      "pointwise_output": [
+        4318,
+        6365
+      ],
+      "c_intt_input": [
+        6366,
+        8413
+      ],
+      "c_intt_output": [
+        8607,
+        10654
+      ],
+      "full_mul_cycles": 10669
+    },
+    "dual_forward": {
+      "n": 4096,
+      "pairs": 2048,
+      "mul_lat": 14,
+      "bf_latency": 15,
+      "core_first_input_to_first_output": 2241,
+      "core_first_input_to_frame_done": 4289,
+      "a_ntt_input": [
+        15,
+        2062
+      ],
+      "b_ntt_input": [
+        15,
+        2062
+      ],
+      "a_ntt_output": [
+        2256,
+        4303
+      ],
+      "b_ntt_output": [
+        2256,
+        4303
+      ],
+      "pointwise_output": [
+        2270,
+        4317
+      ],
+      "c_intt_input": [
+        4318,
+        6365
+      ],
+      "c_intt_output": [
+        6559,
+        8606
+      ],
+      "full_mul_cycles": 8621
+    },
+    "cycle_reduction": 2048,
+    "latency_reduction_pct": 19.195800918549068,
+    "operation_rate_speedup": 1.237559447859877,
+    "baseline_compute_us": 106.69,
+    "dual_forward_compute_us": 86.21,
+    "current_single_port_load_cycles": 8192,
+    "baseline_first_load_to_done_cycles": 18861,
+    "dual_forward_first_load_to_done_cycles": 16813
+  },
+  "resource_model": {
+    "source_hierarchy_report": "reports\\twiddle_bram_experiment\\impl_e06\\utilization_hierarchical.rpt",
+    "source_utilization_report": "reports\\twiddle_bram_experiment\\impl_e06\\utilization.rpt",
+    "device_capacity": {
+      "slice_luts": 133800,
+      "lut_memory": 46200,
+      "ffs": 269200,
+      "bram": 365,
+      "dsps": 740
+    },
+    "measured_stage_local_top": {
+      "total_luts": 68415,
+      "logic_luts": 40592,
+      "lutrams": 26112,
+      "srls": 1711,
+      "ffs": 36370,
+      "ramb36": 25,
+      "ramb18": 0,
+      "dsps": 400
+    },
+    "measured_full_core": {
+      "total_luts": 23741,
+      "logic_luts": 22050,
+      "lutrams": 0,
+      "srls": 1691,
+      "ffs": 26211,
+      "ramb36": 25,
+      "ramb18": 0,
+      "dsps": 280
+    },
+    "derived_ntt_only_core": {
+      "total_luts": 21737,
+      "logic_luts": 20049,
+      "lutrams": 0,
+      "srls": 1688,
+      "ffs": 23245,
+      "ramb36": 25,
+      "ramb18": 0,
+      "dsps": 240
+    },
+    "measured_extra_pre_pair": {
+      "total_luts": 4155,
+      "logic_luts": 4152,
+      "lutrams": 0,
+      "srls": 3,
+      "ffs": 2966,
+      "ramb36": 0,
+      "ramb18": 0,
+      "dsps": 40
+    },
+    "a_ntt_cache_lutram_removed": 4096,
+    "core_bram_split": {
+      "reorder": 10,
+      "combined_ntt_intt_twiddle": 15
+    },
+    "variants": {
+      "retain_a_ntt_and_duplicate_twiddle": {
+        "resources": {
+          "total_luts": 94307,
+          "logic_luts": 64793,
+          "lutrams": 26112,
+          "srls": 3402,
+          "ffs": 62581,
+          "ramb36": 50,
+          "ramb18": 0,
+          "dsps": 680
+        },
+        "lut_memory": 29514,
+        "utilization": {
+          "slice_luts_pct": 70.48355754857997,
+          "lut_memory_pct": 63.883116883116884,
+          "ffs_pct": 23.24702823179792,
+          "bram_pct": 13.698630136986301,
+          "dsps_pct": 91.89189189189189
+        },
+        "fits": true
+      },
+      "direct_pointwise_duplicate_twiddle": {
+        "resources": {
+          "total_luts": 90211,
+          "logic_luts": 64793,
+          "lutrams": 22016,
+          "srls": 3402,
+          "ffs": 62581,
+          "ramb36": 50,
+          "ramb18": 0,
+          "dsps": 680
+        },
+        "lut_memory": 25418,
+        "utilization": {
+          "slice_luts_pct": 67.42227204783259,
+          "lut_memory_pct": 55.01731601731602,
+          "ffs_pct": 23.24702823179792,
+          "bram_pct": 13.698630136986301,
+          "dsps_pct": 91.89189189189189
+        },
+        "fits": true
+      },
+      "direct_pointwise_ntt_only_twiddle": {
+        "resources": {
+          "total_luts": 90211,
+          "logic_luts": 64793,
+          "lutrams": 22016,
+          "srls": 3402,
+          "ffs": 62581,
+          "ramb36": 43,
+          "ramb18": 0,
+          "dsps": 680
+        },
+        "lut_memory": 25418,
+        "utilization": {
+          "slice_luts_pct": 67.42227204783259,
+          "lut_memory_pct": 55.01731601731602,
+          "ffs_pct": 23.24702823179792,
+          "bram_pct": 11.780821917808218,
+          "dsps_pct": 91.89189189189189
+        },
+        "fits": true
+      },
+      "direct_pointwise_shared_twiddle": {
+        "resources": {
+          "total_luts": 90211,
+          "logic_luts": 64793,
+          "lutrams": 22016,
+          "srls": 3402,
+          "ffs": 62581,
+          "ramb36": 35,
+          "ramb18": 0,
+          "dsps": 680
+        },
+        "lut_memory": 25418,
+        "utilization": {
+          "slice_luts_pct": 67.42227204783259,
+          "lut_memory_pct": 55.01731601731602,
+          "ffs_pct": 23.24702823179792,
+          "bram_pct": 9.58904109589041,
+          "dsps_pct": 91.89189189189189
+        },
+        "fits": true
+      }
+    },
+    "capacity_pass": true,
+    "timing_proven": false
+  },
+  "bandwidth_model": {
+    "phases": {
+      "dual_pre_ntt": {
+        "reads": {
+          "a_bank0": 1,
+          "a_bank1": 1,
+          "b_bank0": 1,
+          "b_bank1": 1
+        },
+        "writes": {},
+        "cycles": 2048
+      },
+      "pointwise_write": {
+        "reads": {},
+        "writes": {
+          "c_ntt_even": 1,
+          "c_ntt_odd": 1
+        },
+        "cycles": 2048
+      },
+      "intt_feed": {
+        "reads": {
+          "c_ntt_even": 1,
+          "c_ntt_odd": 1
+        },
+        "writes": {},
+        "cycles": 2048
+      },
+      "post_write": {
+        "reads": {},
+        "writes": {
+          "result_bank0": 1,
+          "result_bank1": 1
+        },
+        "cycles": 2048
+      }
+    },
+    "max_input_coefficients_per_cycle": 4,
+    "input_mapping": {
+      "core_a_lane0": "a_bank0[pair] -> A[pair]",
+      "core_a_lane1": "a_bank1[pair] -> A[pair+N/2]",
+      "core_b_lane0": "b_bank0[pair] -> B[pair]",
+      "core_b_lane1": "b_bank1[pair] -> B[pair+N/2]"
+    },
+    "psi_reads_per_cycle": 2,
+    "psi_rule": "lane factors are broadcast to A and B Pre_NTT multipliers",
+    "twiddle_rule": "lockstep cores request the same NTT stage/address; one registered stage-local twiddle value may be broadcast to both BFUs",
+    "pointwise_rule": "same-cycle CoreA/CoreB outputs feed two pointwise multipliers directly; logical-index equality must be asserted in RTL",
+    "conflicts": [],
+    "bank_schedule_pass": true,
+    "external_load_port_coefficients_per_cycle": 1,
+    "external_load_cycles_for_a_and_b": 8192
+  },
+  "overall": {
+    "cycle_schedule_pass": true,
+    "resource_capacity_pass": true,
+    "bank_schedule_pass": true,
+    "rtl_function_proven": false,
+    "post_route_timing_proven": false,
+    "decision": "PROCEED_TO_CONTROLLED_RTL_PROTOTYPE"
+  }
+}

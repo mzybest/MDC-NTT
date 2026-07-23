@@ -16,6 +16,7 @@ module mdc_stage #(
     parameter int MUL_LAT  = 14,
     parameter bit USE_WL_MONT = 1'b1,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
+    parameter bit USE_NTT_ONLY_TWIDDLE = 1'b0,
     parameter int TWIDDLE_BRAM_STAGES = 4,
     parameter int LOGN     = 12,
     parameter int N        = 4096
@@ -66,7 +67,17 @@ module mdc_stage #(
   end
 
   generate
-    if (USE_STAGE_LOCAL_TWIDDLE) begin : g_stage_local_twiddle
+    if (USE_NTT_ONLY_TWIDDLE) begin : g_ntt_only_twiddle
+      twiddle_rom_stage_ntt #(
+          .STAGE_ID(STAGE_ID), .QW(QW), .LOGN(LOGN),
+          .BRAM_STAGES(TWIDDLE_BRAM_STAGES)
+      ) u_twiddle_rom (
+          .clk(clk), .rst_n(rst_n),
+          .index(twiddle_index[LOGN-2:0]),
+          .prefetch_index(twiddle_prefetch_index[LOGN-2:0]),
+          .twiddle(stage_twiddle)
+      );
+    end else if (USE_STAGE_LOCAL_TWIDDLE) begin : g_stage_local_twiddle
       twiddle_rom_stage #(
           .STAGE_ID(STAGE_ID), .QW(QW), .LOGN(LOGN),
           .BRAM_STAGES(TWIDDLE_BRAM_STAGES)
