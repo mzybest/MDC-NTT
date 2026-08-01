@@ -26,6 +26,8 @@ module tb_poly_mul_top_dual_forward;
   integer fwd_out_first = -1, fwd_out_last = -1, fwd_out_count = 0;
   integer intt_in_first = -1, intt_in_last = -1, intt_in_count = 0;
   integer intt_out_first = -1, intt_out_last = -1, intt_out_count = 0;
+  localparam int BASE_FULL_MUL_CYCLES = 8621;
+  localparam int PIPELINED_FULL_MUL_CYCLES = BASE_FULL_MUL_CYCLES + 2;
 
   always #5 clk = ~clk;
 
@@ -89,9 +91,9 @@ module tb_poly_mul_top_dual_forward;
     end
     $fclose(fd);
 
-    if (first_done-first_start != 8621)
-      $fatal(1, "dual-forward cycles=%0d expected=8621",
-             first_done-first_start);
+    if (first_done-first_start != PIPELINED_FULL_MUL_CYCLES)
+      $fatal(1, "dual-forward cycles=%0d expected=%0d",
+             first_done-first_start, PIPELINED_FULL_MUL_CYCLES);
     if (a_in_count != N/2 || b_in_count != N/2 ||
         fwd_out_count != N/2 || intt_in_count != N/2 ||
         intt_out_count != N/2)

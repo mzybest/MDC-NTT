@@ -13,6 +13,7 @@ module poly_mul_top_dual_forward #(
     parameter bit USE_WL_PRE_NTT = USE_WL_MONT,
     parameter bit USE_WL_POINTWISE = USE_WL_MONT,
     parameter bit USE_WL_POST_INTT = USE_WL_MONT,
+    parameter bit USE_BFU_BOUNDARY_PIPE = 1'b1,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter int TWIDDLE_BRAM_STAGES = 4
 ) (
@@ -36,6 +37,10 @@ module poly_mul_top_dual_forward #(
       USE_WL_POINTWISE ? WL_MONT_LAT : OLD_MONT_LAT;
   localparam int POST_MUL_LAT =
       USE_WL_POST_INTT ? WL_MONT_LAT : OLD_MONT_LAT;
+  localparam logic [LOGN-1:0] CORE_A_BFU_PIPE_MASK =
+      USE_BFU_BOUNDARY_PIPE ? {1'b1, {(LOGN-1){1'b0}}} : '0;
+  localparam logic [LOGN-1:0] CORE_B_BFU_PIPE_MASK =
+      USE_BFU_BOUNDARY_PIPE ? {{(LOGN-1){1'b0}}, 1'b1} : '0;
 
   typedef enum logic [2:0] {
     IDLE,
@@ -183,6 +188,7 @@ module poly_mul_top_dual_forward #(
   gs_mdc_core #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
+      .BFU_BOUNDARY_PIPE_MASK(CORE_A_BFU_PIPE_MASK),
       .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE),
       .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES)
   ) u_core_a (
@@ -196,6 +202,7 @@ module poly_mul_top_dual_forward #(
   gs_mdc_core_ntt_only #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
+      .BFU_BOUNDARY_PIPE_MASK(CORE_B_BFU_PIPE_MASK),
       .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES)
   ) u_core_b (
       .clk(clk), .rst_n(rst_n), .start(core_b_start),

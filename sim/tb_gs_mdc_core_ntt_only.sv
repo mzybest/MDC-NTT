@@ -19,19 +19,27 @@ module tb_gs_mdc_core_ntt_only;
   integer first_in = -1;
   integer first_out = -1;
   integer done_cycle = -1;
+  localparam int BASE_FIRST_LATENCY = 2241;
+  localparam int BASE_DONE_LATENCY = 4289;
+  localparam int PIPELINED_FIRST_LATENCY = BASE_FIRST_LATENCY + 1;
+  localparam int PIPELINED_DONE_LATENCY = BASE_DONE_LATENCY + 1;
   integer received = 0;
   integer errors = 0;
 
   always #5 clk = ~clk;
 
-  gs_mdc_core u_reference (
+  gs_mdc_core #(
+      .BFU_BOUNDARY_PIPE_MASK({1'b1, {(LOGN-1){1'b0}}})
+  ) u_reference (
       .clk(clk), .rst_n(rst_n), .start(start), .mode(MODE_NTT),
       .in_valid(in_valid), .in_ready(ref_in_ready), .in0(in0), .in1(in1),
       .out_valid(ref_out_valid), .out_ready(1'b1),
       .out0(ref_out0), .out1(ref_out1), .done(ref_done)
   );
 
-  gs_mdc_core_ntt_only u_dut (
+  gs_mdc_core_ntt_only #(
+      .BFU_BOUNDARY_PIPE_MASK({{(LOGN-1){1'b0}}, 1'b1})
+  ) u_dut (
       .clk(clk), .rst_n(rst_n), .start(start),
       .in_valid(in_valid), .in_ready(ntt_in_ready), .in0(in0), .in1(in1),
       .out_valid(ntt_out_valid), .out_ready(1'b1),
@@ -62,10 +70,12 @@ module tb_gs_mdc_core_ntt_only;
     repeat (3) @(posedge clk);
     if (received != N/2)
       $fatal(1, "NTT-only output count=%0d expected=%0d", received, N/2);
-    if (first_out-first_in != 2241)
-      $fatal(1, "NTT-only first latency=%0d expected=2241", first_out-first_in);
-    if (done_cycle-first_in != 4289)
-      $fatal(1, "NTT-only done latency=%0d expected=4289", done_cycle-first_in);
+    if (first_out-first_in != PIPELINED_FIRST_LATENCY)
+      $fatal(1, "NTT-only first latency=%0d expected=%0d",
+             first_out-first_in, PIPELINED_FIRST_LATENCY);
+    if (done_cycle-first_in != PIPELINED_DONE_LATENCY)
+      $fatal(1, "NTT-only done latency=%0d expected=%0d",
+             done_cycle-first_in, PIPELINED_DONE_LATENCY);
     if (errors)
       $fatal(1, "tb_gs_mdc_core_ntt_only FAIL errors=%0d", errors);
     $display("NTT_ONLY_CORE_CYCLES first_in=%0d first_out=%0d done=%0d first_latency=%0d done_latency=%0d",

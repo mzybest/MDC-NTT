@@ -9,7 +9,7 @@ module tb_gs_butterfly;
   integer sent, received;
 
   always #5 clk = ~clk;
-  gs_butterfly u_dut (.*);
+  gs_butterfly #(.USE_BFU_BOUNDARY_PIPE(1'b1)) u_dut (.*);
 
   function automatic [63:0] add_ref(input [63:0] x, input [63:0] z);
     reg [64:0] t;

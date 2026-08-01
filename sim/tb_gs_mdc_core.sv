@@ -10,7 +10,9 @@ module tb_gs_mdc_core;
   logic [QW-1:0] captured [0:N-1];
   integer sent=0, received=0, errors=0, fd;
   always #5 clk=~clk;
-  gs_mdc_core u_dut (.*);
+  gs_mdc_core #(
+      .BFU_BOUNDARY_PIPE_MASK({1'b1, {(LOGN-1){1'b0}}})
+  ) u_dut (.*);
 
   initial begin
     $readmemh("mem/input_a.mem",input_mem);

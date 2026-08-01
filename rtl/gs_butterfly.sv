@@ -1,9 +1,12 @@
-// Gentleman-Sande butterfly. Latency is MUL_LAT+1 cycles, including the
-// registered input stage before the add/subtract logic.
+// Gentleman-Sande butterfly. Base latency is MUL_LAT+1 cycles, including the
+// registered input stage before the add/subtract logic. The optional balanced
+// boundary pipeline adds one cycle between modular add/subtract and the WL
+// multiplier while preserving an initiation interval of one.
 module gs_butterfly #(
     parameter int QW = 64,
     parameter int MUL_LAT = 14,
-    parameter bit USE_WL_MONT = 1'b1
+    parameter bit USE_WL_MONT = 1'b1,
+    parameter bit USE_BFU_BOUNDARY_PIPE = 1'b0
 ) (
     input  logic          clk,
     input  logic          rst_n,
@@ -40,14 +43,48 @@ module gs_butterfly #(
 
   mod_add #(.QW(QW)) u_add (.a(a_r), .b(b_r), .y(sum));
   mod_sub #(.QW(QW)) u_sub (.a(a_r), .b(b_r), .y(diff));
-  delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_sum_delay (
-      .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .din(sum),
-      .out_valid(sum_valid), .dout(y0)
-  );
-  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
-      .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .a(diff), .b(twiddle_r),
-      .out_valid(mul_valid), .y(y1)
-  );
+  generate
+    if (USE_BFU_BOUNDARY_PIPE) begin : g_boundary_pipe
+      (* shreg_extract = "no", keep = "true" *) logic [QW-1:0] sum_boundary_r;
+      (* shreg_extract = "no", keep = "true" *) logic [QW-1:0] diff_boundary_r;
+      (* shreg_extract = "no", keep = "true" *) logic [QW-1:0] twiddle_boundary_r;
+      logic boundary_valid_r;
+
+      always_ff @(posedge clk) begin
+        if (!rst_n) begin
+          sum_boundary_r <= '0;
+          diff_boundary_r <= '0;
+          twiddle_boundary_r <= '0;
+          boundary_valid_r <= 1'b0;
+        end else begin
+          sum_boundary_r <= sum;
+          diff_boundary_r <= diff;
+          twiddle_boundary_r <= twiddle_r;
+          boundary_valid_r <= valid_r;
+        end
+      end
+
+      delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_sum_delay (
+          .clk(clk), .rst_n(rst_n),
+          .in_valid(boundary_valid_r), .din(sum_boundary_r),
+          .out_valid(sum_valid), .dout(y0)
+      );
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
+          .clk(clk), .rst_n(rst_n), .in_valid(boundary_valid_r),
+          .a(diff_boundary_r), .b(twiddle_boundary_r),
+          .out_valid(mul_valid), .y(y1)
+      );
+    end else begin : g_direct
+      delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_sum_delay (
+          .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .din(sum),
+          .out_valid(sum_valid), .dout(y0)
+      );
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
+          .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .a(diff), .b(twiddle_r),
+          .out_valid(mul_valid), .y(y1)
+      );
+    end
+  endgenerate
 
   always_comb out_valid = sum_valid & mul_valid;
 endmodule

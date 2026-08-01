@@ -25,5 +25,3 @@ package params_pkg;
     PSI_INV = 1'b1
   } psi_table_t;
 endpackage
-
-
