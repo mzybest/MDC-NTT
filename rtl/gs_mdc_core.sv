@@ -7,6 +7,7 @@ module gs_mdc_core #(
     parameter int QW      = 64,
     parameter int MUL_LAT = 14,
     parameter bit USE_WL_MONT = 1'b1,
+    parameter bit BYPASS_INTT_SCALE = 1'b0,
     parameter logic [LOGN-1:0] BFU_BOUNDARY_PIPE_MASK = '0,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter int TWIDDLE_BRAM_STAGES = 4
@@ -81,16 +82,28 @@ module gs_mdc_core #(
     end
   endgenerate
 
-  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_intt_scale0 (
-      .clk(clk), .rst_n(rst_n), .in_valid(stage_valid[LOGN]),
-      .a(stage_data0[LOGN]), .b(N_INV_MONT),
-      .out_valid(scale_valid0), .y(scaled0)
-  );
-  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_intt_scale1 (
-      .clk(clk), .rst_n(rst_n), .in_valid(stage_valid[LOGN]),
-      .a(stage_data1[LOGN]), .b(N_INV_MONT),
-      .out_valid(scale_valid1), .y(scaled1)
-  );
+  generate
+    if (!BYPASS_INTT_SCALE) begin : g_intt_scale
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_intt_scale0 (
+          .clk(clk), .rst_n(rst_n), .in_valid(stage_valid[LOGN]),
+          .a(stage_data0[LOGN]), .b(N_INV_MONT),
+          .out_valid(scale_valid0), .y(scaled0)
+      );
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_intt_scale1 (
+          .clk(clk), .rst_n(rst_n), .in_valid(stage_valid[LOGN]),
+          .a(stage_data1[LOGN]), .b(N_INV_MONT),
+          .out_valid(scale_valid1), .y(scaled1)
+      );
+    end else begin : g_no_intt_scale
+      always_comb begin
+        scale_valid0 = 1'b0;
+        scale_valid1 = 1'b0;
+        scaled0 = '0;
+        scaled1 = '0;
+      end
+    end
+  endgenerate
+
   delay_line #(.DW(2*QW), .DEPTH(MUL_LAT)) u_ntt_output_delay (
       .clk(clk), .rst_n(rst_n), .in_valid(stage_valid[LOGN]),
       .din({stage_data1[LOGN], stage_data0[LOGN]}),
@@ -98,7 +111,7 @@ module gs_mdc_core #(
   );
 
   always_comb begin
-    if (active_mode == MODE_INTT) begin
+    if ((active_mode == MODE_INTT) && !BYPASS_INTT_SCALE) begin
       out_valid = scale_valid0 & scale_valid1;
       out0 = scaled0;
       out1 = scaled1;

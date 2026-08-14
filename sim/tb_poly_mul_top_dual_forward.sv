@@ -1,5 +1,8 @@
 `timescale 1ns/1ps
-module tb_poly_mul_top_dual_forward;
+module tb_poly_mul_top_dual_forward #(
+    parameter bit USE_LOAD_PREPROCESS = 1'b0,
+    parameter bit FUSE_INTT_SCALE_IN_POST = 1'b0
+);
   import params_pkg::*;
 
   logic clk = 0;
@@ -31,7 +34,10 @@ module tb_poly_mul_top_dual_forward;
 
   always #5 clk = ~clk;
 
-  poly_mul_top_dual_forward u_dut (.*);
+  poly_mul_top_dual_forward #(
+      .USE_LOAD_PREPROCESS(USE_LOAD_PREPROCESS),
+      .FUSE_INTT_SCALE_IN_POST(FUSE_INTT_SCALE_IN_POST)
+  ) u_dut (.*);
 
   task automatic load_poly(input logic select_b);
     begin
@@ -63,6 +69,8 @@ module tb_poly_mul_top_dual_forward;
   endtask
 
   initial begin
+    $display("DSP_REDUCTION_CONFIG load_pre=%0d fused_post=%0d",
+             USE_LOAD_PREPROCESS, FUSE_INTT_SCALE_IN_POST);
     $readmemh("mem/input_a.mem", a);
     $readmemh("mem/input_b.mem", b);
     $readmemh("mem/golden_result.mem", golden);

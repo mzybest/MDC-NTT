@@ -1,0 +1,214 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------
+| Tool Version : xlicdiag v.2022.2 (win64)
+| Date         : Sat Aug  1 18:09:45 2026
+| Host         : LAPTOP-G40ALRVF running 64-bit major release  (build 9200)
+| Command      : xlicdiag
+----------------------------------------------------------------------------
+
+Xilinx License Diagnostics
+
+Table of Contents
+-----------------
+1. License Related Environment Variables
+2. Host Information
+3. License Version Limit
+4. Dongle Information
+5. Server Status
+6. License Server Summary Table
+7. Recommendations
+8. All Environment Variables
+
+1. License Related Environment Variables
+----------------------------------------
+
+XILINXD_LICENSE_FILE = 
+LM_LICENSE_FILE = D:\questasim-win64-2021.1\Crack\mgcld.lic
+FLEXLM_DIAGNOSTICS = 
+
+2. Host Information
+-------------------
+
+lmutil - Copyright (c) 1989-2020 Flexera. All Rights Reserved.
+The FlexNet host ID of this machine is ""e86a641d7a69 105107afa951""
+Only use ONE from the list of hostids.
+
+3. License Version Limit
+------------------------
+
+Tool Version Limit: 2022.10
+
+4. Dongle Information
+---------------------
+
+FLEXID Dongle ID: Dongle not detected
+
+5. Server Status
+----------------
+
+Processing environment variable XILINXD_LICENSE_FILE...
+
+-------------------------------
+ Status: XILINXD_LICENSE_FILE is not set. 
+-------------------------------
+
+Processing environment variable LM_LICENSE_FILE...
+
+-------------------------------
+ Status for: D:\questasim-win64-2021.1\Crack\mgcld.lic 
+-------------------------------
+TIMER: cputime (secs) =        0; walltime (secs) =       17
+lmutil - Copyright (c) 1989-2020 Flexera. All Rights Reserved.
+Flexible License Manager status on Sat 8/1/2026 18:09
+
+[Detecting lmgrd processes...]
+Error getting status: No SERVER lines in license file. (-13,66)
+
+
+6. License Server Summary Table
+-------------------------------
+
+License Server Summary
++-------------------------------------------+--------+---------+----------------------+-----------------+------------------+--------+
+| Server                                    | Test   | Result* | Environment Variable | CPU Time (secs) | Wall Time (secs) | Source |
++-------------------------------------------+--------+---------+----------------------+-----------------+------------------+--------+
+| D:\questasim-win64-2021.1\Crack\mgcld.lic | lmstat | PASS    | LM_LICENSE_FILE      |        0        |       17         |        |
++-------------------------------------------+--------+---------+----------------------+-----------------+------------------+--------+
+
+*NOTE: PASS/FAIL status is based on server status checks and not based on license feature checks.
+
+
+7. Recommendations
+------------------
+No recommendations at this time.
+
+8. All Environment Variables
+----------------------------
+
+ACTEL_FOR_ALTIUM_OVERRIDE =  
+ALLUSERSPROFILE = C:\ProgramData
+ALTERA_FOR_ALTIUM_OVERRIDE =  
+APPCODE_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\appcode.vmoptions
+APPDATA = C:\Users\帅气无敌霸道的马志永\AppData\Roaming
+asl.log = Destination
+CHARPOP = 1
+Classpath = .;C:\Program Files\Java\jdk1.8.0_221\lib\tools.jar;C:\Program Files\Java\jdk1.8.0_221\jre\lib\rt.jar;
+CLION_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\clion.vmoptions
+CODEX_INTERNAL_ORIGINATOR_OVERRIDE = Codex Desktop
+CODEX_PERMISSION_PROFILE = :workspace
+CODEX_SANDBOX_NETWORK_DISABLED = 1
+CODEX_THREAD_ID = 019ec1dc-1dcc-77b2-b463-1a1f9e542f17
+CommonProgramFiles = C:\Program Files\Common Files
+CommonProgramFiles(x86) = C:\Program Files (x86)\Common Files
+CommonProgramW6432 = C:\Program Files\Common Files
+COMPUTERNAME = LAPTOP-G40ALRVF
+ComSpec = C:\WINDOWS\system32\cmd.exe
+configsetroot = C:\WINDOWS\ConfigSetRoot
+DATAGRIP_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\datagrip.vmoptions
+DATASPELL_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\dataspell.vmoptions
+DEVECOSTUDIO_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\devecostudio.vmoptions
+DriverData = C:\Windows\System32\Drivers\DriverData
+GATEWAY_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\gateway.vmoptions
+GOLAND_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\goland.vmoptions
+HDI_APPROOT = D:/Vivado/2022.2
+HOMEDRIVE = C:
+HOMEPATH = \Users\帅气无敌霸道的马志永
+IDEA_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\idea.vmoptions
+INT_VARIABLE_NAME = XILINX_PATH
+ISL_IOSTREAMS_RSA = D:/Vivado/2022.2/tps/isl
+JAVA_HOME = C:\Program Files\Java\jdk1.8.0_221
+JETBRAINSCLIENT_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\jetbrainsclient.vmoptions
+JETBRAINS_CLIENT_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\jetbrains_client.vmoptions
+KMP_DUPLICATE_LIB_OK = TRUE
+LM_LICENSE_FILE = D:\questasim-win64-2021.1\Crack\mgcld.lic
+LOCALAPPDATA = C:\Users\帅气无敌霸道的马志永\AppData\Local
+LOGONSERVER = \\LAPTOP-G40ALRVF
+LOG_FORMAT = json
+MAVEN_HOME = D:\maven\apache-maven-3.6.3
+MKL_SERIAL = YES
+MSI_LICENSE_FILE = 27000@LAPTOP-G40ALRVF
+NIEXTCCOMPILERSUPP = C:\Program Files (x86)\National Instruments\Shared\ExternalCompilerSupport\C\
+node_16.15.1 = D:\nodejs\v16.15.1
+node_18.20.4 = D:\nodejs\v18.20.4
+NODE_PATH = D:\toolsapp\nodejs\node_modules
+NUMBER_OF_PROCESSORS = 8
+NVM_HOME = D:\nvm
+NVM_SYMLINK = D:\nodejs
+OneDrive = C:\Users\帅气无敌霸道的马志永\OneDrive
+OS = Windows_NT
+path = D:/Vivado/2022.2/bin;D:/Vivado/2022.2/tps/win64/java-cef-95.0.4638.69/bin/lib/win64;D:/Vivado/2022.2/lib/win64.o;D:/Vivado/2022.2/tps/win64/jre11.0.11_9/bin/server;D:/Vivado/2022.2/tps/win64/jre11.0.11_9/bin;D:/Vivado/2022.2/ids_lite/ISE/bin/nt64;D:/Vivado/2022.2/ids_lite/ISE/lib/nt64;C:\Users\帅气无敌霸道的马志永\.codex\tmp\arg0\codex-arg0nFDQL6;C:\Users\帅气无敌霸道的马志永\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\override;D:\VM\VMware\VMware Workstation\bin\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32\wbem;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;d:\altera\quartus\bin;D:\matlab\runtime\win64;D:\matlab\bin;D:\matlab\polyspace\bin;C:\Program Files (x86)\National Instruments\Shared\LabVIEW CLI;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\maven\apache-maven-3.6.3\bin;C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility;D:\Git\cmd;D:\toolsapp\nodejs\node_global;D:\toolsapp\nodejs\node_modules;D:\nvm;D:\nodejs;D:\toolsapp\HashiCorp\Vagrant\bin;D:\nvm\v18.20.4\node_modules\corepack\shims;;c:\Users\帅气无敌霸道的马志永\AppData\Local\Programs\cursor\resources\app\bin;D:\Program Files (x86)\Python3119\Scripts\;D:\Program Files (x86)\Python3119\;C:\Users\帅气无敌霸道的马志永\AppData\Local\Microsoft\WindowsApps;D:\toolsapp\Microsoft VS Code\bin;D:\IDEAdownload\PyCharm 2024.1.1\bin;D:\modeltech64_2020.4\win64;D:\cursor\resources\app\bin;D:\questasim64_2021.1\win64;C:\Users\帅气无敌霸道的马志永\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback;C:\Program Files\WindowsApps\OpenAI.Codex_26.715.8383.0_x64__2p2nqsd0c76g0\app\resources;D:/Vivado/2022.2\tps\mingw\6.2.0\win64.o\nt\bin;D:/Vivado/2022.2\tps\mingw\6.2.0\win64.o\nt\libexec\gcc\x86_64-w64-mingw32\6.2.0
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+PHPSTORM_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\phpstorm.vmoptions
+PROCESSOR_ARCHITECTURE = AMD64
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 10, GenuineIntel
+PROCESSOR_LEVEL = 6
+PROCESSOR_REVISION = 8e0a
+PRODVERSION_EXE = D:/Vivado/2022.2/bin/unwrapped/win64.o/prodversion.exe
+ProgramData = C:\ProgramData
+ProgramFiles = C:\Program Files
+ProgramFiles(x86) = C:\Program Files (x86)
+ProgramW6432 = C:\Program Files
+PROMPT = $P$G
+PSModulePath = D:\360MoveData\Users\帅气无敌霸道的马志永\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PUBLIC = C:\Users\Public
+PyCharm = D:\IDEAdownload\PyCharm 2024.1.1\bin;
+PYCHARM_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\pycharm.vmoptions
+QUARTUS_ROOTDIR = d:\altera\quartus
+RDI_APPROOT = D:/Vivado/2022.2
+RDI_ARGS =  -help
+RDI_ARGS_FUNCTION = RDI_EXEC_DEFAULT
+RDI_BASEROOT = D:/Vivado
+RDI_BINDIR = D:/Vivado/2022.2/bin
+RDI_BINROOT = D:/Vivado/2022.2/bin
+RDI_BUILD = yes
+RDI_CHECK_PROG = True
+RDI_DATADIR = D:/Vivado/2022.2/data
+RDI_INSTALLROOT = D:
+RDI_INSTALLVER = 2022.2
+RDI_INSTALLVERSION = 2022.2
+RDI_ISE_PLATFORM = nt64
+RDI_JAVACEFROOT = D:/Vivado/2022.2/tps/win64/java-cef-95.0.4638.69
+RDI_JAVAROOT = D:/Vivado/2022.2/tps/win64/jre11.0.11_9
+RDI_JAVA_VERSION = 11.0.11_9
+RDI_LIBDIR = D:/Vivado/2022.2/lib/win64.o
+RDI_MINGW_LIB = D:/Vivado/2022.2\tps\mingw\6.2.0\win64.o\nt\bin;D:/Vivado/2022.2\tps\mingw\6.2.0\win64.o\nt\libexec\gcc\x86_64-w64-mingw32\6.2.0
+RDI_OPT_EXT = .o
+RDI_PLATFORM = win64
+RDI_PREPEND_PATH = D:/Vivado/2022.2/ids_lite/ISE/bin/nt64;D:/Vivado/2022.2/ids_lite/ISE/lib/nt64
+RDI_PROG = D:/Vivado/2022.2/bin/unwrapped/win64.o/xlicdiag.exe
+RDI_PROGNAME = xlicdiag.exe
+RDI_TPS_ROOT = D:/Vivado/2022.2/tps/win64
+RDI_VERBOSE = False
+RIDER_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\rider.vmoptions
+RT_LIBPATH = D:/Vivado/2022.2/scripts/rt/data
+RT_TCL_PATH = D:/Vivado/2022.2/scripts/rt/base_tcl/tcl
+RUBYMINE_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\rubymine.vmoptions
+RUST_LOG = warn
+STUDIO_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\studio.vmoptions
+SYNTH_COMMON = D:/Vivado/2022.2/scripts/rt/data
+SystemDrive = C:
+SystemRoot = C:\WINDOWS
+TCL_LIBRARY = D:/Vivado/2022.2/tps/tcl/tcl8.5
+TEMP = C:\WINDOWS\TEMP
+TMP = C:\WINDOWS\TEMP
+USERDOMAIN = LAPTOP-G40ALRVF
+USERDOMAIN_ROAMINGPROFILE = LAPTOP-G40ALRVF
+USERNAME = mzy
+USERPROFILE = C:\Users\帅气无敌霸道的马志永
+valid = True
+VBOX_MSI_INSTALL_PATH = D:\toolsapp\VirtualBox\
+WEBIDE_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\webide.vmoptions
+WEBSTORM_VM_OPTIONS = D:\360MoveData\Users\帅气无敌霸道的马志永\Desktop\life\深度学习\jetbra\jetbra\vmoptions\webstorm.vmoptions
+windir = C:\WINDOWS
+XILINX = D:/Vivado/2022.2/ids_lite/ISE
+XILINX_DSP = D:/Vivado/2022.2/ids_lite/ISE
+XILINX_PLANAHEAD = D:/Vivado/2022.2
+XIL_CHECK_TCL_DEBUG = False
+XVREDIST = D:/Vivado/2022.2\tps\win64\xvcredist.exe
+ZES_ENABLE_SYSMAN = 1
+_dir = D:/Vivado/2022.2/ids_lite/ISE
+_plat = nt64
+_RDI_BINROOT = D:\Vivado\2022.2\bin
+_RDI_CWD = D:\MDC-NTT
+_valid = True
+

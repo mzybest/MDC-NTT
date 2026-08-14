@@ -11,8 +11,10 @@ module poly_mul_top_dual_forward #(
     parameter bit USE_WL_MONT = 1'b1,
     parameter bit USE_WL_CORE = USE_WL_MONT,
     parameter bit USE_WL_PRE_NTT = USE_WL_MONT,
+    parameter bit USE_LOAD_PREPROCESS = 1'b0,
     parameter bit USE_WL_POINTWISE = USE_WL_MONT,
     parameter bit USE_WL_POST_INTT = USE_WL_MONT,
+    parameter bit FUSE_INTT_SCALE_IN_POST = 1'b0,
     parameter bit USE_BFU_BOUNDARY_PIPE = 1'b1,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter int TWIDDLE_BRAM_STAGES = 4
@@ -33,6 +35,8 @@ module poly_mul_top_dual_forward #(
 
   localparam int OLD_MONT_LAT = 12;
   localparam int WL_MONT_LAT = 14;
+  localparam int PRE_MUL_LAT =
+      USE_WL_PRE_NTT ? WL_MONT_LAT : OLD_MONT_LAT;
   localparam int POINTWISE_MUL_LAT =
       USE_WL_POINTWISE ? WL_MONT_LAT : OLD_MONT_LAT;
   localparam int POST_MUL_LAT =
@@ -44,6 +48,7 @@ module poly_mul_top_dual_forward #(
 
   typedef enum logic [2:0] {
     IDLE,
+    WAIT_LOAD_DRAIN,
     FEED_FORWARD,
     WAIT_POINTWISE,
     FEED_INTT_C,
@@ -51,6 +56,10 @@ module poly_mul_top_dual_forward #(
     DONE
   } ctrl_state_t;
   ctrl_state_t state;
+
+  localparam int LOAD_PENDING_W = $clog2(PRE_MUL_LAT + 2);
+  logic load_accept;
+  logic [LOAD_PENDING_W-1:0] load_pending_count;
 
   logic [QW-1:0] a_bank0 [0:N/2-1];
   logic [QW-1:0] a_bank1 [0:N/2-1];
@@ -104,22 +113,84 @@ module poly_mul_top_dual_forward #(
       bit_reverse[i] = v[LOGN-1-i];
   endfunction
 
-  always_ff @(posedge clk) begin
-    if (load_we && state == IDLE) begin
-      if (load_sel) begin
-        if (load_addr[LOGN-1])
-          b_bank1[load_addr[LOGN-2:0]] <= load_data;
-        else
-          b_bank0[load_addr[LOGN-2:0]] <= load_data;
-      end else begin
-        if (load_addr[LOGN-1])
-          a_bank1[load_addr[LOGN-2:0]] <= load_data;
-        else
-          a_bank0[load_addr[LOGN-2:0]] <= load_data;
+  always_comb load_accept = load_we && (state == IDLE);
+
+  generate
+    if (USE_LOAD_PREPROCESS) begin : g_load_preprocess
+      logic [QW-1:0] load_psi_factor;
+      logic load_pre_valid;
+      logic [QW-1:0] load_pre_out;
+      logic load_meta_valid;
+      logic [LOGN:0] delayed_load_meta;
+
+      psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_load (
+          .table_sel(PSI_FWD), .index(load_addr), .factor(load_psi_factor)
+      );
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_load_pre_mul (
+          .clk(clk), .rst_n(rst_n), .in_valid(load_accept),
+          .a(load_data), .b(load_psi_factor),
+          .out_valid(load_pre_valid), .y(load_pre_out)
+      );
+      delay_line #(.DW(LOGN+1), .DEPTH(PRE_MUL_LAT)) u_load_meta_delay (
+          .clk(clk), .rst_n(rst_n), .in_valid(load_accept),
+          .din({load_sel, load_addr}),
+          .out_valid(load_meta_valid), .dout(delayed_load_meta)
+      );
+
+      always_ff @(posedge clk) begin
+        if (!rst_n) begin
+          load_pending_count <= '0;
+        end else begin
+          case ({load_accept, load_pre_valid})
+            2'b10: load_pending_count <= load_pending_count + 1'b1;
+            2'b01: load_pending_count <= load_pending_count - 1'b1;
+            default: load_pending_count <= load_pending_count;
+          endcase
+
+          if (load_pre_valid && load_meta_valid) begin
+            if (delayed_load_meta[LOGN]) begin
+              if (delayed_load_meta[LOGN-1])
+                b_bank1[delayed_load_meta[LOGN-2:0]] <= load_pre_out;
+              else
+                b_bank0[delayed_load_meta[LOGN-2:0]] <= load_pre_out;
+            end else begin
+              if (delayed_load_meta[LOGN-1])
+                a_bank1[delayed_load_meta[LOGN-2:0]] <= load_pre_out;
+              else
+                a_bank0[delayed_load_meta[LOGN-2:0]] <= load_pre_out;
+            end
+          end
+        end
+      end
+
+`ifndef SYNTHESIS
+      always_ff @(posedge clk) begin
+        if (rst_n && (load_pre_valid != load_meta_valid))
+          $fatal(1, "load preprocess address/data latency mismatch");
+        if (rst_n && load_pre_valid && (load_pending_count == '0))
+          $fatal(1, "load preprocess pending counter underflow");
+      end
+`endif
+    end else begin : g_direct_load
+      always_comb load_pending_count = '0;
+
+      always_ff @(posedge clk) begin
+        if (load_accept) begin
+          if (load_sel) begin
+            if (load_addr[LOGN-1])
+              b_bank1[load_addr[LOGN-2:0]] <= load_data;
+            else
+              b_bank0[load_addr[LOGN-2:0]] <= load_data;
+          end else begin
+            if (load_addr[LOGN-1])
+              a_bank1[load_addr[LOGN-2:0]] <= load_data;
+            else
+              a_bank0[load_addr[LOGN-2:0]] <= load_data;
+          end
+        end
       end
     end
-  end
-
+  endgenerate
   always_comb begin
     if (result_addr[LOGN-1])
       result_data = result_bank1[result_addr[LOGN-2:0]];
@@ -133,34 +204,48 @@ module poly_mul_top_dual_forward #(
     pre_index1 = {1'b1, feed_count};
   end
 
-  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_fwd0 (
-      .table_sel(PSI_FWD), .index(pre_index0), .factor(psi_fwd0)
-  );
-  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_fwd1 (
-      .table_sel(PSI_FWD), .index(pre_index1), .factor(psi_fwd1)
-  );
+  generate
+    if (USE_LOAD_PREPROCESS) begin : g_preloaded_forward
+      always_comb begin
+        pre_a_valid0 = pre_issue_valid;
+        pre_a_valid1 = pre_issue_valid;
+        pre_b_valid0 = pre_issue_valid;
+        pre_b_valid1 = pre_issue_valid;
+        pre_a_out0 = a_bank0[feed_count];
+        pre_a_out1 = a_bank1[feed_count];
+        pre_b_out0 = b_bank0[feed_count];
+        pre_b_out1 = b_bank1[feed_count];
+      end
+    end else begin : g_forward_pre
+      psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_fwd0 (
+          .table_sel(PSI_FWD), .index(pre_index0), .factor(psi_fwd0)
+      );
+      psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_fwd1 (
+          .table_sel(PSI_FWD), .index(pre_index1), .factor(psi_fwd1)
+      );
 
-  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_a_mul0 (
-      .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
-      .a(a_bank0[feed_count]), .b(psi_fwd0),
-      .out_valid(pre_a_valid0), .y(pre_a_out0)
-  );
-  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_a_mul1 (
-      .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
-      .a(a_bank1[feed_count]), .b(psi_fwd1),
-      .out_valid(pre_a_valid1), .y(pre_a_out1)
-  );
-  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_b_mul0 (
-      .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
-      .a(b_bank0[feed_count]), .b(psi_fwd0),
-      .out_valid(pre_b_valid0), .y(pre_b_out0)
-  );
-  mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_b_mul1 (
-      .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
-      .a(b_bank1[feed_count]), .b(psi_fwd1),
-      .out_valid(pre_b_valid1), .y(pre_b_out1)
-  );
-
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_a_mul0 (
+          .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
+          .a(a_bank0[feed_count]), .b(psi_fwd0),
+          .out_valid(pre_a_valid0), .y(pre_a_out0)
+      );
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_a_mul1 (
+          .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
+          .a(a_bank1[feed_count]), .b(psi_fwd1),
+          .out_valid(pre_a_valid1), .y(pre_a_out1)
+      );
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_b_mul0 (
+          .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
+          .a(b_bank0[feed_count]), .b(psi_fwd0),
+          .out_valid(pre_b_valid0), .y(pre_b_out0)
+      );
+      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_b_mul1 (
+          .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
+          .a(b_bank1[feed_count]), .b(psi_fwd1),
+          .out_valid(pre_b_valid1), .y(pre_b_out1)
+      );
+    end
+  endgenerate
   always_comb begin
     pre_pair_valid = pre_a_valid0 & pre_a_valid1 & pre_b_valid0 & pre_b_valid1;
 
@@ -188,6 +273,7 @@ module poly_mul_top_dual_forward #(
   gs_mdc_core #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
+      .BYPASS_INTT_SCALE(FUSE_INTT_SCALE_IN_POST),
       .BFU_BOUNDARY_PIPE_MASK(CORE_A_BFU_PIPE_MASK),
       .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE),
       .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES)
@@ -242,11 +328,17 @@ module poly_mul_top_dual_forward #(
     post_addr1 = bit_reverse({post_recv_count, 1'b1});
   end
 
-  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_inv0 (
-      .table_sel(PSI_INV), .index(post_addr0), .factor(psi_inv0)
+  psi_post_rom #(
+      .QW(QW), .LOGN(LOGN), .N(N),
+      .FUSE_N_INV(FUSE_INTT_SCALE_IN_POST)
+  ) u_psi_inv0 (
+      .index(post_addr0), .factor(psi_inv0)
   );
-  psi_rom #(.QW(QW), .LOGN(LOGN), .N(N)) u_psi_inv1 (
-      .table_sel(PSI_INV), .index(post_addr1), .factor(psi_inv1)
+  psi_post_rom #(
+      .QW(QW), .LOGN(LOGN), .N(N),
+      .FUSE_N_INV(FUSE_INTT_SCALE_IN_POST)
+  ) u_psi_inv1 (
+      .index(post_addr1), .factor(psi_inv1)
   );
   mont_mul_select #(
       .QW(QW), .USE_WL_MONT(USE_WL_POST_INTT)
@@ -323,7 +415,14 @@ module poly_mul_top_dual_forward #(
           post_recv_count <= '0;
           post_count <= '0;
           forward_started <= 1'b0;
-          state <= FEED_FORWARD;
+          if (USE_LOAD_PREPROCESS && (load_pending_count != '0))
+            state <= WAIT_LOAD_DRAIN;
+          else
+            state <= FEED_FORWARD;
+        end
+        WAIT_LOAD_DRAIN: begin
+          if (load_pending_count == '0)
+            state <= FEED_FORWARD;
         end
         FEED_FORWARD: begin
           if (feed_count == N/2-1) begin

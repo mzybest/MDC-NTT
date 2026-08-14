@@ -1,0 +1,8 @@
+vivado=2022.2
+source_checkpoint=D:/MDC-NTT/reports/dual_forward_dsp_reduction/artix_impl/combined_100mhz/routed.dcp
+implementation_period_ns=9.8
+signoff_period_ns=10.0
+post_route_phys=Explore
+reroute=MoreGlobalIterations
+tns_cleanup=1
+runtime_seconds=3615
