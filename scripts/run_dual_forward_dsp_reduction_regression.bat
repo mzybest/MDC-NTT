@@ -42,25 +42,42 @@ for %%T in (tb_mont_mul_wl tb_gs_butterfly tb_gs_mdc_core tb_gs_mdc_core_ntt_onl
   if errorlevel 1 exit /b 1
 )
 
-call :run_config baseline 0 0
+call :run_bypass_test tb_gs_butterfly BYPASS_TWIDDLE_MUL
 if errorlevel 1 exit /b 1
-call :run_config load_pre 1 0
+call :run_bypass_test tb_gs_mdc_core USE_FINAL_UNIT_TWIDDLE_BYPASS
 if errorlevel 1 exit /b 1
-call :run_config fused_post 0 1
+call :run_bypass_test tb_gs_mdc_core_ntt_only USE_FINAL_UNIT_TWIDDLE_BYPASS
 if errorlevel 1 exit /b 1
-call :run_config combined 1 1
+
+call :run_config baseline 0 0 0
+if errorlevel 1 exit /b 1
+call :run_config load_pre 1 0 0
+if errorlevel 1 exit /b 1
+call :run_config fused_post 0 1 0
+if errorlevel 1 exit /b 1
+call :run_config combined 1 1 0
+if errorlevel 1 exit /b 1
+call :run_config combined_unit_twiddle 1 1 1
 if errorlevel 1 exit /b 1
 
 echo Dual-forward DSP-reduction regression PASS
 exit /b 0
 
+:run_bypass_test
+"%QUESTA_BIN%\vsim.exe" -c -lib "%WORK%" -g%2=1 %1 ^
+  -l "%LOG_DIR%\%1_unit_twiddle.log" -do "run -all; quit -f"
+if errorlevel 1 exit /b 1
+findstr /c:"%1 PASS" "%LOG_DIR%\%1_unit_twiddle.log" >nul
+if errorlevel 1 exit /b 1
+exit /b 0
+
 :run_config
 "%QUESTA_BIN%\vsim.exe" -c -lib "%WORK%" ^
-  -gUSE_LOAD_PREPROCESS=%2 -gFUSE_INTT_SCALE_IN_POST=%3 ^
+  -gUSE_LOAD_PREPROCESS=%2 -gFUSE_INTT_SCALE_IN_POST=%3 -gUSE_FINAL_UNIT_TWIDDLE_BYPASS=%4 ^
   tb_poly_mul_top_dual_forward -l "%LOG_DIR%\tb_%1.log" ^
   -do "run -all; quit -f"
 if errorlevel 1 exit /b 1
-findstr /c:"DSP_REDUCTION_CONFIG load_pre=%2 fused_post=%3" "%LOG_DIR%\tb_%1.log" >nul
+findstr /c:"DSP_REDUCTION_CONFIG load_pre=%2 fused_post=%3 unit_twiddle=%4" "%LOG_DIR%\tb_%1.log" >nul
 if errorlevel 1 exit /b 1
 findstr /c:"tb_poly_mul_top_dual_forward PASS" "%LOG_DIR%\tb_%1.log" >nul
 if errorlevel 1 exit /b 1

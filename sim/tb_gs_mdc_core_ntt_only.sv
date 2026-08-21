@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
-module tb_gs_mdc_core_ntt_only;
+module tb_gs_mdc_core_ntt_only #(
+    parameter bit USE_FINAL_UNIT_TWIDDLE_BYPASS = 1'b0
+);
   import params_pkg::*;
 
   logic clk = 0;
@@ -29,7 +31,8 @@ module tb_gs_mdc_core_ntt_only;
   always #5 clk = ~clk;
 
   gs_mdc_core #(
-      .BFU_BOUNDARY_PIPE_MASK({1'b1, {(LOGN-1){1'b0}}})
+      .BFU_BOUNDARY_PIPE_MASK({1'b1, {(LOGN-1){1'b0}}}),
+      .BYPASS_FINAL_UNIT_TWIDDLE(USE_FINAL_UNIT_TWIDDLE_BYPASS)
   ) u_reference (
       .clk(clk), .rst_n(rst_n), .start(start), .mode(MODE_NTT),
       .in_valid(in_valid), .in_ready(ref_in_ready), .in0(in0), .in1(in1),
@@ -38,7 +41,8 @@ module tb_gs_mdc_core_ntt_only;
   );
 
   gs_mdc_core_ntt_only #(
-      .BFU_BOUNDARY_PIPE_MASK({{(LOGN-1){1'b0}}, 1'b1})
+      .BFU_BOUNDARY_PIPE_MASK({{(LOGN-1){1'b0}}, 1'b1}),
+      .BYPASS_FINAL_UNIT_TWIDDLE(USE_FINAL_UNIT_TWIDDLE_BYPASS)
   ) u_dut (
       .clk(clk), .rst_n(rst_n), .start(start),
       .in_valid(in_valid), .in_ready(ntt_in_ready), .in0(in0), .in1(in1),

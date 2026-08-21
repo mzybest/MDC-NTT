@@ -15,6 +15,7 @@ file mkdir $report_dir
 
 set use_load_preprocess 0
 set fuse_intt_scale_in_post 0
+set use_final_unit_twiddle_bypass 0
 switch -- $config {
   baseline { }
   load_pre { set use_load_preprocess 1 }
@@ -22,6 +23,11 @@ switch -- $config {
   combined {
     set use_load_preprocess 1
     set fuse_intt_scale_in_post 1
+  }
+  combined_unit_twiddle {
+    set use_load_preprocess 1
+    set fuse_intt_scale_in_post 1
+    set use_final_unit_twiddle_bypass 1
   }
   default { error "Unknown DSP-reduction configuration: $config" }
 }
@@ -62,6 +68,7 @@ set generic_args [list \
   TWIDDLE_BRAM_STAGES=4 \
   USE_LOAD_PREPROCESS=$use_load_preprocess \
   FUSE_INTT_SCALE_IN_POST=$fuse_intt_scale_in_post \
+  USE_FINAL_UNIT_TWIDDLE_BYPASS=$use_final_unit_twiddle_bypass \
 ]
 
 cd $repo_root

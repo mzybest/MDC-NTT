@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
-module tb_gs_mdc_core;
+module tb_gs_mdc_core #(
+    parameter bit USE_FINAL_UNIT_TWIDDLE_BYPASS = 1'b0
+);
   import params_pkg::*;
   logic clk=0, rst_n=0, start=0, in_valid=0, out_ready=1;
   logic in_ready, out_valid, done;
@@ -11,7 +13,8 @@ module tb_gs_mdc_core;
   integer sent=0, received=0, errors=0, fd;
   always #5 clk=~clk;
   gs_mdc_core #(
-      .BFU_BOUNDARY_PIPE_MASK({1'b1, {(LOGN-1){1'b0}}})
+      .BFU_BOUNDARY_PIPE_MASK({1'b1, {(LOGN-1){1'b0}}}),
+      .BYPASS_FINAL_UNIT_TWIDDLE(USE_FINAL_UNIT_TWIDDLE_BYPASS)
   ) u_dut (.*);
 
   initial begin

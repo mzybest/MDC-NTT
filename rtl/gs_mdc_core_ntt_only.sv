@@ -9,6 +9,7 @@ module gs_mdc_core_ntt_only #(
     parameter int QW      = 64,
     parameter int MUL_LAT = 14,
     parameter bit USE_WL_MONT = 1'b1,
+    parameter bit BYPASS_FINAL_UNIT_TWIDDLE = 1'b0,
     parameter logic [LOGN-1:0] BFU_BOUNDARY_PIPE_MASK = '0,
     parameter int TWIDDLE_BRAM_STAGES = 4
 ) (
@@ -53,6 +54,7 @@ module gs_mdc_core_ntt_only #(
           .STAGE_ID(s), .QW(QW), .DEPTH(stage_depth(s)),
           .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT),
           .USE_BFU_BOUNDARY_PIPE(BFU_BOUNDARY_PIPE_MASK[s]),
+          .BYPASS_TWIDDLE_MUL(BYPASS_FINAL_UNIT_TWIDDLE && (s == LOGN-1)),
           .USE_STAGE_LOCAL_TWIDDLE(1'b1),
           .USE_NTT_ONLY_TWIDDLE(1'b1),
           .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES),

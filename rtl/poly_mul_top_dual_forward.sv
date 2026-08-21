@@ -15,6 +15,7 @@ module poly_mul_top_dual_forward #(
     parameter bit USE_WL_POINTWISE = USE_WL_MONT,
     parameter bit USE_WL_POST_INTT = USE_WL_MONT,
     parameter bit FUSE_INTT_SCALE_IN_POST = 1'b0,
+    parameter bit USE_FINAL_UNIT_TWIDDLE_BYPASS = 1'b0,
     parameter bit USE_BFU_BOUNDARY_PIPE = 1'b1,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter int TWIDDLE_BRAM_STAGES = 4
@@ -274,6 +275,7 @@ module poly_mul_top_dual_forward #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
       .BYPASS_INTT_SCALE(FUSE_INTT_SCALE_IN_POST),
+      .BYPASS_FINAL_UNIT_TWIDDLE(USE_FINAL_UNIT_TWIDDLE_BYPASS),
       .BFU_BOUNDARY_PIPE_MASK(CORE_A_BFU_PIPE_MASK),
       .USE_STAGE_LOCAL_TWIDDLE(USE_STAGE_LOCAL_TWIDDLE),
       .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES)
@@ -288,6 +290,7 @@ module poly_mul_top_dual_forward #(
   gs_mdc_core_ntt_only #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
+      .BYPASS_FINAL_UNIT_TWIDDLE(USE_FINAL_UNIT_TWIDDLE_BYPASS),
       .BFU_BOUNDARY_PIPE_MASK(CORE_B_BFU_PIPE_MASK),
       .TWIDDLE_BRAM_STAGES(TWIDDLE_BRAM_STAGES)
   ) u_core_b (

@@ -6,7 +6,8 @@ module gs_butterfly #(
     parameter int QW = 64,
     parameter int MUL_LAT = 14,
     parameter bit USE_WL_MONT = 1'b1,
-    parameter bit USE_BFU_BOUNDARY_PIPE = 1'b0
+    parameter bit USE_BFU_BOUNDARY_PIPE = 1'b0,
+    parameter bit BYPASS_TWIDDLE_MUL = 1'b0
 ) (
     input  logic          clk,
     input  logic          rst_n,
@@ -69,20 +70,35 @@ module gs_butterfly #(
           .in_valid(boundary_valid_r), .din(sum_boundary_r),
           .out_valid(sum_valid), .dout(y0)
       );
-      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
-          .clk(clk), .rst_n(rst_n), .in_valid(boundary_valid_r),
-          .a(diff_boundary_r), .b(twiddle_boundary_r),
-          .out_valid(mul_valid), .y(y1)
-      );
+      if (BYPASS_TWIDDLE_MUL) begin : g_unit_twiddle
+        delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_diff_delay (
+            .clk(clk), .rst_n(rst_n),
+            .in_valid(boundary_valid_r), .din(diff_boundary_r),
+            .out_valid(mul_valid), .dout(y1)
+        );
+      end else begin : g_twiddle_mul
+        mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
+            .clk(clk), .rst_n(rst_n), .in_valid(boundary_valid_r),
+            .a(diff_boundary_r), .b(twiddle_boundary_r),
+            .out_valid(mul_valid), .y(y1)
+        );
+      end
     end else begin : g_direct
       delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_sum_delay (
           .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .din(sum),
           .out_valid(sum_valid), .dout(y0)
       );
-      mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
-          .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .a(diff), .b(twiddle_r),
-          .out_valid(mul_valid), .y(y1)
-      );
+      if (BYPASS_TWIDDLE_MUL) begin : g_unit_twiddle
+        delay_line #(.DW(QW), .DEPTH(MUL_LAT)) u_diff_delay (
+            .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .din(diff),
+            .out_valid(mul_valid), .dout(y1)
+        );
+      end else begin : g_twiddle_mul
+        mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_MONT)) u_mul (
+            .clk(clk), .rst_n(rst_n), .in_valid(valid_r), .a(diff), .b(twiddle_r),
+            .out_valid(mul_valid), .y(y1)
+        );
+      end
     end
   endgenerate
 

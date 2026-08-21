@@ -16,6 +16,7 @@ module mdc_stage #(
     parameter int MUL_LAT  = 14,
     parameter bit USE_WL_MONT = 1'b1,
     parameter bit USE_BFU_BOUNDARY_PIPE = 1'b0,
+    parameter bit BYPASS_TWIDDLE_MUL = 1'b0,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter bit USE_NTT_ONLY_TWIDDLE = 1'b0,
     parameter int TWIDDLE_BRAM_STAGES = 4,
@@ -97,7 +98,8 @@ module mdc_stage #(
   endgenerate
   gs_butterfly #(
       .QW(QW), .MUL_LAT(MUL_LAT), .USE_WL_MONT(USE_WL_MONT),
-      .USE_BFU_BOUNDARY_PIPE(USE_BFU_BOUNDARY_PIPE)
+      .USE_BFU_BOUNDARY_PIPE(USE_BFU_BOUNDARY_PIPE),
+      .BYPASS_TWIDDLE_MUL(BYPASS_TWIDDLE_MUL)
   ) u_butterfly (
       .clk(clk), .rst_n(rst_n), .in_valid(in_valid),
       .a(in0), .b(in1), .twiddle(stage_twiddle),

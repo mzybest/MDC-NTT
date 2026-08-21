@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
-module tb_gs_butterfly;
+module tb_gs_butterfly #(
+    parameter bit BYPASS_TWIDDLE_MUL = 1'b0
+);
   import params_pkg::*;
   logic clk = 0, rst_n = 0, in_valid;
   logic [QW-1:0] a, b, twiddle, y0, y1;
@@ -9,7 +11,10 @@ module tb_gs_butterfly;
   integer sent, received;
 
   always #5 clk = ~clk;
-  gs_butterfly #(.USE_BFU_BOUNDARY_PIPE(1'b1)) u_dut (.*);
+  gs_butterfly #(
+      .USE_BFU_BOUNDARY_PIPE(1'b1),
+      .BYPASS_TWIDDLE_MUL(BYPASS_TWIDDLE_MUL)
+  ) u_dut (.*);
 
   function automatic [63:0] add_ref(input [63:0] x, input [63:0] z);
     reg [64:0] t;
@@ -37,7 +42,8 @@ module tb_gs_butterfly;
       @(negedge clk);
       a = {$urandom,$urandom} % Q;
       b = {$urandom,$urandom} % Q;
-      twiddle = {$urandom,$urandom} % Q;
+      twiddle = BYPASS_TWIDDLE_MUL ? R_MOD_Q :
+                {$urandom,$urandom} % Q;
       expected0[sent] = add_ref(a,b);
       expected1[sent] = mont_ref(sub_ref(a,b),twiddle);
       sent = sent + 1; in_valid = 1;
