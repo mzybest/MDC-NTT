@@ -2,6 +2,7 @@
 module tb_poly_mul_top_dual_forward #(
     parameter bit USE_LOAD_PREPROCESS = 1'b0,
     parameter bit FUSE_INTT_SCALE_IN_POST = 1'b0,
+    parameter bit USE_TOP_DATA_BRAM = 1'b0,
     parameter bit USE_FINAL_UNIT_TWIDDLE_BYPASS = 1'b0
 );
   import params_pkg::*;
@@ -38,6 +39,7 @@ module tb_poly_mul_top_dual_forward #(
   poly_mul_top_dual_forward #(
       .USE_LOAD_PREPROCESS(USE_LOAD_PREPROCESS),
       .FUSE_INTT_SCALE_IN_POST(FUSE_INTT_SCALE_IN_POST),
+      .USE_TOP_DATA_BRAM(USE_TOP_DATA_BRAM),
       .USE_FINAL_UNIT_TWIDDLE_BYPASS(USE_FINAL_UNIT_TWIDDLE_BYPASS)
   ) u_dut (.*);
 
@@ -71,9 +73,9 @@ module tb_poly_mul_top_dual_forward #(
   endtask
 
   initial begin
-    $display("DSP_REDUCTION_CONFIG load_pre=%0d fused_post=%0d unit_twiddle=%0d",
+    $display("DSP_REDUCTION_CONFIG load_pre=%0d fused_post=%0d unit_twiddle=%0d top_bram=%0d",
              USE_LOAD_PREPROCESS, FUSE_INTT_SCALE_IN_POST,
-             USE_FINAL_UNIT_TWIDDLE_BYPASS);
+             USE_FINAL_UNIT_TWIDDLE_BYPASS, USE_TOP_DATA_BRAM);
     $readmemh("mem/input_a.mem", a);
     $readmemh("mem/input_b.mem", b);
     $readmemh("mem/golden_result.mem", golden);

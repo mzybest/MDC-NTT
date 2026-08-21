@@ -1,0 +1,697 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Sat Aug 22 04:06:38 2026
+| Host         : LAPTOP-G40ALRVF running 64-bit major release  (build 9200)
+| Command      : report_timing -delay_type max -max_paths 10 -nworst 1 -sort_by group -file D:/MDC-NTT/reports/dual_forward_dsp_reduction/bram_ac_scratch/virtex7_v2026_1/synth_160mhz/timing_paths_top10.rpt
+| Design       : poly_mul_top_dual_forward
+| Device       : 7vx330t-ffg1157
+| Speed File   : -1  PRODUCTION 1.11 2014-09-11
+| Design State : Synthesized
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/p_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh0_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/p_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/p_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/Q[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/neg_q0_inv_mul_return0_carry_i_1/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh0_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh0_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh0_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/p_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh1_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/p_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/p_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/Q[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_intmul/neg_q0_inv_mul_return0_carry_i_1/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh1_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh1_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/qh1_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh0_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[112]_0[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_i_1__0/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh0_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh0_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh0_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh1_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/t_out_reg[112]_0[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_i_1__0/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh1_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh1_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/qh1_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh0_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/t_out_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/Q[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry_i_1__1/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh0_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh0_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh0_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh1_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/t_out_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/Q[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round1/neg_q0_inv_mul_return0_carry_i_1__1/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh1_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh1_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/qh1_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh0_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[80]_0[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry_i_1__2/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/p_0_in__0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh0_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh0_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh0_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh1_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/t_out_reg[80]_0[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round2/neg_q0_inv_mul_return0_carry_i_1__2/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/p_0_in__0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh1_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh1_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul0/g_wl.u_mul/u_round3/qh1_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/p_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh0_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/p_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/p_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/Q[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/neg_q0_inv_mul_return0_carry_i_1__3/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh0_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh0_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh0_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+Slack (MET) :             0.710ns  (required time - arrival time)
+  Source:                 g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/p_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh1_prod_s1_reg/B[14]
+                            (rising edge-triggered cell DSP48E1 clocked by clk  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.250ns  (clk rise@6.250ns - clk rise@0.000ns)
+  Data Path Delay:        2.264ns  (logic 1.133ns (50.054%)  route 1.131ns (49.946%))
+  Logic Levels:           5  (CARRY4=4 LUT1=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.632ns = ( 7.882 - 6.250 ) 
+    Source Clock Delay      (SCD):    1.938ns
+    Clock Pessimism Removal (CPR):    0.161ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  <hidden>
+                                                      0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+                         IBUF (Prop_ibuf_I_O)         0.650     0.650 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.584     1.234    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.120     1.354 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.584     1.938    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/clk_IBUF_BUFG
+                         FDRE                                         r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/p_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.281     2.219 f  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/p_reg[0]/Q
+                         net (fo=13, unplaced)        0.292     2.511    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/Q[0]
+                         LUT1 (Prop_lut1_I0_O)        0.153     2.664 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_intmul/neg_q0_inv_mul_return0_carry_i_1__3/O
+                         net (fo=1, unplaced)         0.247     2.911    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/p_0_in__0_0[0]
+                         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.359     3.270 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry/CO[3]
+                         net (fo=1, unplaced)         0.008     3.278    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.338 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     3.338    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.060     3.398 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1/CO[3]
+                         net (fo=1, unplaced)         0.000     3.398    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__1_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.220     3.618 r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/neg_q0_inv_mul_return0_carry__2/O[1]
+                         net (fo=10, unplaced)        0.584     4.201    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/B[13]
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh1_prod_s1_reg/B[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        6.250     6.250 r  <hidden>
+                                                      0.000     6.250 r  clk
+                         net (fo=0)                   0.000     6.250    clk
+                         IBUF (Prop_ibuf_I_O)         0.526     6.776 r  clk_IBUF_inst/O
+                         net (fo=1, unplaced)         0.554     7.330    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.113     7.443 r  clk_IBUF_BUFG_inst/O
+                         net (fo=65415, unplaced)     0.439     7.882    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/clk_IBUF_BUFG
+                         DSP48E1                                      r  g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh1_prod_s1_reg/CLK
+                         clock pessimism              0.161     8.043    <hidden>
+                         clock uncertainty           -0.035     8.008    <hidden>
+                         DSP48E1 (Setup_dsp48e1_CLK_B[14])
+                                                     -3.096     4.912    g_forward_pre.u_pre_a_mul1/g_wl.u_mul/u_round0/qh1_prod_s1_reg
+  -------------------------------------------------------------------
+                         required time                          4.912    <hidden>
+                         arrival time                          -4.201    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.710    <hidden>
+
+
+
+

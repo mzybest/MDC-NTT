@@ -1,0 +1,7 @@
+vivado=2026.1
+top=poly_mul_top_dual_forward
+opt=Explore
+place=AltSpreadLogic_medium
+pre_phys=AggressiveFanoutOpt
+route=MoreGlobalIterations
+runtime_seconds=4880
