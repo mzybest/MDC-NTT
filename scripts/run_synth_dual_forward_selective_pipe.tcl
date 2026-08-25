@@ -20,6 +20,7 @@ set rtl_files [list \
   rtl/wlmont_round16.sv \
   rtl/mont_mul_wl.sv \
   rtl/mont_mul_select.sv \
+  rtl/peripheral_mont_pool.sv \
   rtl/gs_butterfly.sv \
   rtl/twiddle_rom.sv \
   rtl/twiddle_rom_stage.sv \

@@ -1,0 +1,13 @@
+vivado=2026.1
+top=poly_mul_top_dual_forward
+source_checkpoint=D:/MDC-NTT/reports/dual_forward_dsp_reduction/peripheral_mont_pool/xc7vx485t_150mhz/synth/poly_mul_top_dual_forward_synth.dcp
+implementation_period_ns=6.400
+signoff_period_ns=6.667
+opt=Explore
+place=AltSpreadLogic_medium
+pre_phys_1=AggressiveFanoutOpt
+pre_phys_2=AggressiveExplore
+route=MoreGlobalIterations
+route_tns_cleanup=1
+post_route_phys=Explore
+runtime_seconds=5846

@@ -23,6 +23,7 @@ if not exist "%WORK%" "%QUESTA_BIN%\vlib.exe" "%WORK%"
   rtl\delay_line.sv rtl\delay_memory.sv ^
   rtl\mont_mul.sv rtl\intmul_64x64_24x17.sv rtl\wlmont_round16.sv ^
   rtl\mont_mul_wl.sv rtl\mont_mul_select.sv rtl\gs_butterfly.sv ^
+  rtl\peripheral_mont_pool.sv ^
   rtl\twiddle_rom.sv rtl\twiddle_rom_stage.sv ^
   rtl\twiddle_rom_stage_ntt.sv rtl\psi_rom.sv rtl\psi_post_rom.sv ^
   rtl\mdc_stage.sv rtl\gs_mdc_core.sv rtl\gs_mdc_core_ntt_only.sv ^

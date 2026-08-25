@@ -36,3 +36,7 @@ reports/dual_forward_dsp_reduction/bram_ac_scratch_overconstraint/**/*.dcp
 # XC7VX485T 150 MHz Proteus comparison build artifacts.
 questa_work_proteus_xc7vx485t/
 reports/proteus_xc7vx485t_150mhz/**/*.dcp
+
+# Peripheral Montgomery pool experiment build artifacts.
+questa_work_dual_forward_dsp/
+reports/dual_forward_dsp_reduction/peripheral_mont_pool/**/*.dcp

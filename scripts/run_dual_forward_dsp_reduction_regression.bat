@@ -22,6 +22,7 @@ if not exist "%WORK%" "%QUESTA_BIN%\vlib.exe" "%WORK%"
   rtl\delay_line.sv rtl\delay_memory.sv ^
   rtl\mont_mul.sv rtl\intmul_64x64_24x17.sv rtl\wlmont_round16.sv ^
   rtl\mont_mul_wl.sv rtl\mont_mul_select.sv rtl\gs_butterfly.sv ^
+  rtl\peripheral_mont_pool.sv ^
   rtl\twiddle_rom.sv rtl\twiddle_rom_stage.sv ^
   rtl\twiddle_rom_stage_ntt.sv rtl\psi_rom.sv rtl\psi_post_rom.sv ^
   rtl\mdc_stage.sv rtl\gs_mdc_core.sv rtl\gs_mdc_core_ntt_only.sv ^
@@ -49,17 +50,19 @@ if errorlevel 1 exit /b 1
 call :run_bypass_test tb_gs_mdc_core_ntt_only USE_FINAL_UNIT_TWIDDLE_BYPASS
 if errorlevel 1 exit /b 1
 
-call :run_config baseline 0 0 0 0
+call :run_config baseline 0 0 0 0 0
 if errorlevel 1 exit /b 1
-call :run_config load_pre 1 0 0 0
+call :run_config load_pre 1 0 0 0 0
 if errorlevel 1 exit /b 1
-call :run_config fused_post 0 1 0 0
+call :run_config fused_post 0 1 0 0 0
 if errorlevel 1 exit /b 1
-call :run_config combined 1 1 0 0
+call :run_config combined 1 1 0 0 0
 if errorlevel 1 exit /b 1
-call :run_config combined_unit_twiddle 1 1 1 0
+call :run_config combined_unit_twiddle 1 1 1 0 0
 if errorlevel 1 exit /b 1
-call :run_config bram_raw_pre 0 1 1 1
+call :run_config bram_raw_pre 0 1 1 1 0
+if errorlevel 1 exit /b 1
+call :run_config bram_raw_pre_shared 0 1 1 1 1
 if errorlevel 1 exit /b 1
 
 echo Dual-forward DSP-reduction regression PASS
@@ -75,11 +78,11 @@ exit /b 0
 
 :run_config
 "%QUESTA_BIN%\vsim.exe" -c -lib "%WORK%" ^
-  -gUSE_LOAD_PREPROCESS=%2 -gFUSE_INTT_SCALE_IN_POST=%3 -gUSE_FINAL_UNIT_TWIDDLE_BYPASS=%4 -gUSE_TOP_DATA_BRAM=%5 ^
+  -gUSE_LOAD_PREPROCESS=%2 -gFUSE_INTT_SCALE_IN_POST=%3 -gUSE_FINAL_UNIT_TWIDDLE_BYPASS=%4 -gUSE_TOP_DATA_BRAM=%5 -gUSE_SHARED_PERIPH_MONT=%6 ^
   tb_poly_mul_top_dual_forward -l "%LOG_DIR%\tb_%1.log" ^
   -do "run -all; quit -f"
 if errorlevel 1 exit /b 1
-findstr /c:"DSP_REDUCTION_CONFIG load_pre=%2 fused_post=%3 unit_twiddle=%4 top_bram=%5" "%LOG_DIR%\tb_%1.log" >nul
+findstr /c:"DSP_REDUCTION_CONFIG load_pre=%2 fused_post=%3 unit_twiddle=%4 top_bram=%5 shared_pool=%6" "%LOG_DIR%\tb_%1.log" >nul
 if errorlevel 1 exit /b 1
 findstr /c:"tb_poly_mul_top_dual_forward PASS" "%LOG_DIR%\tb_%1.log" >nul
 if errorlevel 1 exit /b 1

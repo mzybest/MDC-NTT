@@ -17,6 +17,7 @@ set use_load_preprocess 0
 set fuse_intt_scale_in_post 0
 set use_final_unit_twiddle_bypass 0
 set use_top_data_bram 0
+set use_shared_periph_mont 0
 switch -- $config {
   baseline { }
   load_pre { set use_load_preprocess 1 }
@@ -35,6 +36,12 @@ switch -- $config {
     set use_final_unit_twiddle_bypass 1
     set use_top_data_bram 1
   }
+  bram_raw_pre_shared {
+    set fuse_intt_scale_in_post 1
+    set use_final_unit_twiddle_bypass 1
+    set use_top_data_bram 1
+    set use_shared_periph_mont 1
+  }
   default { error "Unknown DSP-reduction configuration: $config" }
 }
 
@@ -49,6 +56,7 @@ set rtl_files [list \
   rtl/wlmont_round16.sv \
   rtl/mont_mul_wl.sv \
   rtl/mont_mul_select.sv \
+  rtl/peripheral_mont_pool.sv \
   rtl/gs_butterfly.sv \
   rtl/twiddle_rom.sv \
   rtl/twiddle_rom_stage.sv \
@@ -77,6 +85,7 @@ set generic_args [list \
   FUSE_INTT_SCALE_IN_POST=$fuse_intt_scale_in_post \
   USE_FINAL_UNIT_TWIDDLE_BYPASS=$use_final_unit_twiddle_bypass \
   USE_TOP_DATA_BRAM=$use_top_data_bram \
+  USE_SHARED_PERIPH_MONT=$use_shared_periph_mont \
 ]
 
 cd $repo_root

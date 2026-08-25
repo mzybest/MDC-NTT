@@ -14,6 +14,7 @@ module poly_mul_top_dual_forward #(
     parameter bit USE_LOAD_PREPROCESS = 1'b0,
     parameter bit USE_WL_POINTWISE = USE_WL_MONT,
     parameter bit USE_WL_POST_INTT = USE_WL_MONT,
+    parameter bit USE_SHARED_PERIPH_MONT = 1'b0,
     parameter bit FUSE_INTT_SCALE_IN_POST = 1'b0,
     parameter bit USE_FINAL_UNIT_TWIDDLE_BYPASS = 1'b0,
     parameter bit USE_TOP_DATA_BRAM = 1'b0,
@@ -43,6 +44,8 @@ module poly_mul_top_dual_forward #(
       USE_WL_POINTWISE ? WL_MONT_LAT : OLD_MONT_LAT;
   localparam int POST_MUL_LAT =
       USE_WL_POST_INTT ? WL_MONT_LAT : OLD_MONT_LAT;
+  localparam bit SHARED_POOL_ACTIVE =
+      USE_SHARED_PERIPH_MONT && !USE_LOAD_PREPROCESS;
   localparam logic [LOGN-1:0] CORE_A_BFU_PIPE_MASK =
       USE_BFU_BOUNDARY_PIPE ? {1'b1, {(LOGN-1){1'b0}}} : '0;
   localparam logic [LOGN-1:0] CORE_B_BFU_PIPE_MASK =
@@ -384,6 +387,7 @@ module poly_mul_top_dual_forward #(
           .table_sel(PSI_FWD), .index(pre_index1), .factor(psi_fwd1)
       );
 
+      if (!SHARED_POOL_ACTIVE) begin : g_direct_pre
       mont_mul_select #(.QW(QW), .USE_WL_MONT(USE_WL_PRE_NTT)) u_pre_a_mul0 (
           .clk(clk), .rst_n(rst_n), .in_valid(pre_issue_valid),
           .a(forward_mem_a0), .b(psi_fwd0),
@@ -404,6 +408,7 @@ module poly_mul_top_dual_forward #(
           .a(forward_mem_b1), .b(psi_fwd1),
           .out_valid(pre_b_valid1), .y(pre_b_out1)
       );
+      end
     end
   endgenerate
   always_comb begin
@@ -460,6 +465,8 @@ module poly_mul_top_dual_forward #(
         (state == WAIT_POINTWISE) & core_a_out_valid & core_b_out_valid;
   end
 
+  generate
+    if (!SHARED_POOL_ACTIVE) begin : g_direct_pointwise
   pointwise_mul #(
       .QW(QW), .USE_WL_POINTWISE(USE_WL_POINTWISE)
   ) u_mul0 (
@@ -474,6 +481,8 @@ module poly_mul_top_dual_forward #(
       .a_ntt(core_a_out1), .b_ntt(core_b_out1),
       .out_valid(mul_valid1), .c_ntt(mul_out1)
   );
+    end
+  endgenerate
   delay_line #(.DW(LOGN-1), .DEPTH(POINTWISE_MUL_LAT)) u_mul_addr_delay (
       .clk(clk), .rst_n(rst_n), .in_valid(forward_pair_valid),
       .din(forward_recv_count), .out_valid(mul_addr_valid), .dout(mul_addr)
@@ -497,6 +506,8 @@ module poly_mul_top_dual_forward #(
   ) u_psi_inv1 (
       .index(post_addr1), .factor(psi_inv1)
   );
+  generate
+    if (!SHARED_POOL_ACTIVE) begin : g_direct_post
   mont_mul_select #(
       .QW(QW), .USE_WL_MONT(USE_WL_POST_INTT)
   ) u_post_mul0 (
@@ -509,6 +520,37 @@ module poly_mul_top_dual_forward #(
       .clk(clk), .rst_n(rst_n), .in_valid(intt_pair_valid),
       .a(core_a_out1), .b(psi_inv1), .out_valid(post_valid1), .y(post_out1)
   );
+    end
+  endgenerate
+
+  generate
+    if (SHARED_POOL_ACTIVE) begin : g_shared_periph_pool
+      peripheral_mont_pool #(
+          .QW(QW), .MONT_LAT(PRE_MUL_LAT),
+          .USE_WL_MONT(USE_WL_PRE_NTT)
+      ) u_pool (
+          .clk(clk), .rst_n(rst_n),
+          .pre_valid(pre_issue_valid),
+          .pre_a0(forward_mem_a0), .pre_a1(forward_mem_a1),
+          .pre_b0(forward_mem_b0), .pre_b1(forward_mem_b1),
+          .pre_factor0(psi_fwd0), .pre_factor1(psi_fwd1),
+          .pre_out_valid0(pre_a_valid0), .pre_out_valid1(pre_a_valid1),
+          .pre_out_valid2(pre_b_valid0), .pre_out_valid3(pre_b_valid1),
+          .pre_out0(pre_a_out0), .pre_out1(pre_a_out1),
+          .pre_out2(pre_b_out0), .pre_out3(pre_b_out1),
+          .point_valid(forward_pair_valid),
+          .point_a0(core_a_out0), .point_a1(core_a_out1),
+          .point_b0(core_b_out0), .point_b1(core_b_out1),
+          .point_out_valid0(mul_valid0), .point_out_valid1(mul_valid1),
+          .point_out0(mul_out0), .point_out1(mul_out1),
+          .post_valid(intt_pair_valid),
+          .post_a0(core_a_out0), .post_a1(core_a_out1),
+          .post_factor0(psi_inv0), .post_factor1(psi_inv1),
+          .post_out_valid0(post_valid0), .post_out_valid1(post_valid1),
+          .post_out0(post_out0), .post_out1(post_out1)
+      );
+    end
+  endgenerate
   delay_line #(.DW(2*LOGN), .DEPTH(POST_MUL_LAT)) u_post_addr_delay (
       .clk(clk), .rst_n(rst_n), .in_valid(intt_pair_valid),
       .din({post_addr1, post_addr0}),
@@ -611,6 +653,17 @@ module poly_mul_top_dual_forward #(
   end
 
 `ifndef SYNTHESIS
+  initial begin
+    if (USE_SHARED_PERIPH_MONT && USE_LOAD_PREPROCESS)
+      $fatal(1, "shared peripheral Montgomery pool requires raw Pre_NTT mode");
+    if (USE_SHARED_PERIPH_MONT &&
+        ((USE_WL_PRE_NTT != USE_WL_POINTWISE) ||
+         (USE_WL_PRE_NTT != USE_WL_POST_INTT) ||
+         (PRE_MUL_LAT != POINTWISE_MUL_LAT) ||
+         (PRE_MUL_LAT != POST_MUL_LAT)))
+      $fatal(1, "shared peripheral Montgomery pool requires equal multiplier implementations");
+  end
+
   always_ff @(posedge clk) begin
     if (rst_n && ((pre_a_valid0 != pre_a_valid1) ||
                   (pre_a_valid0 != pre_b_valid0) ||
