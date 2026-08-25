@@ -30,3 +30,9 @@ mem/result_dual_forward.mem
 questa_work_batch_wavefront/
 reports/batch_wavefront_scheduler/**/*.dcp
 reports/batch_wavefront_scheduler/vectors/
+# BRAM A/C overconstraint implementation checkpoints.
+reports/dual_forward_dsp_reduction/bram_ac_scratch_overconstraint/**/*.dcp
+
+# XC7VX485T 150 MHz Proteus comparison build artifacts.
+questa_work_proteus_xc7vx485t/
+reports/proteus_xc7vx485t_150mhz/**/*.dcp

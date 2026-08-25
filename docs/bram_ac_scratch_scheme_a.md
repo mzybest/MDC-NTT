@@ -112,10 +112,67 @@ contain zero routing errors and pass setup and hold timing.
 
 The non-monotonic WNS is caused by independent frequency-driven placement,
 physical optimization, and DSP-register pushing. It must not be interpreted
-as a deterministic gain from tightening the clock. The highest demonstrated
-point is 160 MHz, where 8623 cycles correspond to about 53.894 us and 18,555
+as a deterministic gain from tightening the clock. For this original
+implementation flow, the highest requested target is 160 MHz, where 8623 cycles correspond to about 53.894 us and 18,555
 compute-only polynomial multiplications per second once A/B preload is
 complete. This rate does not include the external coefficient-loading phase.
+
+## Overconstrained Implementation Refinement
+
+A second implementation-only experiment reused the same frequency-specific
+synthesis checkpoints from commit `9141671`. It did not resynthesize or modify
+RTL. Opt, placement, physical optimization, and routing used a clock tighter
+than the final requested target:
+
+- `opt_design`: `Explore`;
+- `place_design`: `AltSpreadLogic_medium`;
+- pre-route `phys_opt_design`: `AggressiveFanoutOpt`, then
+  `AggressiveExplore`;
+- `route_design`: `MoreGlobalIterations` with TNS cleanup;
+- post-route `phys_opt_design`: `Explore`, followed by a second route pass.
+
+The requested clock was restored after routing for the final signoff report and
+checkpoint. Both the tighter implementation constraints and the restored
+target constraints pass setup and hold timing.
+
+| Target | Tight implementation period | WNS at tight period | Original WNS at target | Refined WNS at target | WNS gain | Refined WHS | Runtime |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 150 MHz | 6.400 ns | +0.187 ns | +0.184 ns | **+0.454 ns** | **+0.270 ns** | +0.021 ns | 6,892 s |
+| 155 MHz | 6.200 ns | +0.193 ns | +0.225 ns | **+0.445 ns** | **+0.220 ns** | +0.017 ns | 5,928 s |
+| 160 MHz | 6.000 ns | +0.244 ns | +0.234 ns | **+0.494 ns** | **+0.260 ns** | +0.007 ns | 6,465 s |
+
+Setup TNS and hold THS are `0.000 ns` in all six tighter-period and
+target-period checks. Every routed design has zero routing errors.
+
+| Target | Slice LUT | LUT Memory | Registers | DSP48E1 | BRAM | Estimated power |
+|---:|---:|---:|---:|---:|---:|---:|
+| 150 MHz | 61,625 | 8,782 | 56,455 | 600 | 59 | 4.552 W |
+| 155 MHz | 61,614 | 8,781 | 57,271 | 600 | 59 | 4.729 W |
+| 160 MHz | 61,557 | 8,782 | 57,809 | 600 | 59 | 4.869 W |
+
+DSP and BRAM counts are unchanged. Aggressive fanout optimization adds 311,
+789, and 802 registers relative to the original 150, 155, and 160 MHz routes,
+respectively. LUT and estimated-power changes are small.
+
+The new worst paths are one-logic-level, routing-dominated control paths into
+MDC delay storage:
+
+| Target | Source to destination | Data path | Route share |
+|---:|---|---:|---:|
+| 150 MHz | Core A `g_stage_r_1` to Stage8 `fifo_a_delay` | 6.535 ns | 95.073% |
+| 155 MHz | Core A `g_stage_r_13` to Stage6 `fifo_b_delay` | 6.046 ns | 94.674% |
+| 160 MHz | Core A `g_stage_r_1` to Core B Stage8 `fifo_b_delay` | 6.038 ns | 93.309% |
+
+At 160 MHz, none of the first five setup paths is the former Stage6 BFU
+21-level carry-chain path. The physical design itself also passes the genuine
+6.000 ns routed timing check with WNS `+0.244 ns`, equivalent to 166.7 MHz.
+The preserved final checkpoint is constrained to the requested 6.250 ns /
+160 MHz. No dedicated 170 MHz implementation has been run, so 170 MHz is not
+claimed.
+
+The implementation reports and checkpoints are stored separately under
+`reports/dual_forward_dsp_reduction/bram_ac_scratch_overconstraint/`.
+The `rtl/*.sv` SHA256 manifests before and after the sweep are identical.
 
 ## Critical-Path Movement
 
@@ -148,15 +205,20 @@ signals into Stage0. The old C_NTT LUTRAM write-address bottleneck is gone.
 - `scripts/run_dual_forward_dsp_reduction_regression.bat`
 - `scripts/run_synth_dual_forward_dsp_reduction.tcl`
 - `scripts/run_virtex7_bram_ac_scratch_scheme_a.bat`
+- `scripts/run_impl_bram_ac_overconstraint.tcl`
+- `scripts/run_impl_bram_ac_overconstraint.bat`
 - `reports/dual_forward_dsp_reduction/bram_ac_scratch/virtex7_v2026_1/`
+- `reports/dual_forward_dsp_reduction/bram_ac_scratch_overconstraint/virtex7_v2026_1/`
 
 ## Conclusion
 
 Scheme A is functionally correct and preserves the 8623-cycle schedule. It
 converts raw A/B and reusable A/C storage to synchronous BRAM, reduces routed
 LUT Memory by 65.29 percent, removes the prior C_NTT LUTRAM routing limiter,
-and demonstrates post-route timing closure through 160 MHz. The tradeoff is
-60 additional DSP48E1 blocks and a small register increase. The next DSP
+and demonstrates post-route timing closure through 160 MHz. The refined route
+raises the 160 MHz WNS to `+0.494 ns` and also passes a 6.000 ns routed
+timing check at `+0.244 ns`. The tradeoff is 60 additional DSP48E1 blocks
+and a small register increase. The next DSP
 experiment should be separate and parameterized, for example sharing
 phase-mutually-exclusive peripheral Montgomery units; it should not alter this
 verified BRAM/storage checkpoint.
