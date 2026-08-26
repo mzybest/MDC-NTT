@@ -68,16 +68,17 @@ module delay_memory #(
       always_ff @(posedge clk) begin
         if (!rst_n) begin
           valid_pipe <= '0;
-          for (i = 0; i < DEPTH; i = i + 1)
-            data_pipe[i] <= '0;
         end else begin
           valid_pipe[0] <= in_valid;
-          data_pipe[0] <= din;
-          for (i = 1; i < DEPTH; i = i + 1) begin
+          for (i = 1; i < DEPTH; i = i + 1)
             valid_pipe[i] <= valid_pipe[i-1];
-            data_pipe[i] <= data_pipe[i-1];
-          end
         end
+
+        // Data is meaningful only when the parallel valid bit is set. Leaving
+        // the data path reset-free allows Vivado to infer SRL storage.
+        data_pipe[0] <= din;
+        for (i = 1; i < DEPTH; i = i + 1)
+          data_pipe[i] <= data_pipe[i-1];
       end
 
       always_comb begin
