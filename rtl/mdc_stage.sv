@@ -130,10 +130,11 @@ module mdc_stage #(
       always_comb begin
         phase = (reorder_count / DEPTH) & 1'b1;
         delay_in_valid = bf_valid | flushing;
-        fifo_a_din = flushing ? '0 : bf_v;
-        if (flushing)
-          fifo_b_din = '0;
-        else if (phase)
+        // Flush data is intentionally don't-care: it is shifted in only to
+        // drain the final stored pair and is never observed with out_valid.
+        // Keep flushing out of the wide data muxes.
+        fifo_a_din = bf_v;
+        if (phase)
           fifo_b_din = fifo_a_dout;
         else
           fifo_b_din = bf_u;
@@ -148,7 +149,6 @@ module mdc_stage #(
         if (flushing) begin
           // Drain the final V-first/V-second pair after BFU input ends.
           out_valid = 1'b1;
-          out1 = fifo_a_dout;
         end else if (bf_valid && phase) begin
           // Second D cycles: delayed U-first pairs with current U-second.
           out_valid = 1'b1;
