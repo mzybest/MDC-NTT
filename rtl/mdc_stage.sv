@@ -138,26 +138,24 @@ module mdc_stage #(
         else
           fifo_b_din = bf_u;
 
+        // Data is don't-care while out_valid is low. Keep valid out of the
+        // wide data mux so it does not become a high-fanout stage-boundary
+        // gate after implementation.
         out_valid = 1'b0;
-        out0 = '0;
-        out1 = '0;
+        out0 = fifo_b_dout;
+        out1 = phase ? bf_u : fifo_a_dout;
 
         if (flushing) begin
           // Drain the final V-first/V-second pair after BFU input ends.
           out_valid = 1'b1;
-          out0 = fifo_b_dout;
           out1 = fifo_a_dout;
         end else if (bf_valid && phase) begin
           // Second D cycles: delayed U-first pairs with current U-second.
           out_valid = 1'b1;
-          out0 = fifo_b_dout;
-          out1 = bf_u;
         end else if (bf_valid && !phase && (reorder_count >= 2*DEPTH)) begin
           // Following phase-0 cycles: emit the previous V pair while the
           // current U/V first halves enter the delay memories.
           out_valid = 1'b1;
-          out0 = fifo_b_dout;
-          out1 = fifo_a_dout;
         end
       end
 
