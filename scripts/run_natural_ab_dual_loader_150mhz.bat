@@ -18,7 +18,10 @@ if not exist "%ROOT%\impl" mkdir "%ROOT%\impl"
 git branch --show-current > "%ROOT%\git_branch.txt"
 git rev-parse HEAD > "%ROOT%\git_commit.txt"
 git status --short > "%ROOT%\git_status_before.txt"
-powershell.exe -NoProfile -Command "Get-ChildItem rtl -Filter *.sv | Sort-Object Name | ForEach-Object { $h=Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName; '{0}  {1}' -f $h.Hash,$_.Name }" > "%ROOT%\rtl_hash_before.txt"
+powershell.exe -NoProfile -ExecutionPolicy Bypass ^
+  -File scripts\write_rtl_sha256.ps1 ^
+  -OutputPath "%ROOT%\rtl_hash_before.txt"
+if errorlevel 1 exit /b 1
 
 call "%VIVADO%" -mode batch ^
   -log "%ROOT%\synth\vivado_driver.log" ^
@@ -40,7 +43,10 @@ call "%VIVADO%" -mode batch ^
   -tclargs %SYNTH_SUBDIR% %IMPL_SUBDIR% 6.667 6.400
 if errorlevel 1 exit /b 1
 
-powershell.exe -NoProfile -Command "Get-ChildItem rtl -Filter *.sv | Sort-Object Name | ForEach-Object { $h=Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName; '{0}  {1}' -f $h.Hash,$_.Name }" > "%ROOT%\rtl_hash_after.txt"
+powershell.exe -NoProfile -ExecutionPolicy Bypass ^
+  -File scripts\write_rtl_sha256.ps1 ^
+  -OutputPath "%ROOT%\rtl_hash_after.txt"
+if errorlevel 1 exit /b 1
 fc /b "%ROOT%\rtl_hash_before.txt" "%ROOT%\rtl_hash_after.txt" > "%ROOT%\rtl_hash_compare.txt"
 if errorlevel 1 (
   echo ERROR: rtl/*.sv SHA256 changed during synthesis or implementation.
