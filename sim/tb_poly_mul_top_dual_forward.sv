@@ -13,9 +13,14 @@ module tb_poly_mul_top_dual_forward #(
   logic start = 0;
   logic load_we = 0;
   logic load_sel = 0;
+  logic ab_load_start = 0;
+  logic ab_in_valid = 0;
+  logic ab_in_ready, ab_load_done;
   logic busy, done;
   logic [LOGN-1:0] load_addr, result_addr;
   logic [QW-1:0] load_data, result_data;
+  logic [QW-1:0] a_coeff_in = '0;
+  logic [QW-1:0] b_coeff_in = '0;
   logic [QW-1:0] a [0:N-1];
   logic [QW-1:0] b [0:N-1];
   logic [QW-1:0] golden [0:N-1];

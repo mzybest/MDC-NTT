@@ -18,6 +18,7 @@ module poly_mul_top_dual_forward #(
     parameter bit FUSE_INTT_SCALE_IN_POST = 1'b0,
     parameter bit USE_FINAL_UNIT_TWIDDLE_BYPASS = 1'b0,
     parameter bit USE_TOP_DATA_BRAM = 1'b0,
+    parameter bit USE_NATURAL_AB_LOADER = 1'b0,
     parameter bit USE_BFU_BOUNDARY_PIPE = 1'b1,
     parameter bit USE_STAGE_LOCAL_TWIDDLE = 1'b1,
     parameter int TWIDDLE_BRAM_STAGES = 4
@@ -29,6 +30,12 @@ module poly_mul_top_dual_forward #(
     input  logic             load_sel,
     input  logic [LOGN-1:0]  load_addr,
     input  logic [QW-1:0]    load_data,
+    input  logic             ab_load_start,
+    input  logic             ab_in_valid,
+    output logic             ab_in_ready,
+    input  logic [QW-1:0]    a_coeff_in,
+    input  logic [QW-1:0]    b_coeff_in,
+    output logic             ab_load_done,
     input  logic [LOGN-1:0]  result_addr,
     output logic [QW-1:0]    result_data,
     output logic             busy,
@@ -67,6 +74,9 @@ module poly_mul_top_dual_forward #(
   localparam int LOAD_PENDING_W = $clog2(PRE_MUL_LAT + 2);
   logic load_accept;
   logic [LOAD_PENDING_W-1:0] load_pending_count;
+  logic [LOGN-1:0] load_index;
+  logic ab_load_active, ab_loaded, ab_fire;
+  logic compute_start;
 
   logic [QW-1:0] result_bank0 [0:N/2-1];
 
@@ -125,7 +135,45 @@ module poly_mul_top_dual_forward #(
       bit_reverse[i] = v[LOGN-1-i];
   endfunction
 
-  always_comb load_accept = load_we && (state == IDLE);
+  // Natural input is A[k]/B[k] in raw Montgomery representation. The address
+  // MSB selects the physical half-bank; only a successful handshake advances k.
+  always_comb begin
+    load_accept = !USE_NATURAL_AB_LOADER && load_we && (state == IDLE);
+    ab_in_ready = USE_NATURAL_AB_LOADER && ab_load_active &&
+                  (state == IDLE);
+    ab_fire = ab_in_valid && ab_in_ready;
+    compute_start = start && (!USE_NATURAL_AB_LOADER || ab_loaded);
+  end
+
+  always_ff @(posedge clk) begin
+    if (!rst_n) begin
+      load_index <= '0;
+      ab_load_active <= 1'b0;
+      ab_loaded <= 1'b0;
+      ab_load_done <= 1'b0;
+    end else begin
+      ab_load_done <= 1'b0;
+      if (USE_NATURAL_AB_LOADER) begin
+        if (ab_load_start && (state == IDLE)) begin
+          load_index <= '0;
+          ab_load_active <= 1'b1;
+          ab_loaded <= 1'b0;
+        end else if (ab_fire) begin
+          if (load_index == N-1) begin
+            ab_load_active <= 1'b0;
+            ab_loaded <= 1'b1;
+            ab_load_done <= 1'b1;
+          end else begin
+            load_index <= load_index + 1'b1;
+          end
+        end
+      end else begin
+        load_index <= '0;
+        ab_load_active <= 1'b0;
+        ab_loaded <= 1'b0;
+      end
+    end
+  end
 
   generate
     if (USE_LOAD_PREPROCESS) begin : g_load_preprocess
@@ -206,10 +254,11 @@ module poly_mul_top_dual_forward #(
       logic [LOGN-2:0] ac0_wr_addr, ac1_wr_addr;
       logic [LOGN-2:0] b0_wr_addr, b1_wr_addr;
       logic [QW-1:0] ac0_wr_data, ac1_wr_data;
+      logic [QW-1:0] b0_wr_data, b1_wr_data;
 
       always_comb begin
         forward_prefetch =
-            ((state == IDLE) && start && (load_pending_count == '0)) ||
+            ((state == IDLE) && compute_start && (load_pending_count == '0)) ||
             ((state == WAIT_LOAD_DRAIN) && (load_pending_count == '0));
         forward_stream = (state == FEED_FORWARD);
         forward_rd_en = forward_prefetch || forward_stream;
@@ -222,25 +271,43 @@ module poly_mul_top_dual_forward #(
         intt_rd_addr0 = bit_reverse({1'b0, intt_pair_index});
         intt_rd_addr1 = bit_reverse({1'b1, intt_pair_index});
 
-        ac0_wr_en = c_write_valid ||
-                    (input_bank_wr_valid && !input_bank_wr_sel &&
-                     !input_bank_wr_addr[LOGN-1]);
-        ac1_wr_en = c_write_valid ||
-                    (input_bank_wr_valid && !input_bank_wr_sel &&
-                     input_bank_wr_addr[LOGN-1]);
-        ac0_wr_addr = c_write_valid ? mul_addr :
-                      input_bank_wr_addr[LOGN-2:0];
-        ac1_wr_addr = c_write_valid ? mul_addr :
-                      input_bank_wr_addr[LOGN-2:0];
-        ac0_wr_data = c_write_valid ? mul_out0 : input_bank_wr_data;
-        ac1_wr_data = c_write_valid ? mul_out1 : input_bank_wr_data;
+        if (USE_NATURAL_AB_LOADER) begin
+          ac0_wr_en = c_write_valid || (ab_fire && !load_index[LOGN-1]);
+          ac1_wr_en = c_write_valid || (ab_fire && load_index[LOGN-1]);
+          ac0_wr_addr = c_write_valid ? mul_addr : load_index[LOGN-2:0];
+          ac1_wr_addr = c_write_valid ? mul_addr : load_index[LOGN-2:0];
+          ac0_wr_data = c_write_valid ? mul_out0 : a_coeff_in;
+          ac1_wr_data = c_write_valid ? mul_out1 : a_coeff_in;
 
-        b0_wr_en = input_bank_wr_valid && input_bank_wr_sel &&
-                   !input_bank_wr_addr[LOGN-1];
-        b1_wr_en = input_bank_wr_valid && input_bank_wr_sel &&
-                   input_bank_wr_addr[LOGN-1];
-        b0_wr_addr = input_bank_wr_addr[LOGN-2:0];
-        b1_wr_addr = input_bank_wr_addr[LOGN-2:0];
+          b0_wr_en = ab_fire && !load_index[LOGN-1];
+          b1_wr_en = ab_fire && load_index[LOGN-1];
+          b0_wr_addr = load_index[LOGN-2:0];
+          b1_wr_addr = load_index[LOGN-2:0];
+          b0_wr_data = b_coeff_in;
+          b1_wr_data = b_coeff_in;
+        end else begin
+          ac0_wr_en = c_write_valid ||
+                      (input_bank_wr_valid && !input_bank_wr_sel &&
+                       !input_bank_wr_addr[LOGN-1]);
+          ac1_wr_en = c_write_valid ||
+                      (input_bank_wr_valid && !input_bank_wr_sel &&
+                       input_bank_wr_addr[LOGN-1]);
+          ac0_wr_addr = c_write_valid ? mul_addr :
+                        input_bank_wr_addr[LOGN-2:0];
+          ac1_wr_addr = c_write_valid ? mul_addr :
+                        input_bank_wr_addr[LOGN-2:0];
+          ac0_wr_data = c_write_valid ? mul_out0 : input_bank_wr_data;
+          ac1_wr_data = c_write_valid ? mul_out1 : input_bank_wr_data;
+
+          b0_wr_en = input_bank_wr_valid && input_bank_wr_sel &&
+                     !input_bank_wr_addr[LOGN-1];
+          b1_wr_en = input_bank_wr_valid && input_bank_wr_sel &&
+                     input_bank_wr_addr[LOGN-1];
+          b0_wr_addr = input_bank_wr_addr[LOGN-2:0];
+          b1_wr_addr = input_bank_wr_addr[LOGN-2:0];
+          b0_wr_data = input_bank_wr_data;
+          b1_wr_data = input_bank_wr_data;
+        end
 
         forward_mem_valid = ac0_rd_valid && ac1_rd_valid &&
                             b0_rd_valid && b1_rd_valid && forward_tag_r;
@@ -286,13 +353,13 @@ module poly_mul_top_dual_forward #(
       );
       top_data_bram #(.DW(QW), .DEPTH(N/2), .AW(LOGN-1)) u_b_bank0 (
           .clk(clk), .rst_n(rst_n),
-          .wr_en(b0_wr_en), .wr_addr(b0_wr_addr), .wr_data(input_bank_wr_data),
+          .wr_en(b0_wr_en), .wr_addr(b0_wr_addr), .wr_data(b0_wr_data),
           .rd_en(forward_rd_en), .rd_addr(forward_rd_addr),
           .rd_valid(b0_rd_valid), .rd_data(b0_rd_data)
       );
       top_data_bram #(.DW(QW), .DEPTH(N/2), .AW(LOGN-1)) u_b_bank1 (
           .clk(clk), .rst_n(rst_n),
-          .wr_en(b1_wr_en), .wr_addr(b1_wr_addr), .wr_data(input_bank_wr_data),
+          .wr_en(b1_wr_en), .wr_addr(b1_wr_addr), .wr_data(b1_wr_data),
           .rd_en(forward_rd_en), .rd_addr(forward_rd_addr),
           .rd_valid(b1_rd_valid), .rd_data(b1_rd_data)
       );
@@ -301,6 +368,12 @@ module poly_mul_top_dual_forward #(
       always_ff @(posedge clk) begin
         if (rst_n && input_bank_wr_valid && c_write_valid)
           $fatal(1, "top BRAM input/C_NTT write ownership overlap");
+        if (rst_n && ab_fire && c_write_valid)
+          $fatal(1, "natural A/B load and C_NTT write ownership overlap");
+        if (rst_n && forward_rd_en && c_write_valid)
+          $fatal(1, "A forward read and C_NTT write ownership overlap");
+        if (rst_n && ab_fire && (forward_rd_en || intt_rd_en))
+          $fatal(1, "natural A/B load and transform read ownership overlap");
         if (rst_n && forward_rd_en && intt_rd_en)
           $fatal(1, "top BRAM forward/INTT read ownership overlap");
         if (rst_n && ((ac0_rd_valid != ac1_rd_valid) ||
@@ -558,7 +631,8 @@ module poly_mul_top_dual_forward #(
   );
 
   always_comb begin
-    busy = (state != IDLE) && (state != DONE);
+    busy = ((state != IDLE) && (state != DONE)) ||
+           (USE_NATURAL_AB_LOADER && ab_load_active);
     done = (state == DONE);
   end
 
@@ -605,7 +679,7 @@ module poly_mul_top_dual_forward #(
       end
 
       case (state)
-        IDLE: if (start) begin
+        IDLE: if (compute_start) begin
           feed_count <= '0;
           forward_recv_count <= '0;
           mul_count <= '0;
@@ -654,6 +728,10 @@ module poly_mul_top_dual_forward #(
 
 `ifndef SYNTHESIS
   initial begin
+    if (USE_NATURAL_AB_LOADER && !USE_TOP_DATA_BRAM)
+      $fatal(1, "natural A/B loader requires top-level BRAM banks");
+    if (USE_NATURAL_AB_LOADER && USE_LOAD_PREPROCESS)
+      $fatal(1, "natural A/B loader writes raw coefficients; load preprocessing must be disabled");
     if (USE_SHARED_PERIPH_MONT && USE_LOAD_PREPROCESS)
       $fatal(1, "shared peripheral Montgomery pool requires raw Pre_NTT mode");
     if (USE_SHARED_PERIPH_MONT &&
@@ -665,6 +743,10 @@ module poly_mul_top_dual_forward #(
   end
 
   always_ff @(posedge clk) begin
+    if (rst_n && USE_NATURAL_AB_LOADER && start && !ab_loaded)
+      $fatal(1, "compute start asserted before natural A/B load completed");
+    if (rst_n && USE_NATURAL_AB_LOADER && ab_load_start && (state != IDLE))
+      $fatal(1, "natural A/B load started while compute state is active");
     if (rst_n && ((pre_a_valid0 != pre_a_valid1) ||
                   (pre_a_valid0 != pre_b_valid0) ||
                   (pre_a_valid0 != pre_b_valid1)))
