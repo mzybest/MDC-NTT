@@ -503,6 +503,10 @@ module poly_mul_top_dual_forward #(
     core_b_start = pre_pair_valid & !forward_started;
   end
 
+  // Keep the two transform engines as independent synthesis domains. This
+  // prevents equivalent valid pipelines from being merged into a long
+  // cross-core control net after placement.
+  (* keep_hierarchy = "yes" *)
   gs_mdc_core #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
@@ -519,6 +523,7 @@ module poly_mul_top_dual_forward #(
       .out0(core_a_out0), .out1(core_a_out1), .done(core_a_done)
   );
 
+  (* keep_hierarchy = "yes" *)
   gs_mdc_core_ntt_only #(
       .N(N), .LOGN(LOGN), .QW(QW), .MUL_LAT(MUL_LAT),
       .USE_WL_MONT(USE_WL_CORE),
