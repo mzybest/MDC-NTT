@@ -1,0 +1,68 @@
+{
+  "wl_peripheral_original": {
+    "pass": true,
+    "observations": [
+      "# tb_mont_mul_wl_csa_integration PASS: mont_mul latency=12, mont_mul_wl latency=14"
+    ]
+  },
+  "butterfly": {
+    "pass": true,
+    "observations": [
+      "# tb_gs_butterfly PASS (32 vectors)"
+    ]
+  },
+  "butterfly_unit": {
+    "pass": true,
+    "observations": [
+      "# tb_gs_butterfly PASS (32 vectors)"
+    ]
+  },
+  "ntt_core": {
+    "pass": true,
+    "observations": [
+      "# tb_gs_mdc_core PASS"
+    ]
+  },
+  "roundtrip": {
+    "pass": true,
+    "observations": [
+      "# NTT_ROUNDTRIP_CYCLES first_in=1 first_out=2242 last_out=4289 done=4290 first_in_to_first_out=2241",
+      "# INTT_ROUNDTRIP_CYCLES first_in=4291 first_out=6532 last_out=8579 done=8580 first_in_to_first_out=2241",
+      "# tb_gs_mdc_core_roundtrip PASS"
+    ]
+  },
+  "ntt_only": {
+    "pass": true,
+    "observations": [
+      "# NTT_ONLY_CORE_CYCLES first_in=0 first_out=2242 done=4290 first_latency=2242 done_latency=4290",
+      "# tb_gs_mdc_core_ntt_only_csa_integration PASS"
+    ]
+  },
+  "natural_ab_full64": {
+    "pass": true,
+    "observations": [
+      "# NATURAL_AB_CYCLES case=random_continuous accepted=4096 load_elapsed=4096 first_fire=1 last_fire=4096 compute_start=4097 done=12720 compute=8623 end_to_end=12719 first_input_to_first_result=10671 first_input_to_last_result=12718 output_count=4096 output_read_included=0",
+      "# KARATSUBA_INTEGRATION_PHASES case=random_continuous L=14 start=4097 pre_issue=1..2048 fwd_in=15..2062 fwd_out=2257..4304 point_out=2271..4318 intt_in=4319..6366 intt_out=6561..8608 post_out=6575..8622 done=8623",
+      "# NATURAL_AB_CYCLES case=random_bubbles accepted=4096 load_elapsed=5422 first_fire=13131 last_fire=18552 compute_start=18553 done=27176 compute=8623 end_to_end=14045 first_input_to_first_result=11997 first_input_to_last_result=14044 output_count=4096 output_read_included=0",
+      "# KARATSUBA_INTEGRATION_PHASES case=random_bubbles L=14 start=18553 pre_issue=1..2048 fwd_in=15..2062 fwd_out=2257..4304 point_out=2271..4318 intt_in=4319..6366 intt_out=6561..8608 post_out=6575..8622 done=8623",
+      "# DIRECTED_LOGICAL_RESULT result[0]=Q-1 raw_mont=0ffffffffffbc011 PASS",
+      "# NATURAL_AB_CYCLES case=directed_bubbles accepted=4096 load_elapsed=5422 first_fire=27587 last_fire=33008 compute_start=33009 done=41632 compute=8623 end_to_end=14045 first_input_to_first_result=11997 first_input_to_last_result=14044 output_count=4096 output_read_included=0",
+      "# KARATSUBA_INTEGRATION_PHASES case=directed_bubbles L=14 start=33009 pre_issue=1..2048 fwd_in=15..2062 fwd_out=2257..4304 point_out=2271..4318 intt_in=4319..6366 intt_out=6561..8608 post_out=6575..8622 done=8623",
+      "# KARATSUBA_NONCANONICAL_INPUT full64_input_count=3831 a0=1000000000000000 golden0=16383 seed=6a09e667f3bcc909",
+      "# NATURAL_AB_CYCLES case=noncanonical_identity accepted=4096 load_elapsed=4096 first_fire=42043 last_fire=46138 compute_start=46139 done=54762 compute=8623 end_to_end=12719 first_input_to_first_result=10671 first_input_to_last_result=12718 output_count=4096 output_read_included=0",
+      "# KARATSUBA_INTEGRATION_PHASES case=noncanonical_identity L=14 start=46139 pre_issue=1..2048 fwd_in=15..2062 fwd_out=2257..4304 point_out=2271..4318 intt_in=4319..6366 intt_out=6561..8608 post_out=6575..8622 done=8623",
+      "# KARATSUBA_NONCANONICAL_IDENTITY full64_input_count=3831 checked=4096 result0=16383 PASS",
+      "# tb_poly_mul_top_dual_forward_karatsuba_integration PASS"
+    ]
+  },
+  "unchanged_natural_ab": {
+    "pass": true,
+    "observations": [
+      "# NATURAL_AB_CYCLES case=random_continuous accepted=4096 load_elapsed=4096 first_fire=1 last_fire=4096 compute_start=4097 done=12720 compute=8623 end_to_end=12719 first_input_to_first_result=10671 first_input_to_last_result=12718 output_count=4096 output_read_included=0",
+      "# NATURAL_AB_CYCLES case=random_bubbles accepted=4096 load_elapsed=5422 first_fire=13131 last_fire=18552 compute_start=18553 done=27176 compute=8623 end_to_end=14045 first_input_to_first_result=11997 first_input_to_last_result=14044 output_count=4096 output_read_included=0",
+      "# DIRECTED_LOGICAL_RESULT result[0]=Q-1 raw_mont=0ffffffffffbc011 PASS",
+      "# NATURAL_AB_CYCLES case=directed_bubbles accepted=4096 load_elapsed=5422 first_fire=27587 last_fire=33008 compute_start=33009 done=41632 compute=8623 end_to_end=14045 first_input_to_first_result=11997 first_input_to_last_result=14044 output_count=4096 output_read_included=0",
+      "# tb_poly_mul_top_dual_forward_natural_ab PASS"
+    ]
+  }
+}

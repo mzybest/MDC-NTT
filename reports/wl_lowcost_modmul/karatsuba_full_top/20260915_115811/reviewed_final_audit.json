@@ -1,0 +1,2298 @@
+{
+  "schema": "karatsuba_full_top_reviewed_final_audit_v1",
+  "run_directory": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811",
+  "reviewed_at": "2026-09-15T13:02:33.572945",
+  "strict_audit_pass": false,
+  "board_timing_signoff": false,
+  "review_verification_complete": true,
+  "original_error_text": "ERROR: [Common 17-1257] Failed to create directory 'C'.",
+  "strict_failure_label": "synth console.log has no errors/fatals",
+  "strict_audit_result_is_not_rewritten": true,
+  "helper_sha256": "ee1ca69f78d2d52ee4ddb40db178dd14b3325039725a3ada9d629e76f4444f02",
+  "strict_audit_sha256": "21c1f47ef259db4f0a0c7e16217c0f0b9b69e1ec91d628c195ee31c0fe36d965",
+  "metadata_sha256": "e26efa06687b5c62ae6e9bd9fb8458d97e8695a0ab3c70e981d14525d1ed09ae",
+  "checkpoint_review_sha256": "03b84f4606bee23386b57fba77016e5dd264bfbe5b131333bd1e716476b29420",
+  "original_strict_failures": [
+    {
+      "check": "synth console.log has no errors/fatals",
+      "status": "failed",
+      "details": [
+        {
+          "line": 998,
+          "text": "ERROR: [Common 17-1257] Failed to create directory 'C'."
+        }
+      ]
+    }
+  ],
+  "fresh_input_integrity": {
+    "source_file_count": 103,
+    "snapshot_file_count": 75,
+    "baseline_evidence_file_count": 72
+  },
+  "original_error": {
+    "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\console.log",
+    "line": 998,
+    "text": "ERROR: [Common 17-1257] Failed to create directory 'C'."
+  },
+  "original_runner_failure": "Tool failed: D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\console.log, exit=0; errors are never whitelisted",
+  "checkpoint": {
+    "sha256": "d3f2d984ef6702a87566b1e5a800fdfb30ae334705844ba2b91dac72756e2c36",
+    "crc_pass": true,
+    "entry_count": 14
+  },
+  "reopened_validation": {
+    "part": "xc7vx485tffg1761-2",
+    "clock_period_ns": "6.667",
+    "blackboxes": "0"
+  },
+  "reopened_resources": {
+    "Slice LUTs": 57964,
+    "Slice Registers": 43466,
+    "DSPs": 246,
+    "Block RAM Tile": 59
+  },
+  "reopened_frontend_counts": {
+    "core_karatsuba_frontends": "22",
+    "peripheral_full64_frontends": "4",
+    "black_boxes": "0",
+    "dsp_total": "246",
+    "core_a_dsp": "99",
+    "core_b_dsp": "99",
+    "peripheral_dsp": "48",
+    "other_dsp": "0"
+  },
+  "reopened_logs": [
+    {
+      "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\console.log",
+      "errors": [],
+      "critical_warnings": []
+    },
+    {
+      "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\vivado.log",
+      "errors": [],
+      "critical_warnings": []
+    }
+  ],
+  "preserved_strict_drc": {
+    "checks_found": 247,
+    "rules": [
+      {
+        "rule": "NSTD-1",
+        "severity": "Critical Warning",
+        "description": "Unspecified I/O Standard",
+        "checks": 1,
+        "detail_count": 1,
+        "summary_line": 31,
+        "allowed_board_constraint_warning": true
+      },
+      {
+        "rule": "UCIO-1",
+        "severity": "Critical Warning",
+        "description": "Unconstrained Logical Port",
+        "checks": 1,
+        "detail_count": 1,
+        "summary_line": 32,
+        "allowed_board_constraint_warning": true
+      },
+      {
+        "rule": "CFGBVS-1",
+        "severity": "Warning",
+        "description": "Missing CFGBVS and CONFIG_VOLTAGE Design Properties",
+        "checks": 1,
+        "detail_count": 1,
+        "summary_line": 33,
+        "allowed_board_constraint_warning": false
+      },
+      {
+        "rule": "DPIP-1",
+        "severity": "Warning",
+        "description": "Input pipelining",
+        "checks": 2,
+        "detail_count": 2,
+        "summary_line": 34,
+        "allowed_board_constraint_warning": false
+      },
+      {
+        "rule": "DPOP-2",
+        "severity": "Warning",
+        "description": "MREG Output pipelining",
+        "checks": 242,
+        "detail_count": 242,
+        "summary_line": 35,
+        "allowed_board_constraint_warning": false
+      }
+    ],
+    "board_timing_signoff": false,
+    "interpretation": "All DRC rules remain listed. NSTD/UCIO are accepted only as explicit board-constraint limitations; other warnings are not erased. This is not a no-DRC claim."
+  },
+  "preserved_strict_route_timing": {
+    "route": {
+      "routing_errors": 0,
+      "routable_nets": 92567,
+      "fully_routed_nets": 92567
+    },
+    "internal": {
+      "latency": "14",
+      "wns_ns": "0.414",
+      "whs_ns": "0.040",
+      "data_path_delay_ns": "6.328",
+      "startpoint": "u_core_a/g_stage_r_11/C",
+      "endpoint": "u_core_a/g_stage[2].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[13][52]/D"
+    },
+    "constrained": {
+      "wns_ns": 0.414,
+      "tns_ns": 0.0,
+      "setup_failing_endpoints": 0,
+      "whs_ns": 0.04,
+      "ths_ns": 0.0,
+      "hold_failing_endpoints": 0
+    },
+    "constraint_counts": {
+      "unconstrained_internal_endpoints": 0,
+      "no_input_delay": 132,
+      "no_output_delay": 68
+    },
+    "board_timing_signoff": false,
+    "interpretation": "Internal timing only; missing input/output delays are explicitly reported"
+  },
+  "preserved_simulation_identity": {
+    "full64_input_count": 3831,
+    "checked": 4096,
+    "result0": 16383
+  },
+  "recorded_cause": "Origin not determined; process-local TEMP/TMP did not prevent the message",
+  "acceptance_scope": "Only this exact run, source snapshot, single original console error and independently reopened synthesis checkpoint; all other strict audit checks pass",
+  "status": "accepted_with_exception",
+  "decision": "accepted_with_recorded_synthesis_console_error",
+  "checks": [
+    {
+      "check": "helper applies only to the explicitly reviewed run",
+      "status": "passed",
+      "details": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811"
+    },
+    {
+      "check": "strict audit schema",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit run directory",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit is complete",
+      "status": "passed",
+      "details": {
+        "audit_complete": true,
+        "incomplete_count": 0
+      }
+    },
+    {
+      "check": "strict audit contains only completed check results",
+      "status": "passed"
+    },
+    {
+      "check": "exactly one strict failure exists",
+      "status": "passed",
+      "details": [
+        {
+          "check": "synth console.log has no errors/fatals",
+          "status": "failed",
+          "details": [
+            {
+              "line": 998,
+              "text": "ERROR: [Common 17-1257] Failed to create directory 'C'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check": "sole failure is precisely the recorded synthesis console error",
+      "status": "passed",
+      "details": {
+        "check": "synth console.log has no errors/fatals",
+        "status": "failed",
+        "details": [
+          {
+            "line": 998,
+            "text": "ERROR: [Common 17-1257] Failed to create directory 'C'."
+          }
+        ]
+      }
+    },
+    {
+      "check": "approved strict audit helper version has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "approved strict audit helper version",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\final_audit.py",
+        "expected": "e89dc1c7a73fd15c69ef6defe130d376458d367cb4eb9627801810032af0bf46",
+        "actual": "e89dc1c7a73fd15c69ef6defe130d376458d367cb4eb9627801810032af0bf46"
+      }
+    },
+    {
+      "check": "strict audit was made with that helper",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit is bound to current metadata",
+      "status": "passed"
+    },
+    {
+      "check": "all strict audit sections exist",
+      "status": "passed"
+    },
+    {
+      "check": "all non-exempt correctness/route/integrity checks passed",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\metadata.json",
+        "expected": "e26efa06687b5c62ae6e9bd9fb8458d97e8695a0ab3c70e981d14525d1ed09ae",
+        "actual": "e26efa06687b5c62ae6e9bd9fb8458d97e8695a0ab3c70e981d14525d1ed09ae"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\snapshot_sha256.json",
+        "expected": "99844516622ac65e2b02d2b59d612a92d27dd83878d7eeda27f15cc763ea5de0",
+        "actual": "99844516622ac65e2b02d2b59d612a92d27dd83878d7eeda27f15cc763ea5de0"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation.json",
+        "expected": "2849305a361848b0121eb5b341ac4bf782938898f51cf2bbaeeedbfafb580cb9",
+        "actual": "2849305a361848b0121eb5b341ac4bf782938898f51cf2bbaeeedbfafb580cb9"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\wl_peripheral_original.log",
+        "expected": "eeeaec2caf37a19f90b7f2443154657c8880293a3d3fa97c38d3e035c412408e",
+        "actual": "eeeaec2caf37a19f90b7f2443154657c8880293a3d3fa97c38d3e035c412408e"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\wl_peripheral_original.transcript.log",
+        "expected": "2060db5ee1bafde92bb2ae8a3aa0dab407ee3660eb9884a1e2594b2d561e8b96",
+        "actual": "2060db5ee1bafde92bb2ae8a3aa0dab407ee3660eb9884a1e2594b2d561e8b96"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly.log",
+        "expected": "5424592ca9d8156a6359ff3c74f329ec9a617b11df3e0e4cc7be341aafd43676",
+        "actual": "5424592ca9d8156a6359ff3c74f329ec9a617b11df3e0e4cc7be341aafd43676"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly.transcript.log",
+        "expected": "2b3e41bcd4786479a6faab9425c90762b5b3db6e1fd7d11828cda96b513f944e",
+        "actual": "2b3e41bcd4786479a6faab9425c90762b5b3db6e1fd7d11828cda96b513f944e"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly_unit.log",
+        "expected": "fbb61c03108be6ef515bdc6581039c3d103c692753e7d10c7dd0330e28efe419",
+        "actual": "fbb61c03108be6ef515bdc6581039c3d103c692753e7d10c7dd0330e28efe419"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly_unit.transcript.log",
+        "expected": "8cfe60f396a6ebd57d60603bdccbdec9ea4d64d5f8813f6a3e6405be58bbdc89",
+        "actual": "8cfe60f396a6ebd57d60603bdccbdec9ea4d64d5f8813f6a3e6405be58bbdc89"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_core.log",
+        "expected": "9b13a66a519fdee3c1b5d0c71082d3a4a15c17bfd1c1fe1b9c6b484c651000aa",
+        "actual": "9b13a66a519fdee3c1b5d0c71082d3a4a15c17bfd1c1fe1b9c6b484c651000aa"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_core.transcript.log",
+        "expected": "dd6460ffa5b0be6c63b11413d586ee43325dc9b6d7e160d828df5f28a729ffec",
+        "actual": "dd6460ffa5b0be6c63b11413d586ee43325dc9b6d7e160d828df5f28a729ffec"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\roundtrip.log",
+        "expected": "568635bde26c138ece73decdfd2b261b373f1b3b879e76d89d8ad7c0ac329a12",
+        "actual": "568635bde26c138ece73decdfd2b261b373f1b3b879e76d89d8ad7c0ac329a12"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\roundtrip.transcript.log",
+        "expected": "f3955abb3e8158d85a63faabdcef168a531a05db050596167f31e79383989802",
+        "actual": "f3955abb3e8158d85a63faabdcef168a531a05db050596167f31e79383989802"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_only.log",
+        "expected": "5370107eb8fd4746504b35e92a662be1d255fe3442eb3550b92b4ea4e413f920",
+        "actual": "5370107eb8fd4746504b35e92a662be1d255fe3442eb3550b92b4ea4e413f920"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_only.transcript.log",
+        "expected": "b72f1594714422f65ffb2656698ca9fdb59e1355e902aa97c3f0f0a0961d5bbf",
+        "actual": "b72f1594714422f65ffb2656698ca9fdb59e1355e902aa97c3f0f0a0961d5bbf"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\natural_ab_full64.log",
+        "expected": "6279d3991036d7dbfacaac99063559eb4d2ee01b65a585bd1574f766633e4f6b",
+        "actual": "6279d3991036d7dbfacaac99063559eb4d2ee01b65a585bd1574f766633e4f6b"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\natural_ab_full64.transcript.log",
+        "expected": "e2ab5910530ff6b7551f944058c1312a5feaca2433dc2a11f368f9c9d3c04230",
+        "actual": "e2ab5910530ff6b7551f944058c1312a5feaca2433dc2a11f368f9c9d3c04230"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\unchanged_natural_ab.log",
+        "expected": "adce24928a3761a89d57655026cd8dafd27282bc2ffc67fa39797d0453383fb1",
+        "actual": "adce24928a3761a89d57655026cd8dafd27282bc2ffc67fa39797d0453383fb1"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\unchanged_natural_ab.transcript.log",
+        "expected": "22db0ad1e5a034f8e8fedf8d6dc928bcfea3d9ee0797993e9e840e853f338d98",
+        "actual": "22db0ad1e5a034f8e8fedf8d6dc928bcfea3d9ee0797993e9e840e853f338d98"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\vlib.log",
+        "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\compile.log",
+        "expected": "21b087b3bb1cbb6b2cbedf3adbbd5f87876a36767ab1fa829f5f742436b873d4",
+        "actual": "21b087b3bb1cbb6b2cbedf3adbbd5f87876a36767ab1fa829f5f742436b873d4"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\isolation_audit.txt",
+        "expected": "e6a9604eefb62dd13b326fa8c3a8f47d0414a547151c992bc8d900f6d712756d",
+        "actual": "e6a9604eefb62dd13b326fa8c3a8f47d0414a547151c992bc8d900f6d712756d"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\utilization.rpt",
+        "expected": "27fe373aa9c523bb1ab0f25509f118c2aa005f42c02c4cd5d96bc08169a8f33e",
+        "actual": "27fe373aa9c523bb1ab0f25509f118c2aa005f42c02c4cd5d96bc08169a8f33e"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\console.log",
+        "expected": "caa0b9076f1ea6c8d2239941f62968bdcd053354f04a4880b4e878d96b0744c8",
+        "actual": "caa0b9076f1ea6c8d2239941f62968bdcd053354f04a4880b4e878d96b0744c8"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\vivado.log",
+        "expected": "32b3250e841867970ef597c14a78da856ae8469cc50cdc5e2057bf335422c908",
+        "actual": "32b3250e841867970ef597c14a78da856ae8469cc50cdc5e2057bf335422c908"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\isolation_audit.txt",
+        "expected": "ef1cd1b3d974bc4c5064df60c0ceb6f7b75b6b95189b328d745ce8b07b18d843",
+        "actual": "ef1cd1b3d974bc4c5064df60c0ceb6f7b75b6b95189b328d745ce8b07b18d843"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\utilization.rpt",
+        "expected": "12c1cac1095e947e64ae56020b85134bfda512df11b1cf44673f249143550d24",
+        "actual": "12c1cac1095e947e64ae56020b85134bfda512df11b1cf44673f249143550d24"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\console.log",
+        "expected": "24cddbe44d8c579c3bec74f6b26912ed70530a698b3dd7e7c82dabecc4b6af1d",
+        "actual": "24cddbe44d8c579c3bec74f6b26912ed70530a698b3dd7e7c82dabecc4b6af1d"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\vivado.log",
+        "expected": "5092039d0d54004d4bedac66be5c18662cd3663e7beac99f5b76c3c5e8897fdf",
+        "actual": "5092039d0d54004d4bedac66be5c18662cd3663e7beac99f5b76c3c5e8897fdf"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\route_status.rpt",
+        "expected": "b8e01966227b95b0e8297e2317dd077aef4a1cad32cc5b49076a87577e6a719b",
+        "actual": "b8e01966227b95b0e8297e2317dd077aef4a1cad32cc5b49076a87577e6a719b"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\internal_timing.csv",
+        "expected": "32a7ee7018bf8033e141745a0447fc0a695ee5d824e6cabc213203996b5a9920",
+        "actual": "32a7ee7018bf8033e141745a0447fc0a695ee5d824e6cabc213203996b5a9920"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\timing.rpt",
+        "expected": "f60ee1e2858e08e8aec3e01dee7570271c4651425fbd09371bbcde439330f37f",
+        "actual": "f60ee1e2858e08e8aec3e01dee7570271c4651425fbd09371bbcde439330f37f"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\config.txt",
+        "expected": "b485a45f31b64838340efb72f23e72957641c0fc542521f529b6cdf176ca5056",
+        "actual": "b485a45f31b64838340efb72f23e72957641c0fc542521f529b6cdf176ca5056"
+      }
+    },
+    {
+      "check": "strict audit evidence remains unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit evidence remains unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\drc.rpt",
+        "expected": "ad6bd192ef63d4de44b84ea39ad44400684aab0b5f314d1d72503cf4a05b118c",
+        "actual": "ad6bd192ef63d4de44b84ea39ad44400684aab0b5f314d1d72503cf4a05b118c"
+      }
+    },
+    {
+      "check": "run metadata schema",
+      "status": "passed"
+    },
+    {
+      "check": "reviewed recovery completed",
+      "status": "passed"
+    },
+    {
+      "check": "recorded completed phase sim",
+      "status": "passed"
+    },
+    {
+      "check": "recorded completed phase synth",
+      "status": "passed"
+    },
+    {
+      "check": "recorded completed phase impl",
+      "status": "passed"
+    },
+    {
+      "check": "metadata retains production/snapshot integrity",
+      "status": "passed"
+    },
+    {
+      "check": "production source hashes and inventory still match",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "recorded final source hashes match fresh reads",
+      "status": "passed"
+    },
+    {
+      "check": "snapshot hashes still match before/after records",
+      "status": "passed"
+    },
+    {
+      "check": "snapshot manifest unchanged",
+      "status": "passed"
+    },
+    {
+      "check": "snapshot diff unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "snapshot diff unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\snapshot_changes.patch",
+        "expected": "abcfe822804bbdd58d74272c0a2bc346a72567b26cdacca81eeae59a91f8bce8",
+        "actual": "abcfe822804bbdd58d74272c0a2bc346a72567b26cdacca81eeae59a91f8bce8"
+      }
+    },
+    {
+      "check": "earlier baseline is explicitly not a rerun",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence hash set exists",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\metadata.json",
+        "expected": "1f2c848c9b2227116641234a1f5d49ee802279399b1d6274e89d2ab8259b5dff",
+        "actual": "1f2c848c9b2227116641234a1f5d49ee802279399b1d6274e89d2ab8259b5dff"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot_sha256.json",
+        "expected": "634aafebdda137623b6ccdf06f7dc5b701ea64126c46e031e6c03a635a5e1c09",
+        "actual": "634aafebdda137623b6ccdf06f7dc5b701ea64126c46e031e6c03a635a5e1c09"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\simulation.json",
+        "expected": "f8842a0bd5e7298b14d4d320065d88a06bd8507be26f2952bc885f1f1b148982",
+        "actual": "f8842a0bd5e7298b14d4d320065d88a06bd8507be26f2952bc885f1f1b148982"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\config.txt",
+        "expected": "691279552f8d4e688a4888296f1863885af03393490a9654a640fb3aa749495c",
+        "actual": "691279552f8d4e688a4888296f1863885af03393490a9654a640fb3aa749495c"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\utilization.rpt",
+        "expected": "81f815eb610e1102bce5521095aa0fba6a668f091893c2d69c82768ccd31f463",
+        "actual": "81f815eb610e1102bce5521095aa0fba6a668f091893c2d69c82768ccd31f463"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\timing.rpt",
+        "expected": "065f59faed2c646f484fef6ca8feb383c0083f9fb9e31aea6312f8a76ee5b48d",
+        "actual": "065f59faed2c646f484fef6ca8feb383c0083f9fb9e31aea6312f8a76ee5b48d"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\config.txt",
+        "expected": "7e604602ed679612f92a6c4bb52203d7102286caf649c0f673eae2d192b65a8e",
+        "actual": "7e604602ed679612f92a6c4bb52203d7102286caf649c0f673eae2d192b65a8e"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\utilization.rpt",
+        "expected": "e860a5e37d13fe89fb91ffa8ec4061b9a13239d8ff1ce7ef45c56a21dae187e1",
+        "actual": "e860a5e37d13fe89fb91ffa8ec4061b9a13239d8ff1ce7ef45c56a21dae187e1"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\timing.rpt",
+        "expected": "30e31c309f0d85c161e3df6408cca6988482f142ff3a49d3db772a3b548758ba",
+        "actual": "30e31c309f0d85c161e3df6408cca6988482f142ff3a49d3db772a3b548758ba"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\internal_timing.csv",
+        "expected": "6fc3a87446dfa554fe7aa4c32a0783f1199a84a2e2f920ade50e0472dcdd03b5",
+        "actual": "6fc3a87446dfa554fe7aa4c32a0783f1199a84a2e2f920ade50e0472dcdd03b5"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\vivado.log",
+        "expected": "b82bdaef1c9b988a9e58a956c04567b475421854f6abfa75e674a70d0e21edde",
+        "actual": "b82bdaef1c9b988a9e58a956c04567b475421854f6abfa75e674a70d0e21edde"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\vivado.log",
+        "expected": "ff3de85f5cf1b2c54bd0a9eeb5c99a0045927185fc717145ad3c6299662a76be",
+        "actual": "ff3de85f5cf1b2c54bd0a9eeb5c99a0045927185fc717145ad3c6299662a76be"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\params_pkg.sv",
+        "expected": "44d449af1364efdb2c317b8d22d5eca3f3810f9e58fd96f3f5c10e0f1c15f84a",
+        "actual": "44d449af1364efdb2c317b8d22d5eca3f3810f9e58fd96f3f5c10e0f1c15f84a"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mod_add.sv",
+        "expected": "bc87b4f16f53a5f9c919beb66289c28b971582e4204328c030e96060f3dd661f",
+        "actual": "bc87b4f16f53a5f9c919beb66289c28b971582e4204328c030e96060f3dd661f"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mod_sub.sv",
+        "expected": "b7177f9a0c5ab3fd49668c1e5981894c63e26ccd6bcff4d792acfdcfb03ef111",
+        "actual": "b7177f9a0c5ab3fd49668c1e5981894c63e26ccd6bcff4d792acfdcfb03ef111"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\delay_line.sv",
+        "expected": "a6b178a559521ec0f127dd419d17beed4fac63fec923f6a8e55435079668f845",
+        "actual": "a6b178a559521ec0f127dd419d17beed4fac63fec923f6a8e55435079668f845"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\delay_memory.sv",
+        "expected": "06973ac2ca40dd43f6b548d042194f423786cbe7a1f05dbdc79f8367f8cdc020",
+        "actual": "06973ac2ca40dd43f6b548d042194f423786cbe7a1f05dbdc79f8367f8cdc020"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mont_mul.sv",
+        "expected": "0764a0252defe64b17d9fa813252a2d5eda2ced0051ba5d2dbed29428ae57121",
+        "actual": "0764a0252defe64b17d9fa813252a2d5eda2ced0051ba5d2dbed29428ae57121"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\intmul_64x64_24x17.sv",
+        "expected": "857d8b2aa1b675497823deee7eca9903810ecd30198bb5acc43cab8e91ccf373",
+        "actual": "857d8b2aa1b675497823deee7eca9903810ecd30198bb5acc43cab8e91ccf373"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\wlmont_round16.sv",
+        "expected": "c3584bf0f97dbbc37c598a7fb0cddf30d1f33d6ccb51ff18500a5ed157beb0b1",
+        "actual": "c3584bf0f97dbbc37c598a7fb0cddf30d1f33d6ccb51ff18500a5ed157beb0b1"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mont_mul_wl.sv",
+        "expected": "3a79e3da50562e6d6bc8a76a6382363fc9e90aa3485b9209bbd8199536682fbc",
+        "actual": "3a79e3da50562e6d6bc8a76a6382363fc9e90aa3485b9209bbd8199536682fbc"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mont_mul_select.sv",
+        "expected": "ca55592bd88ea84b319bb7b67c5997f6babc67d32da249a22a2fcb38ca9e2dbb",
+        "actual": "ca55592bd88ea84b319bb7b67c5997f6babc67d32da249a22a2fcb38ca9e2dbb"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\peripheral_mont_pool.sv",
+        "expected": "ab9d153d7b4ec737357c6c2d3c99837c915c082d6ac84dd678c5aa5bf7fed417",
+        "actual": "ab9d153d7b4ec737357c6c2d3c99837c915c082d6ac84dd678c5aa5bf7fed417"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\gs_butterfly.sv",
+        "expected": "10f32ef18c933bd5f2729d21ba667f8e6842c5762a0871eb35297a036f9415ec",
+        "actual": "10f32ef18c933bd5f2729d21ba667f8e6842c5762a0871eb35297a036f9415ec"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\twiddle_rom.sv",
+        "expected": "0d6daf570af22c96d04769a80467fdbbca9c137a9b8d5382b00dc69325d8a7a2",
+        "actual": "0d6daf570af22c96d04769a80467fdbbca9c137a9b8d5382b00dc69325d8a7a2"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\twiddle_rom_stage.sv",
+        "expected": "e7e9531a2aabf5ffb07f95569f78c414a4f5d08688ff955463516a87b472b066",
+        "actual": "e7e9531a2aabf5ffb07f95569f78c414a4f5d08688ff955463516a87b472b066"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\twiddle_rom_stage_ntt.sv",
+        "expected": "84f7514aa9a1975607b5f4ddb987a06c8439950cdfd37c18a15e4a39cf7670f1",
+        "actual": "84f7514aa9a1975607b5f4ddb987a06c8439950cdfd37c18a15e4a39cf7670f1"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\psi_rom.sv",
+        "expected": "8bf03b24b2f0f3a1c88142fd9b87d88bf0f6b2d06e0b9967937e8ee55babd856",
+        "actual": "8bf03b24b2f0f3a1c88142fd9b87d88bf0f6b2d06e0b9967937e8ee55babd856"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\psi_post_rom.sv",
+        "expected": "194a8058236371ff7e4a792ec4e30b175b8c3d9370e38085fbf0b8437e25c1bf",
+        "actual": "194a8058236371ff7e4a792ec4e30b175b8c3d9370e38085fbf0b8437e25c1bf"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mdc_stage.sv",
+        "expected": "b70537a8e5d4d6bdb2e811c0c14ac065a61bba1daa2e0969b27e2b6e45b2169c",
+        "actual": "b70537a8e5d4d6bdb2e811c0c14ac065a61bba1daa2e0969b27e2b6e45b2169c"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\gs_mdc_core.sv",
+        "expected": "ef66d094de9dca6ccbf50ccc41b6c574d027b346307731ce3ae44c6895124f19",
+        "actual": "ef66d094de9dca6ccbf50ccc41b6c574d027b346307731ce3ae44c6895124f19"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\gs_mdc_core_ntt_only.sv",
+        "expected": "6fc61a72091895b68790cf59c02f360cbd06ea0cd558bf1dc946fd3c3e5adac7",
+        "actual": "6fc61a72091895b68790cf59c02f360cbd06ea0cd558bf1dc946fd3c3e5adac7"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\pointwise_mul.sv",
+        "expected": "e0cedad9e7eed455080a1b6ccccce3f9256f2549357c5735d217fb94fcbc03e3",
+        "actual": "e0cedad9e7eed455080a1b6ccccce3f9256f2549357c5735d217fb94fcbc03e3"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\top_data_bram.sv",
+        "expected": "e74ccb549868c0e8d16ce81c66566bb70a835cabf3a1bb4ad6444e6e49f108d4",
+        "actual": "e74ccb549868c0e8d16ce81c66566bb70a835cabf3a1bb4ad6444e6e49f108d4"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\poly_mul_top_dual_forward.sv",
+        "expected": "ec99a091dedeb23e634e10babe5833dd15dfb574757644845c6a6933cfbc317b",
+        "actual": "ec99a091dedeb23e634e10babe5833dd15dfb574757644845c6a6933cfbc317b"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\golden_ntt_a.mem",
+        "expected": "39b25f1fb9ec14c1d43318bfa383ea3c84e5299c3f0e637f84f3a4fdacf6caf7",
+        "actual": "39b25f1fb9ec14c1d43318bfa383ea3c84e5299c3f0e637f84f3a4fdacf6caf7"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\golden_result.mem",
+        "expected": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+        "actual": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\input_a.mem",
+        "expected": "65a1636295bf25ef0354b8b1fa3e8927d540414fce94f00883d3fdfc6d3d2996",
+        "actual": "65a1636295bf25ef0354b8b1fa3e8927d540414fce94f00883d3fdfc6d3d2996"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\input_b.mem",
+        "expected": "6ea1e93b4a62f3bb8aea3a01a172532472b91a04c654287b7f8d2370e511e4fb",
+        "actual": "6ea1e93b4a62f3bb8aea3a01a172532472b91a04c654287b7f8d2370e511e4fb"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\psi.mem",
+        "expected": "f7a0065608c434b96807f612c345a110435107408680ab0bcb62d1b8ce203fe2",
+        "actual": "f7a0065608c434b96807f612c345a110435107408680ab0bcb62d1b8ce203fe2"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\psi_inv.mem",
+        "expected": "e641b8781bd183f2109e7ff1b1aef2847e9788b1a67de65210b315b32f2101c8",
+        "actual": "e641b8781bd183f2109e7ff1b1aef2847e9788b1a67de65210b315b32f2101c8"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\psi_inv_ninv.mem",
+        "expected": "1d0f3f4ca97300d2ef16b83260cb30e2bdcbb57bea6a0b8dbb48d380ebdd9c02",
+        "actual": "1d0f3f4ca97300d2ef16b83260cb30e2bdcbb57bea6a0b8dbb48d380ebdd9c02"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result.mem",
+        "expected": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+        "actual": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result_dual_forward.mem",
+        "expected": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+        "actual": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result_phase_cycles.mem",
+        "expected": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+        "actual": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result_wavefront.mem",
+        "expected": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+        "actual": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_intt.mem",
+        "expected": "8e1902104dd78f00383c7a882252885d2116aa8300da1c69471519c66b7800e7",
+        "actual": "8e1902104dd78f00383c7a882252885d2116aa8300da1c69471519c66b7800e7"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt.mem",
+        "expected": "2503d8299babf2dcacaef9bb3d82f45ba181dfba836b70862b24b83012f52735",
+        "actual": "2503d8299babf2dcacaef9bb3d82f45ba181dfba836b70862b24b83012f52735"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage00.mem",
+        "expected": "784baa26bb591c972518cc5ab9d888e91fdcd364e1cc8a1bbf221686a7bf048b",
+        "actual": "784baa26bb591c972518cc5ab9d888e91fdcd364e1cc8a1bbf221686a7bf048b"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage01.mem",
+        "expected": "1fd60c1cf2471174ddc98b8eb03529b8c480a4b26ad7f151c22abe72f58e26a5",
+        "actual": "1fd60c1cf2471174ddc98b8eb03529b8c480a4b26ad7f151c22abe72f58e26a5"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage02.mem",
+        "expected": "bf76ec2ba61b19fd0cd6c7edca36c8d56b94a91758a7a621c3833a6a6427653e",
+        "actual": "bf76ec2ba61b19fd0cd6c7edca36c8d56b94a91758a7a621c3833a6a6427653e"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage03.mem",
+        "expected": "1d26d68bc457c14bad04655394966f41f16f17a0d77db157c29c73e70e8d1cb6",
+        "actual": "1d26d68bc457c14bad04655394966f41f16f17a0d77db157c29c73e70e8d1cb6"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage04.mem",
+        "expected": "d045b64b14d99d61129375918a60c277bec9a0d9213b10d52dd58ece3c16cf57",
+        "actual": "d045b64b14d99d61129375918a60c277bec9a0d9213b10d52dd58ece3c16cf57"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage05.mem",
+        "expected": "439d6024e52a867f71cdb21b709fdcb8604a4936e27f9e0c525bbffa738cf7a9",
+        "actual": "439d6024e52a867f71cdb21b709fdcb8604a4936e27f9e0c525bbffa738cf7a9"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage06.mem",
+        "expected": "95370a29fec8865128b37c784bef2092506c0a05ef2eda1189529d856dc4a5b7",
+        "actual": "95370a29fec8865128b37c784bef2092506c0a05ef2eda1189529d856dc4a5b7"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage07.mem",
+        "expected": "3f979f329543505325459e4ffe4ccb066e46e85f57c7dc83727451f7147e55d1",
+        "actual": "3f979f329543505325459e4ffe4ccb066e46e85f57c7dc83727451f7147e55d1"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage08.mem",
+        "expected": "0356379657265693dec2a55995408e0f0ebfd45ec68ec4cd1d1a99d46336b971",
+        "actual": "0356379657265693dec2a55995408e0f0ebfd45ec68ec4cd1d1a99d46336b971"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage09.mem",
+        "expected": "cc4031bbbab730469bdf315cec5e41a3429f637766a0be6b4c5a018a72ae8ef8",
+        "actual": "cc4031bbbab730469bdf315cec5e41a3429f637766a0be6b4c5a018a72ae8ef8"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage10.mem",
+        "expected": "05055b3a1100f1f0f33a5c70012c221af034a66bec777277eab17b19ca212a40",
+        "actual": "05055b3a1100f1f0f33a5c70012c221af034a66bec777277eab17b19ca212a40"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage11.mem",
+        "expected": "d5afb0b1ba12f8f5e270a0fd0874c5342fae4b9a572c95e5cc2cdbf75beea7d7",
+        "actual": "d5afb0b1ba12f8f5e270a0fd0874c5342fae4b9a572c95e5cc2cdbf75beea7d7"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage00.mem",
+        "expected": "f72567afe7b53730556abe7c8eb1e48cfc0be30b4735c82cd17ad6e34c0e3d6c",
+        "actual": "f72567afe7b53730556abe7c8eb1e48cfc0be30b4735c82cd17ad6e34c0e3d6c"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage01.mem",
+        "expected": "bfd085b46e722c66260af34a809ef85a1d68458bc54c96a32974f31da420e630",
+        "actual": "bfd085b46e722c66260af34a809ef85a1d68458bc54c96a32974f31da420e630"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage02.mem",
+        "expected": "537a088e39f7584932b7b9a863c8e172344f9e7e672ef9944c300f3773e77d45",
+        "actual": "537a088e39f7584932b7b9a863c8e172344f9e7e672ef9944c300f3773e77d45"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage03.mem",
+        "expected": "d9e69883dfb80da5cec1294f8e0f99a8687ef35a352e925c755041431d1c0a5c",
+        "actual": "d9e69883dfb80da5cec1294f8e0f99a8687ef35a352e925c755041431d1c0a5c"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage04.mem",
+        "expected": "fc711af271db794585957dc8eb5727d2fc03a46726954e3791c0d3258764a4b4",
+        "actual": "fc711af271db794585957dc8eb5727d2fc03a46726954e3791c0d3258764a4b4"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage05.mem",
+        "expected": "8bda40a92f29843ec993b415f9a522214be93555fea274840d7787741f67def8",
+        "actual": "8bda40a92f29843ec993b415f9a522214be93555fea274840d7787741f67def8"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage06.mem",
+        "expected": "1a6094273d9322cdedcb665bae336122a0231d9f635153ecb07973e18b2b6c7e",
+        "actual": "1a6094273d9322cdedcb665bae336122a0231d9f635153ecb07973e18b2b6c7e"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage07.mem",
+        "expected": "237a9b2003f3cc0dcdfda74e295e6ce0864cb89625276181bcce0e0e88a0ad70",
+        "actual": "237a9b2003f3cc0dcdfda74e295e6ce0864cb89625276181bcce0e0e88a0ad70"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage08.mem",
+        "expected": "247919e66560aeddebed28a4caa977b56bb3f54869a802e52db2802cbb6964b2",
+        "actual": "247919e66560aeddebed28a4caa977b56bb3f54869a802e52db2802cbb6964b2"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage09.mem",
+        "expected": "a7ad3337bc22cf27574e886897bb668950267b0e9ae33a97b67ebe2f1da2839c",
+        "actual": "a7ad3337bc22cf27574e886897bb668950267b0e9ae33a97b67ebe2f1da2839c"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage10.mem",
+        "expected": "498a65a58ee45e5519c25678d618a7213f9aba4ed60a9e45cccc100e2193e3f7",
+        "actual": "498a65a58ee45e5519c25678d618a7213f9aba4ed60a9e45cccc100e2193e3f7"
+      }
+    },
+    {
+      "check": "baseline evidence unchanged has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "baseline evidence unchanged",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage11.mem",
+        "expected": "f705c9db034a7ad625dfdad63fd8bef77878f0c923409d727c01a922bfe3f842",
+        "actual": "f705c9db034a7ad625dfdad63fd8bef77878f0c923409d727c01a922bfe3f842"
+      }
+    },
+    {
+      "check": "explicit synthesis acceptance basis",
+      "status": "passed"
+    },
+    {
+      "check": "specific independent checkpoint review accepted",
+      "status": "passed"
+    },
+    {
+      "check": "metadata review equals standalone review record",
+      "status": "passed"
+    },
+    {
+      "check": "synthesis phase receipt binds the review JSON hash",
+      "status": "passed"
+    },
+    {
+      "check": "review retains exactly the original error text",
+      "status": "passed"
+    },
+    {
+      "check": "approved recovery helper version has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "approved recovery helper version",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\review_checkpoint_and_resume.py",
+        "expected": "cf839a0c9b7a2e2d0b30a104d4ed5b0e18872efd89d6f7d0fd3cba81f4b2628e",
+        "actual": "cf839a0c9b7a2e2d0b30a104d4ed5b0e18872efd89d6f7d0fd3cba81f4b2628e"
+      }
+    },
+    {
+      "check": "review was made with that recovery helper",
+      "status": "passed"
+    },
+    {
+      "check": "review binds both original synthesis logs",
+      "status": "passed"
+    },
+    {
+      "check": "original synthesis console.log has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "original synthesis console.log",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\console.log",
+        "expected": "caa0b9076f1ea6c8d2239941f62968bdcd053354f04a4880b4e878d96b0744c8",
+        "actual": "caa0b9076f1ea6c8d2239941f62968bdcd053354f04a4880b4e878d96b0744c8"
+      }
+    },
+    {
+      "check": "original synthesis vivado.log has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "original synthesis vivado.log",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\vivado.log",
+        "expected": "32b3250e841867970ef597c14a78da856ae8469cc50cdc5e2057bf335422c908",
+        "actual": "32b3250e841867970ef597c14a78da856ae8469cc50cdc5e2057bf335422c908"
+      }
+    },
+    {
+      "check": "raw original console has precisely that one error",
+      "status": "passed",
+      "details": [
+        {
+          "line": 998,
+          "text": "ERROR: [Common 17-1257] Failed to create directory 'C'."
+        }
+      ]
+    },
+    {
+      "check": "strict failure details exactly match raw console",
+      "status": "passed"
+    },
+    {
+      "check": "original master log has no errors",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "original master completion marker synth_design completed successfully",
+      "status": "passed"
+    },
+    {
+      "check": "original master completion marker KARATSUBA_FULL_TOP_PHASE_PASS synth L=14",
+      "status": "passed"
+    },
+    {
+      "check": "archived failed metadata has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "archived failed metadata",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\metadata_before_review.json",
+        "expected": "76602e8b55615daf37d54ee6eba526fe47172abaa607609e39b56f9c71c7cec4",
+        "actual": "76602e8b55615daf37d54ee6eba526fe47172abaa607609e39b56f9c71c7cec4"
+      }
+    },
+    {
+      "check": "archived metadata preserves the original failed state",
+      "status": "passed"
+    },
+    {
+      "check": "simulation passed before recovery",
+      "status": "passed"
+    },
+    {
+      "check": "all records retain the exact original strict runner failure",
+      "status": "passed"
+    },
+    {
+      "check": "original synthesis phase record retained verbatim",
+      "status": "passed"
+    },
+    {
+      "check": "recovery did not replace original provenance source_sha256_before",
+      "status": "passed"
+    },
+    {
+      "check": "recovery did not replace original provenance snapshot_sha256",
+      "status": "passed"
+    },
+    {
+      "check": "recovery did not replace original provenance patch_sha256",
+      "status": "passed"
+    },
+    {
+      "check": "recovery did not replace original provenance baseline_reference",
+      "status": "passed"
+    },
+    {
+      "check": "original failed run also preserved inputs",
+      "status": "passed"
+    },
+    {
+      "check": "exact reviewed synthesis checkpoint has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "exact reviewed synthesis checkpoint",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\synth.dcp",
+        "expected": "d3f2d984ef6702a87566b1e5a800fdfb30ae334705844ba2b91dac72756e2c36",
+        "actual": "d3f2d984ef6702a87566b1e5a800fdfb30ae334705844ba2b91dac72756e2c36"
+      }
+    },
+    {
+      "check": "accepted synth receipt binds the same checkpoint",
+      "status": "passed"
+    },
+    {
+      "check": "original review records full checkpoint CRC pass",
+      "status": "passed"
+    },
+    {
+      "check": "fresh checkpoint archive CRC verification",
+      "status": "passed",
+      "details": {
+        "entry_count": 14,
+        "bad_member": null
+      }
+    },
+    {
+      "check": "all independent reopen artifact hashes recorded",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "blackbox_drc.rpt"
+    },
+    {
+      "check": "independent reopen artifact blackbox_drc.rpt has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact blackbox_drc.rpt",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\blackbox_drc.rpt",
+        "expected": "30b7e5e6a8f60b048c0b7d5b72d76bb0236a8d5b093badf6d035223fae9add2b",
+        "actual": "30b7e5e6a8f60b048c0b7d5b72d76bb0236a8d5b093badf6d035223fae9add2b"
+      }
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "console.log"
+    },
+    {
+      "check": "independent reopen artifact console.log has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact console.log",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\console.log",
+        "expected": "224eb48ecbc1f35d31151d95ec327c8b5f9b287854264082e574f1df178f8b70",
+        "actual": "224eb48ecbc1f35d31151d95ec327c8b5f9b287854264082e574f1df178f8b70"
+      }
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "isolation_audit.txt"
+    },
+    {
+      "check": "independent reopen artifact isolation_audit.txt has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact isolation_audit.txt",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\isolation_audit.txt",
+        "expected": "c31b95f7dc6931fd40b3ee34fc3a0c3419c53ba266af35cae53796f2f1a19614",
+        "actual": "c31b95f7dc6931fd40b3ee34fc3a0c3419c53ba266af35cae53796f2f1a19614"
+      }
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "timing_reopened.rpt"
+    },
+    {
+      "check": "independent reopen artifact timing_reopened.rpt has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact timing_reopened.rpt",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\timing_reopened.rpt",
+        "expected": "4ca13afbdaaa60b6e1a765ee7ed384d4747fe39da9a3574c8b2f75674e453726",
+        "actual": "4ca13afbdaaa60b6e1a765ee7ed384d4747fe39da9a3574c8b2f75674e453726"
+      }
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "utilization_reopened.rpt"
+    },
+    {
+      "check": "independent reopen artifact utilization_reopened.rpt has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact utilization_reopened.rpt",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\utilization_reopened.rpt",
+        "expected": "c8319d3aa348c7c0cb71e1ad20577462d0cde78ac3010e86359165d346f94bc4",
+        "actual": "c8319d3aa348c7c0cb71e1ad20577462d0cde78ac3010e86359165d346f94bc4"
+      }
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "validate_checkpoint.tcl"
+    },
+    {
+      "check": "independent reopen artifact validate_checkpoint.tcl has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact validate_checkpoint.tcl",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\validate_checkpoint.tcl",
+        "expected": "55becd8d5223457a773a5393ce12d1abfd6d190dc3f6b409e20a0af5a48b9025",
+        "actual": "55becd8d5223457a773a5393ce12d1abfd6d190dc3f6b409e20a0af5a48b9025"
+      }
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "validation.txt"
+    },
+    {
+      "check": "independent reopen artifact validation.txt has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact validation.txt",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\validation.txt",
+        "expected": "7347ed6491163d07a3e0606dec5ea0c729c266e05e1635f67bc8708f26c4773e",
+        "actual": "7347ed6491163d07a3e0606dec5ea0c729c266e05e1635f67bc8708f26c4773e"
+      }
+    },
+    {
+      "check": "reopen artifact is local to the audit directory",
+      "status": "passed",
+      "details": "vivado.log"
+    },
+    {
+      "check": "independent reopen artifact vivado.log has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen artifact vivado.log",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\vivado.log",
+        "expected": "973f0855da2abd5e7483f9d583bf06c80d4dbe17241be334f2b2bd123326f193",
+        "actual": "973f0855da2abd5e7483f9d583bf06c80d4dbe17241be334f2b2bd123326f193"
+      }
+    },
+    {
+      "check": "independent reopen console.log has no new errors",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "independent reopen console.log has no critical warnings",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "independent reopen completion marker console.log",
+      "status": "passed"
+    },
+    {
+      "check": "independent reopen vivado.log has no new errors",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "independent reopen vivado.log has no critical warnings",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "check": "independent reopen completion marker vivado.log",
+      "status": "passed"
+    },
+    {
+      "check": "reopened checkpoint part/clock/black-box validation",
+      "status": "passed",
+      "details": {
+        "part": "xc7vx485tffg1761-2",
+        "clock_period_ns": "6.667",
+        "blackboxes": "0"
+      }
+    },
+    {
+      "check": "reopened device and clock match original synthesis report",
+      "status": "passed"
+    },
+    {
+      "check": "reopened resource agrees with original/report record: Slice LUTs",
+      "status": "passed",
+      "details": {
+        "original": 57964,
+        "reopened": 57964,
+        "review": 57964
+      }
+    },
+    {
+      "check": "reopened resource agrees with original/report record: Slice Registers",
+      "status": "passed",
+      "details": {
+        "original": 43466,
+        "reopened": 43466,
+        "review": 43466
+      }
+    },
+    {
+      "check": "reopened resource agrees with original/report record: DSPs",
+      "status": "passed",
+      "details": {
+        "original": 246,
+        "reopened": 246,
+        "review": 246
+      }
+    },
+    {
+      "check": "reopened resource agrees with original/report record: Block RAM Tile",
+      "status": "passed",
+      "details": {
+        "original": 59,
+        "reopened": 59,
+        "review": 59
+      }
+    },
+    {
+      "check": "review frontend record equals fresh reopen report",
+      "status": "passed"
+    },
+    {
+      "check": "isolation report comes from independent reopen",
+      "status": "passed"
+    },
+    {
+      "check": "all reopened frontend names/types/counts match original checkpoint",
+      "status": "passed"
+    },
+    {
+      "check": "reopened 22+4 frontend/DSP/black-box invariants",
+      "status": "passed",
+      "details": {
+        "core_karatsuba_frontends": "22",
+        "peripheral_full64_frontends": "4",
+        "black_boxes": "0",
+        "dsp_total": "246",
+        "core_a_dsp": "99",
+        "core_b_dsp": "99",
+        "peripheral_dsp": "48",
+        "other_dsp": "0"
+      }
+    },
+    {
+      "check": "independent black-box DRC has zero violations",
+      "status": "passed"
+    },
+    {
+      "check": "metadata stable during exception review has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "metadata stable during exception review",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\metadata.json",
+        "expected": "e26efa06687b5c62ae6e9bd9fb8458d97e8695a0ab3c70e981d14525d1ed09ae",
+        "actual": "e26efa06687b5c62ae6e9bd9fb8458d97e8695a0ab3c70e981d14525d1ed09ae"
+      }
+    },
+    {
+      "check": "strict audit JSON remains untouched has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "strict audit JSON remains untouched",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\final_audit.json",
+        "expected": "21c1f47ef259db4f0a0c7e16217c0f0b9b69e1ec91d628c195ee31c0fe36d965",
+        "actual": "21c1f47ef259db4f0a0c7e16217c0f0b9b69e1ec91d628c195ee31c0fe36d965"
+      }
+    },
+    {
+      "check": "checkpoint review remains untouched has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "checkpoint review remains untouched",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\review.json",
+        "expected": "03b84f4606bee23386b57fba77016e5dd264bfbe5b131333bd1e716476b29420",
+        "actual": "03b84f4606bee23386b57fba77016e5dd264bfbe5b131333bd1e716476b29420"
+      }
+    },
+    {
+      "check": "checkpoint remains unchanged after fresh CRC/readback has a recorded SHA256",
+      "status": "passed"
+    },
+    {
+      "check": "checkpoint remains unchanged after fresh CRC/readback",
+      "status": "passed",
+      "details": {
+        "path": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\synth.dcp",
+        "expected": "d3f2d984ef6702a87566b1e5a800fdfb30ae334705844ba2b91dac72756e2c36",
+        "actual": "d3f2d984ef6702a87566b1e5a800fdfb30ae334705844ba2b91dac72756e2c36"
+      }
+    }
+  ],
+  "read_evidence_sha256": {
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\final_audit.json": "21c1f47ef259db4f0a0c7e16217c0f0b9b69e1ec91d628c195ee31c0fe36d965",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\metadata.json": "e26efa06687b5c62ae6e9bd9fb8458d97e8695a0ab3c70e981d14525d1ed09ae",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\review.json": "03b84f4606bee23386b57fba77016e5dd264bfbe5b131333bd1e716476b29420",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\final_audit.py": "e89dc1c7a73fd15c69ef6defe130d376458d367cb4eb9627801810032af0bf46",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\snapshot_sha256.json": "99844516622ac65e2b02d2b59d612a92d27dd83878d7eeda27f15cc763ea5de0",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation.json": "2849305a361848b0121eb5b341ac4bf782938898f51cf2bbaeeedbfafb580cb9",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\wl_peripheral_original.log": "eeeaec2caf37a19f90b7f2443154657c8880293a3d3fa97c38d3e035c412408e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\wl_peripheral_original.transcript.log": "2060db5ee1bafde92bb2ae8a3aa0dab407ee3660eb9884a1e2594b2d561e8b96",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly.log": "5424592ca9d8156a6359ff3c74f329ec9a617b11df3e0e4cc7be341aafd43676",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly.transcript.log": "2b3e41bcd4786479a6faab9425c90762b5b3db6e1fd7d11828cda96b513f944e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly_unit.log": "fbb61c03108be6ef515bdc6581039c3d103c692753e7d10c7dd0330e28efe419",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\butterfly_unit.transcript.log": "8cfe60f396a6ebd57d60603bdccbdec9ea4d64d5f8813f6a3e6405be58bbdc89",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_core.log": "9b13a66a519fdee3c1b5d0c71082d3a4a15c17bfd1c1fe1b9c6b484c651000aa",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_core.transcript.log": "dd6460ffa5b0be6c63b11413d586ee43325dc9b6d7e160d828df5f28a729ffec",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\roundtrip.log": "568635bde26c138ece73decdfd2b261b373f1b3b879e76d89d8ad7c0ac329a12",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\roundtrip.transcript.log": "f3955abb3e8158d85a63faabdcef168a531a05db050596167f31e79383989802",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_only.log": "5370107eb8fd4746504b35e92a662be1d255fe3442eb3550b92b4ea4e413f920",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\ntt_only.transcript.log": "b72f1594714422f65ffb2656698ca9fdb59e1355e902aa97c3f0f0a0961d5bbf",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\natural_ab_full64.log": "6279d3991036d7dbfacaac99063559eb4d2ee01b65a585bd1574f766633e4f6b",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\natural_ab_full64.transcript.log": "e2ab5910530ff6b7551f944058c1312a5feaca2433dc2a11f368f9c9d3c04230",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\unchanged_natural_ab.log": "adce24928a3761a89d57655026cd8dafd27282bc2ffc67fa39797d0453383fb1",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\unchanged_natural_ab.transcript.log": "22db0ad1e5a034f8e8fedf8d6dc928bcfea3d9ee0797993e9e840e853f338d98",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\vlib.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\simulation\\compile.log": "21b087b3bb1cbb6b2cbedf3adbbd5f87876a36767ab1fa829f5f742436b873d4",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\isolation_audit.txt": "e6a9604eefb62dd13b326fa8c3a8f47d0414a547151c992bc8d900f6d712756d",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\utilization.rpt": "27fe373aa9c523bb1ab0f25509f118c2aa005f42c02c4cd5d96bc08169a8f33e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\console.log": "caa0b9076f1ea6c8d2239941f62968bdcd053354f04a4880b4e878d96b0744c8",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\vivado.log": "32b3250e841867970ef597c14a78da856ae8469cc50cdc5e2057bf335422c908",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\isolation_audit.txt": "ef1cd1b3d974bc4c5064df60c0ceb6f7b75b6b95189b328d745ce8b07b18d843",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\utilization.rpt": "12c1cac1095e947e64ae56020b85134bfda512df11b1cf44673f249143550d24",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\console.log": "24cddbe44d8c579c3bec74f6b26912ed70530a698b3dd7e7c82dabecc4b6af1d",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\vivado.log": "5092039d0d54004d4bedac66be5c18662cd3663e7beac99f5b76c3c5e8897fdf",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\route_status.rpt": "b8e01966227b95b0e8297e2317dd077aef4a1cad32cc5b49076a87577e6a719b",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\internal_timing.csv": "32a7ee7018bf8033e141745a0447fc0a695ee5d824e6cabc213203996b5a9920",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\timing.rpt": "f60ee1e2858e08e8aec3e01dee7570271c4651425fbd09371bbcde439330f37f",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\config.txt": "b485a45f31b64838340efb72f23e72957641c0fc542521f529b6cdf176ca5056",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\impl\\drc.rpt": "ad6bd192ef63d4de44b84ea39ad44400684aab0b5f314d1d72503cf4a05b118c",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\snapshot_changes.patch": "abcfe822804bbdd58d74272c0a2bc346a72567b26cdacca81eeae59a91f8bce8",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\metadata.json": "1f2c848c9b2227116641234a1f5d49ee802279399b1d6274e89d2ab8259b5dff",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot_sha256.json": "634aafebdda137623b6ccdf06f7dc5b701ea64126c46e031e6c03a635a5e1c09",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\simulation.json": "f8842a0bd5e7298b14d4d320065d88a06bd8507be26f2952bc885f1f1b148982",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\config.txt": "691279552f8d4e688a4888296f1863885af03393490a9654a640fb3aa749495c",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\utilization.rpt": "81f815eb610e1102bce5521095aa0fba6a668f091893c2d69c82768ccd31f463",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\timing.rpt": "065f59faed2c646f484fef6ca8feb383c0083f9fb9e31aea6312f8a76ee5b48d",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\config.txt": "7e604602ed679612f92a6c4bb52203d7102286caf649c0f673eae2d192b65a8e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\utilization.rpt": "e860a5e37d13fe89fb91ffa8ec4061b9a13239d8ff1ce7ef45c56a21dae187e1",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\timing.rpt": "30e31c309f0d85c161e3df6408cca6988482f142ff3a49d3db772a3b548758ba",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\internal_timing.csv": "6fc3a87446dfa554fe7aa4c32a0783f1199a84a2e2f920ade50e0472dcdd03b5",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\synth\\vivado.log": "b82bdaef1c9b988a9e58a956c04567b475421854f6abfa75e674a70d0e21edde",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\impl\\vivado.log": "ff3de85f5cf1b2c54bd0a9eeb5c99a0045927185fc717145ad3c6299662a76be",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\params_pkg.sv": "44d449af1364efdb2c317b8d22d5eca3f3810f9e58fd96f3f5c10e0f1c15f84a",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mod_add.sv": "bc87b4f16f53a5f9c919beb66289c28b971582e4204328c030e96060f3dd661f",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mod_sub.sv": "b7177f9a0c5ab3fd49668c1e5981894c63e26ccd6bcff4d792acfdcfb03ef111",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\delay_line.sv": "a6b178a559521ec0f127dd419d17beed4fac63fec923f6a8e55435079668f845",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\delay_memory.sv": "06973ac2ca40dd43f6b548d042194f423786cbe7a1f05dbdc79f8367f8cdc020",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mont_mul.sv": "0764a0252defe64b17d9fa813252a2d5eda2ced0051ba5d2dbed29428ae57121",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\intmul_64x64_24x17.sv": "857d8b2aa1b675497823deee7eca9903810ecd30198bb5acc43cab8e91ccf373",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\wlmont_round16.sv": "c3584bf0f97dbbc37c598a7fb0cddf30d1f33d6ccb51ff18500a5ed157beb0b1",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mont_mul_wl.sv": "3a79e3da50562e6d6bc8a76a6382363fc9e90aa3485b9209bbd8199536682fbc",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mont_mul_select.sv": "ca55592bd88ea84b319bb7b67c5997f6babc67d32da249a22a2fcb38ca9e2dbb",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\peripheral_mont_pool.sv": "ab9d153d7b4ec737357c6c2d3c99837c915c082d6ac84dd678c5aa5bf7fed417",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\gs_butterfly.sv": "10f32ef18c933bd5f2729d21ba667f8e6842c5762a0871eb35297a036f9415ec",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\twiddle_rom.sv": "0d6daf570af22c96d04769a80467fdbbca9c137a9b8d5382b00dc69325d8a7a2",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\twiddle_rom_stage.sv": "e7e9531a2aabf5ffb07f95569f78c414a4f5d08688ff955463516a87b472b066",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\twiddle_rom_stage_ntt.sv": "84f7514aa9a1975607b5f4ddb987a06c8439950cdfd37c18a15e4a39cf7670f1",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\psi_rom.sv": "8bf03b24b2f0f3a1c88142fd9b87d88bf0f6b2d06e0b9967937e8ee55babd856",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\psi_post_rom.sv": "194a8058236371ff7e4a792ec4e30b175b8c3d9370e38085fbf0b8437e25c1bf",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\mdc_stage.sv": "b70537a8e5d4d6bdb2e811c0c14ac065a61bba1daa2e0969b27e2b6e45b2169c",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\gs_mdc_core.sv": "ef66d094de9dca6ccbf50ccc41b6c574d027b346307731ce3ae44c6895124f19",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\gs_mdc_core_ntt_only.sv": "6fc61a72091895b68790cf59c02f360cbd06ea0cd558bf1dc946fd3c3e5adac7",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\pointwise_mul.sv": "e0cedad9e7eed455080a1b6ccccce3f9256f2549357c5735d217fb94fcbc03e3",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\top_data_bram.sv": "e74ccb549868c0e8d16ce81c66566bb70a835cabf3a1bb4ad6444e6e49f108d4",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\rtl\\poly_mul_top_dual_forward.sv": "ec99a091dedeb23e634e10babe5833dd15dfb574757644845c6a6933cfbc317b",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\golden_ntt_a.mem": "39b25f1fb9ec14c1d43318bfa383ea3c84e5299c3f0e637f84f3a4fdacf6caf7",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\golden_result.mem": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\input_a.mem": "65a1636295bf25ef0354b8b1fa3e8927d540414fce94f00883d3fdfc6d3d2996",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\input_b.mem": "6ea1e93b4a62f3bb8aea3a01a172532472b91a04c654287b7f8d2370e511e4fb",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\psi.mem": "f7a0065608c434b96807f612c345a110435107408680ab0bcb62d1b8ce203fe2",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\psi_inv.mem": "e641b8781bd183f2109e7ff1b1aef2847e9788b1a67de65210b315b32f2101c8",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\psi_inv_ninv.mem": "1d0f3f4ca97300d2ef16b83260cb30e2bdcbb57bea6a0b8dbb48d380ebdd9c02",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result.mem": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result_dual_forward.mem": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result_phase_cycles.mem": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\result_wavefront.mem": "40055b2c9ba9b272a73104d1c4fa1a10a7cd3b8dae91dccc00d6067b2f41fc36",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_intt.mem": "8e1902104dd78f00383c7a882252885d2116aa8300da1c69471519c66b7800e7",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt.mem": "2503d8299babf2dcacaef9bb3d82f45ba181dfba836b70862b24b83012f52735",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage00.mem": "784baa26bb591c972518cc5ab9d888e91fdcd364e1cc8a1bbf221686a7bf048b",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage01.mem": "1fd60c1cf2471174ddc98b8eb03529b8c480a4b26ad7f151c22abe72f58e26a5",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage02.mem": "bf76ec2ba61b19fd0cd6c7edca36c8d56b94a91758a7a621c3833a6a6427653e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage03.mem": "1d26d68bc457c14bad04655394966f41f16f17a0d77db157c29c73e70e8d1cb6",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage04.mem": "d045b64b14d99d61129375918a60c277bec9a0d9213b10d52dd58ece3c16cf57",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage05.mem": "439d6024e52a867f71cdb21b709fdcb8604a4936e27f9e0c525bbffa738cf7a9",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage06.mem": "95370a29fec8865128b37c784bef2092506c0a05ef2eda1189529d856dc4a5b7",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage07.mem": "3f979f329543505325459e4ffe4ccb066e46e85f57c7dc83727451f7147e55d1",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage08.mem": "0356379657265693dec2a55995408e0f0ebfd45ec68ec4cd1d1a99d46336b971",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage09.mem": "cc4031bbbab730469bdf315cec5e41a3429f637766a0be6b4c5a018a72ae8ef8",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage10.mem": "05055b3a1100f1f0f33a5c70012c221af034a66bec777277eab17b19ca212a40",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_ntt_stage11.mem": "d5afb0b1ba12f8f5e270a0fd0874c5342fae4b9a572c95e5cc2cdbf75beea7d7",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage00.mem": "f72567afe7b53730556abe7c8eb1e48cfc0be30b4735c82cd17ad6e34c0e3d6c",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage01.mem": "bfd085b46e722c66260af34a809ef85a1d68458bc54c96a32974f31da420e630",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage02.mem": "537a088e39f7584932b7b9a863c8e172344f9e7e672ef9944c300f3773e77d45",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage03.mem": "d9e69883dfb80da5cec1294f8e0f99a8687ef35a352e925c755041431d1c0a5c",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage04.mem": "fc711af271db794585957dc8eb5727d2fc03a46726954e3791c0d3258764a4b4",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage05.mem": "8bda40a92f29843ec993b415f9a522214be93555fea274840d7787741f67def8",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage06.mem": "1a6094273d9322cdedcb665bae336122a0231d9f635153ecb07973e18b2b6c7e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage07.mem": "237a9b2003f3cc0dcdfda74e295e6ce0864cb89625276181bcce0e0e88a0ad70",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage08.mem": "247919e66560aeddebed28a4caa977b56bb3f54869a802e52db2802cbb6964b2",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage09.mem": "a7ad3337bc22cf27574e886897bb668950267b0e9ae33a97b67ebe2f1da2839c",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage10.mem": "498a65a58ee45e5519c25678d618a7213f9aba4ed60a9e45cccc100e2193e3f7",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\csa_full_top\\20260914_230139\\lat14\\snapshot\\mem\\twiddle_stage11.mem": "f705c9db034a7ad625dfdad63fd8bef77878f0c923409d727c01a922bfe3f842",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\review_checkpoint_and_resume.py": "cf839a0c9b7a2e2d0b30a104d4ed5b0e18872efd89d6f7d0fd3cba81f4b2628e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\metadata_before_review.json": "76602e8b55615daf37d54ee6eba526fe47172abaa607609e39b56f9c71c7cec4",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\synth.dcp": "d3f2d984ef6702a87566b1e5a800fdfb30ae334705844ba2b91dac72756e2c36",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\blackbox_drc.rpt": "30b7e5e6a8f60b048c0b7d5b72d76bb0236a8d5b093badf6d035223fae9add2b",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\console.log": "224eb48ecbc1f35d31151d95ec327c8b5f9b287854264082e574f1df178f8b70",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\isolation_audit.txt": "c31b95f7dc6931fd40b3ee34fc3a0c3419c53ba266af35cae53796f2f1a19614",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\timing_reopened.rpt": "4ca13afbdaaa60b6e1a765ee7ed384d4747fe39da9a3574c8b2f75674e453726",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\utilization_reopened.rpt": "c8319d3aa348c7c0cb71e1ad20577462d0cde78ac3010e86359165d346f94bc4",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\validate_checkpoint.tcl": "55becd8d5223457a773a5393ce12d1abfd6d190dc3f6b409e20a0af5a48b9025",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\validation.txt": "7347ed6491163d07a3e0606dec5ea0c729c266e05e1635f67bc8708f26c4773e",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\checkpoint_audit\\vivado.log": "973f0855da2abd5e7483f9d583bf06c80d4dbe17241be334f2b2bd123326f193",
+    "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_full_top\\20260915_115811\\candidate\\synth\\config.txt": "4ae477b4a3b55d1609a84cf29bbdaade65be124de0d7c7d41325c6b942784289"
+  }
+}

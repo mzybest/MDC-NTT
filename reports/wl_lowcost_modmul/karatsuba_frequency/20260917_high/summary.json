@@ -1,0 +1,356 @@
+{
+  "failed_attempts_retained": [],
+  "baseline_unchanged_route": [
+    {
+      "mhz": "180",
+      "period_ns": "5.556",
+      "wns_ns": "0.161",
+      "whs_ns": "0.036",
+      "startpoint": "u_core_a/g_stage[2].u_stage/g_output_reorder.fifo_b_delay/g_ram.data_mem_reg/CLKARDCLK",
+      "endpoint": "u_core_a/g_stage[3].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][63]_srl12___g_stage_r_10/D"
+    },
+    {
+      "mhz": "185",
+      "period_ns": "5.405",
+      "wns_ns": "0.010",
+      "whs_ns": "0.036",
+      "startpoint": "u_core_a/g_stage[2].u_stage/g_output_reorder.fifo_b_delay/g_ram.data_mem_reg/CLKARDCLK",
+      "endpoint": "u_core_a/g_stage[3].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][63]_srl12___g_stage_r_10/D"
+    },
+    {
+      "mhz": "190",
+      "period_ns": "5.263",
+      "wns_ns": "-0.132",
+      "whs_ns": "0.036",
+      "startpoint": "u_core_a/g_stage[2].u_stage/g_output_reorder.fifo_b_delay/g_ram.data_mem_reg/CLKARDCLK",
+      "endpoint": "u_core_a/g_stage[3].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][63]_srl12___g_stage_r_10/D"
+    },
+    {
+      "mhz": "200",
+      "period_ns": "5.000",
+      "wns_ns": "-0.395",
+      "whs_ns": "0.036",
+      "startpoint": "u_core_a/g_stage[2].u_stage/g_output_reorder.fifo_b_delay/g_ram.data_mem_reg/CLKARDCLK",
+      "endpoint": "u_core_a/g_stage[3].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][63]_srl12___g_stage_r_10/D"
+    }
+  ],
+  "experiments": [
+    {
+      "mhz": 185,
+      "period_ns": 5.405,
+      "wns_ns": 0.01,
+      "whs_ns": 0.036,
+      "internal_slack_pass": true,
+      "dsp": 246,
+      "bram36": 59,
+      "startpoint": "u_core_a/g_stage[2].u_stage/g_output_reorder.fifo_b_delay/g_ram.data_mem_reg/CLKARDCLK",
+      "endpoint": "u_core_a/g_stage[3].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][63]_srl12___g_stage_r_10/D",
+      "strategy": "incremental",
+      "runtime_seconds": 738,
+      "board_signoff": false,
+      "directory": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_frequency\\20260917_high\\inc185",
+      "status": "completed",
+      "routable_nets": 93600,
+      "routed_nets": 93600,
+      "route_errors": 0,
+      "unconstrained_internal_endpoints": 0,
+      "no_clock": 0,
+      "multiple_clock": 0,
+      "no_input_delay": 132,
+      "no_output_delay": 68,
+      "lut": 56734,
+      "ff": 44612,
+      "slice": 17962,
+      "bufg": 1,
+      "setup_failing_endpoints": 0,
+      "hold_failing_endpoints": 0,
+      "pulse_width_failing_endpoints": 0,
+      "drc_summary": [
+        {
+          "rule": "NSTD-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "UCIO-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "CFGBVS-1",
+          "severity": "Warning",
+          "checks": 1
+        },
+        {
+          "rule": "DPIP-1",
+          "severity": "Warning",
+          "checks": 33
+        },
+        {
+          "rule": "DPOP-2",
+          "severity": "Warning",
+          "checks": 242
+        }
+      ],
+      "drc_error_checks": 0,
+      "checkpoint_crc_ok": true,
+      "constraints_unchanged_during_optimization": true,
+      "archived_scripts_match": true,
+      "protected_inputs_unchanged": true,
+      "internal_implementation_pass": true,
+      "output_sha256": {
+        "routed.dcp": "a7bbe0aae7e8a732d91215c3a41a26ba3b7b27b97c55fc1ebe4de0b62558b581",
+        "timing.rpt": "92849d20fa778c00ce0eadcb5ba72b0dee423b29b44ae726974f8e7709fb25b9",
+        "route_status.rpt": "0b4eab088642874201092216cdbcf3250e50fc01508d69b91d4b8a2cc4a126d2",
+        "utilization.rpt": "83bc2e88568ade04a35834860bfe27936031506317b48933126bff01d8f17145",
+        "result.json": "4c1da4479cf6d0e7b1b660e403809c901b73b10c22a0ba327b820e676f32f82f",
+        "metadata.json": "13658dd07dde37a57ab6b6ef337a532cf00cb17db82601f768128a648a7a6915"
+      },
+      "inherited_baseline_synth_error": "ERROR: [Common 17-1257] Failed to create directory 'C'.",
+      "compute_cycles_inherited_unchanged_rtl": 8623,
+      "compute_us_at_target": 46.61081081081081,
+      "compute_us_at_actual_constraint": 46.607315
+    },
+    {
+      "mhz": 190,
+      "period_ns": 5.263,
+      "wns_ns": 0.002,
+      "whs_ns": 0.036,
+      "internal_slack_pass": true,
+      "dsp": 246,
+      "bram36": 59,
+      "startpoint": "u_core_b/g_stage[7].u_stage/u_butterfly/g_direct.g_twiddle_mul.u_mul/g_wl.u_mul/u_intmul/p_reg[0]/C",
+      "endpoint": "u_core_b/g_stage[7].u_stage/u_butterfly/g_direct.g_twiddle_mul.u_mul/g_wl.u_mul/u_round0/g_fused.correction_s1_reg[11]/R",
+      "strategy": "incremental",
+      "runtime_seconds": 1559,
+      "board_signoff": false,
+      "directory": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_frequency\\20260917_high\\inc190",
+      "status": "completed",
+      "routable_nets": 93602,
+      "routed_nets": 93602,
+      "route_errors": 0,
+      "unconstrained_internal_endpoints": 0,
+      "no_clock": 0,
+      "multiple_clock": 0,
+      "no_input_delay": 132,
+      "no_output_delay": 68,
+      "lut": 56735,
+      "ff": 44612,
+      "slice": 17961,
+      "bufg": 3,
+      "setup_failing_endpoints": 0,
+      "hold_failing_endpoints": 0,
+      "pulse_width_failing_endpoints": 0,
+      "drc_summary": [
+        {
+          "rule": "NSTD-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "UCIO-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "CFGBVS-1",
+          "severity": "Warning",
+          "checks": 1
+        },
+        {
+          "rule": "DPIP-1",
+          "severity": "Warning",
+          "checks": 33
+        },
+        {
+          "rule": "DPOP-2",
+          "severity": "Warning",
+          "checks": 242
+        },
+        {
+          "rule": "PLBUFGOPT-1",
+          "severity": "Warning",
+          "checks": 2
+        }
+      ],
+      "drc_error_checks": 0,
+      "checkpoint_crc_ok": true,
+      "constraints_unchanged_during_optimization": true,
+      "archived_scripts_match": true,
+      "protected_inputs_unchanged": true,
+      "internal_implementation_pass": true,
+      "output_sha256": {
+        "routed.dcp": "b184565dc5f27e8e9b1aa58d22ffc79d478ae2cd745767eb8f34e5bda00f2029",
+        "timing.rpt": "4ad69cda7f996f7665e80ffab5f16e57b7e47bb843ac64d283b3297645d05608",
+        "route_status.rpt": "3efe949340b5ce1c3160bb7ae9ec86e8e86605d6be38f7808c4edd25a6969e4a",
+        "utilization.rpt": "4c82e97c776e819a8c5784711563265940d60fdad69b47e21fcf3690225ad0df",
+        "result.json": "7cd5b450c3faac462e1cdb38603a118f8b85e213141af7bde7df60aad87713f1",
+        "metadata.json": "f5ea7013264c7f477aefe91eb46a03a738f2f2fa6a665bc2e2ad9670aa2ce525"
+      },
+      "inherited_baseline_synth_error": "ERROR: [Common 17-1257] Failed to create directory 'C'.",
+      "compute_cycles_inherited_unchanged_rtl": 8623,
+      "compute_us_at_target": 45.38421052631579,
+      "compute_us_at_actual_constraint": 45.382849
+    },
+    {
+      "mhz": 200,
+      "period_ns": 5.0,
+      "wns_ns": -0.2,
+      "whs_ns": 0.0,
+      "internal_slack_pass": false,
+      "dsp": 246,
+      "bram36": 59,
+      "startpoint": "u_core_a/g_stage[0].u_stage/g_output_reorder.fifo_b_delay/g_ram.data_mem_reg_0/CLKARDCLK",
+      "endpoint": "u_core_a/g_stage[1].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][27]_srl12___g_stage_r_10/D",
+      "strategy": "incremental",
+      "runtime_seconds": 1476,
+      "board_signoff": false,
+      "directory": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_frequency\\20260917_high\\inc200",
+      "status": "completed",
+      "routable_nets": 93614,
+      "routed_nets": 93614,
+      "route_errors": 0,
+      "unconstrained_internal_endpoints": 0,
+      "no_clock": 0,
+      "multiple_clock": 0,
+      "no_input_delay": 132,
+      "no_output_delay": 68,
+      "lut": 56735,
+      "ff": 44612,
+      "slice": 17963,
+      "bufg": 3,
+      "setup_failing_endpoints": 245,
+      "hold_failing_endpoints": 0,
+      "pulse_width_failing_endpoints": 0,
+      "drc_summary": [
+        {
+          "rule": "NSTD-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "UCIO-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "CFGBVS-1",
+          "severity": "Warning",
+          "checks": 1
+        },
+        {
+          "rule": "DPIP-1",
+          "severity": "Warning",
+          "checks": 33
+        },
+        {
+          "rule": "DPOP-2",
+          "severity": "Warning",
+          "checks": 242
+        },
+        {
+          "rule": "PLBUFGOPT-1",
+          "severity": "Warning",
+          "checks": 2
+        }
+      ],
+      "drc_error_checks": 0,
+      "checkpoint_crc_ok": true,
+      "constraints_unchanged_during_optimization": true,
+      "archived_scripts_match": true,
+      "protected_inputs_unchanged": true,
+      "internal_implementation_pass": false,
+      "output_sha256": {
+        "routed.dcp": "c90d32763e88b405affa58f9f4764fe52fac854e457909cb7350f1e3c0a42d6b",
+        "timing.rpt": "f689ceab37d6296e21b715278d77752ddb2b60258f03ead6718c667fdba8c255",
+        "route_status.rpt": "ffe6dfb74982b7295d2271a40d72531a0286858a65dd584ec56ce116d0e6a6bc",
+        "utilization.rpt": "936d63662210bd48d3ec05919669f7699e0471f964013d09d85e4ca85a23ea36",
+        "result.json": "939959df1d3999cb9336364ee5b0fa28f44bdb40e877f8ef3ecf56001ab4485b",
+        "metadata.json": "c322f6ee0d4a3b905c7f4398829233e36a0a4fae85d5ffd63f9c8992e9f33688"
+      },
+      "inherited_baseline_synth_error": "ERROR: [Common 17-1257] Failed to create directory 'C'.",
+      "compute_cycles_inherited_unchanged_rtl": 8623,
+      "compute_us_at_target": 43.115,
+      "compute_us_at_actual_constraint": 43.115
+    },
+    {
+      "mhz": 200,
+      "period_ns": 5.0,
+      "wns_ns": 0.008,
+      "whs_ns": 0.036,
+      "internal_slack_pass": true,
+      "dsp": 246,
+      "bram36": 59,
+      "startpoint": "u_core_b/g_stage[2].u_stage/u_butterfly/u_sub/i___1_carry__3_i_2__0_psbram/C",
+      "endpoint": "u_core_b/g_stage[2].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][51]_srl12___g_stage_r_38_srlopt/D",
+      "strategy": "reroute",
+      "runtime_seconds": 1319,
+      "board_signoff": false,
+      "directory": "D:\\MDC-NTT\\reports\\wl_lowcost_modmul\\karatsuba_frequency\\20260917_high\\reroute200",
+      "status": "completed",
+      "routable_nets": 95328,
+      "routed_nets": 95328,
+      "route_errors": 0,
+      "unconstrained_internal_endpoints": 0,
+      "no_clock": 0,
+      "multiple_clock": 0,
+      "no_input_delay": 132,
+      "no_output_delay": 68,
+      "lut": 56826,
+      "ff": 46233,
+      "slice": 18110,
+      "bufg": 1,
+      "setup_failing_endpoints": 0,
+      "hold_failing_endpoints": 0,
+      "pulse_width_failing_endpoints": 0,
+      "drc_summary": [
+        {
+          "rule": "NSTD-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "UCIO-1",
+          "severity": "Critical Warning",
+          "checks": 1
+        },
+        {
+          "rule": "CFGBVS-1",
+          "severity": "Warning",
+          "checks": 1
+        },
+        {
+          "rule": "DPIP-1",
+          "severity": "Warning",
+          "checks": 65
+        },
+        {
+          "rule": "DPOP-2",
+          "severity": "Warning",
+          "checks": 242
+        }
+      ],
+      "drc_error_checks": 0,
+      "checkpoint_crc_ok": true,
+      "constraints_unchanged_during_optimization": true,
+      "archived_scripts_match": true,
+      "protected_inputs_unchanged": true,
+      "internal_implementation_pass": true,
+      "output_sha256": {
+        "routed.dcp": "6fa4817b12c5e788fa30e7203ee456ac07cef45f563afbb420251ca1916fe064",
+        "timing.rpt": "a602f41798fa81f200f8555a39b726add3324ebfc4a0a775e4404c244743b434",
+        "route_status.rpt": "8d0f82090625b63358ae1072b0317d3b47cf76632255db5dd6ab5d91c84cd51e",
+        "utilization.rpt": "3cc1081ff0de2ff55a30c9318f3f2388d579553d358ce2eba85cee3560985447",
+        "result.json": "3a66c2bfd431f8eea2df58d29e70d472f82eeacbf38526b7caec13910554171c",
+        "metadata.json": "17f84212c557bb448ae2363af2421cb771746a8042046905ff4245d902a5851f"
+      },
+      "inherited_baseline_synth_error": "ERROR: [Common 17-1257] Failed to create directory 'C'.",
+      "compute_cycles_inherited_unchanged_rtl": 8623,
+      "compute_us_at_target": 43.115,
+      "compute_us_at_actual_constraint": 43.115
+    }
+  ],
+  "board_signoff": false,
+  "global_fmax_claim": false,
+  "audit_script_sha256": "e29a4c55e3345cd32914bb21ca75d8e1a51b84800169542651b35bbf2dce1d59"
+}

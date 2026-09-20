@@ -40,3 +40,17 @@ reports/proteus_xc7vx485t_150mhz/**/*.dcp
 # Peripheral Montgomery pool experiment build artifacts.
 questa_work_dual_forward_dsp/
 reports/dual_forward_dsp_reduction/peripheral_mont_pool/**/*.dcp
+
+# WL low-cost modular multiplier comparison build products.
+questa_work_wl_lowcost_regression/
+reports/wl_lowcost_modmul/**/*.dcp
+reports/wl_lowcost_modmul/tests/questa_work_lowcost/
+reports/wl_lowcost_modmul/csa_latency/**/sim/work/
+
+reports/wl_lowcost_modmul/csa_full_top/**/snapshot/work/
+reports/wl_lowcost_modmul/csa_full_top/**/*.wlf
+
+reports/wl_lowcost_modmul/karatsuba4/**/sim/work/
+reports/wl_lowcost_modmul/karatsuba4/**/*.wlf
+reports/wl_lowcost_modmul/karatsuba_full_top/**/snapshot/work/
+reports/wl_lowcost_modmul/karatsuba_full_top/**/*.wlf

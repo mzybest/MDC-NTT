@@ -1,0 +1,10 @@
+{
+  "mhz": 200, "period_ns": 5.000,
+  "wns_ns": 0.008, "whs_ns": 0.036,
+  "internal_slack_pass": true,
+  "dsp": 246, "bram36": 59,
+  "startpoint": "u_core_b/g_stage[2].u_stage/u_butterfly/u_sub/i___1_carry__3_i_2__0_psbram/C",
+  "endpoint": "u_core_b/g_stage[2].u_stage/u_butterfly/g_direct.u_sum_delay/g_delay.data_pipe_reg[11][51]_srl12___g_stage_r_38_srlopt/D",
+  "strategy": "reroute", "runtime_seconds": 1319,
+  "board_signoff": false
+}

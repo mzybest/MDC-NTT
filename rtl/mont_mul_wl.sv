@@ -1,10 +1,9 @@
-// Experimental word-level Montgomery multiplier.
-//
-// This module is intentionally not wired into the active datapath yet. It is a
-// comparison candidate for replacing mont_mul after standalone verification and
-// synthesis measurement.
+// Production word-level Montgomery multiplier: 14 cycles, II=1.
+// REDUCTION_IMPL: 0 = original DSP, 1 = sparse q-high, 2 = fused correction.
+// Low-cost implementations specialize the project modulus without changing R.
 module mont_mul_wl #(
-    parameter int QW = 64
+    parameter int QW = 64,
+    parameter int REDUCTION_IMPL = 2
 ) (
     input  logic          clk,
     input  logic          rst_n,
@@ -51,10 +50,10 @@ module mont_mul_wl #(
 
   always_comb t0 = {1'b0, product};
 
-  wlmont_round16 u_round0 (.clk(clk), .rst_n(rst_n), .t_in(t0), .t_out(t1));
-  wlmont_round16 u_round1 (.clk(clk), .rst_n(rst_n), .t_in(t1), .t_out(t2));
-  wlmont_round16 u_round2 (.clk(clk), .rst_n(rst_n), .t_in(t2), .t_out(t3));
-  wlmont_round16 u_round3 (.clk(clk), .rst_n(rst_n), .t_in(t3), .t_out(t4));
+  wlmont_round16 #(.REDUCTION_IMPL(REDUCTION_IMPL)) u_round0 (.clk(clk), .rst_n(rst_n), .t_in(t0), .t_out(t1));
+  wlmont_round16 #(.REDUCTION_IMPL(REDUCTION_IMPL)) u_round1 (.clk(clk), .rst_n(rst_n), .t_in(t1), .t_out(t2));
+  wlmont_round16 #(.REDUCTION_IMPL(REDUCTION_IMPL)) u_round2 (.clk(clk), .rst_n(rst_n), .t_in(t2), .t_out(t3));
+  wlmont_round16 #(.REDUCTION_IMPL(REDUCTION_IMPL)) u_round3 (.clk(clk), .rst_n(rst_n), .t_in(t3), .t_out(t4));
 
   always_ff @(posedge clk) begin
     if (!rst_n) begin
